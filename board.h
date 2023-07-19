@@ -15,6 +15,7 @@ class Board {
   void updateScore();
   int getScore() const;
   int getLevel() const;
+  char tileAt(int row, int col); // for the decorator, can also use for display
   std::vector<std::vector<char>> &getBoard();
 };
 

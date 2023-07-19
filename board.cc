@@ -58,3 +58,6 @@ std::vector<std::vector<char>> &Board::getBoard() {
   return board;
 }
 
+char Board::tileAt(int row, int col) {
+  return board.at(row).at(col);
+}
