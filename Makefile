@@ -1,6 +1,6 @@
 CXX = g++-11
 CXXFLAGS = -std=c++20 -Wall -MMD -g
-EXEC = c
+EXEC = biquadris
 SOURCES = $(wildcard *.cc)
 OBJECTS = ${SOURCES:.cc=.o}
 DEPENDS = ${OBJECTS:.o=.d}
