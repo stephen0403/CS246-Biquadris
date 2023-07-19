@@ -15,7 +15,7 @@ class Board : public absBoard {
   void updateScore();
   int getScore() const;
   int getLevel() const;
-  char tileAt(int row, int col); // for the decorator, can also use for display
+  char tileAt(int row, int col) override; // for the decorator, can also use for display
   std::vector<std::vector<char>> &getBoard();
 };
 
