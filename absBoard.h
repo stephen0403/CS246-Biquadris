@@ -5,7 +5,7 @@ class Board;
 
 class absBoard {
 public:
-    virtual void effect(Board &board) = 0;
+    virtual char tileAt(Board &board) = 0;
     virtual ~absBoard();
 };
 
