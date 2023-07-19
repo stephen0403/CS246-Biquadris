@@ -1,4 +1,4 @@
-#ifndef SUBJECT_H // concrete subject
+#ifndef SUBJECT_H
 #define SUBJECT_H
 #include <vector>
 
