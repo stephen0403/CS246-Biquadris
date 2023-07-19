@@ -8,5 +8,5 @@ class Decorator: public absBoard {
     absBoard* component;
   public:
     Decorator(absBoard* board);
-    virtual ~Decorator(); // Note: destructor does not do anything. Client must 
-};                        // deallocate component through the use of smart pointers
+    virtual ~Decorator() = 0; // Note: destructor does not do anything. Client must 
+};                            // deallocate component through the use of smart pointers
