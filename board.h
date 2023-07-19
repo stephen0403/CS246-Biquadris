@@ -9,7 +9,7 @@ class Board {
   int level;
   int score;
   std::vector<std::vector<char>> board;
-  public:
+ public:
   Board(int);
   void clearRows();
   void updateScore();
