@@ -5,13 +5,13 @@
 
 class absBoard;
 
-class Concrete_Subject: public Subject {
+class ConcreteSubject: public Subject {
   absBoard *board;
 
  public:
-  explicit Concrete_Subject(absBoard *board): board{board} {}
+  explicit Concrete_Subject(absBoard *board);
 
-  absBoard *&board() { return board; }
+  absBoard *&board();
 
   char getState(int row, int col) const override;
 
