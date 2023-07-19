@@ -5,7 +5,7 @@ class Board;
 
 class absBoard {
 public:
-    virtual char tileAt(Board &board) = 0;
+    virtual char tileAt(int row, int col) = 0;
     virtual ~absBoard();
 };
 
