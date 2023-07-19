@@ -5,7 +5,7 @@
 #include "block.h"
 #include <string>
 
-class Board {
+class Board : public absBoard {
   int level;
   int score;
   std::vector<std::vector<char>> board;
