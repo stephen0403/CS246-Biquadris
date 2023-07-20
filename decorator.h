@@ -6,7 +6,10 @@
 class Decorator: public absBoard {
   protected:
     absBoard* component;
+    int row;
+    int col;
+    char character;
   public:
-    Decorator(absBoard* board);
+    Decorator(absBoard* board, int row, int col, char character);
     virtual ~Decorator(); // Note: destructor does not do anything. Client must 
 };                        // deallocate component through the use of smart pointers
