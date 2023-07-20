@@ -5,7 +5,7 @@
 
 class Decorator: public absBoard {
   protected:
-    absBoard* component;
+    absBoard* board;
     int row;
     int col;
     char character;
