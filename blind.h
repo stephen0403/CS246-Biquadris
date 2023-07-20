@@ -6,8 +6,8 @@ class absBoard;
 
 class blind: public Decorator {
 public:
-  blind(int length, int width, char character, absBoard *board);
-  char tileAt(int length, int width) override;
+  blind(int top, int bottom, int left, int right, char character, absBoard *board); // top btm left right or just row and col?
+  char tileAt(int row, int col) override;
 };
 
 #endif
