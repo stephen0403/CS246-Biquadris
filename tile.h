@@ -19,7 +19,6 @@ class Tile: public Subject {
   int getX();
   int getY();
   int isOccupied();
-  char getPiece();
   ~Tile();
 };
 
