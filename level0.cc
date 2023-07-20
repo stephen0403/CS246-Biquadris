@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Level0::Level0(string filename): filename{filename} {}
+Level0::Level0(Board *board, string filename): Level(board), filename{filename} {}
 
 Block *Level0::generateBlock() {
     ifstream f {filename};
@@ -16,22 +16,5 @@ Block *Level0::generateBlock() {
         f >> type;
     }
 
-    switch(type) {
-        case 'I':
-            return new Iblock{board};
-        case 'J':
-            return new Jblock{board};
-        case 'L':
-            return new Lblock{board};
-        case 'O':
-            return new Oblock{board};   
-        case 'S':
-            return new Sblock{board};
-        case 'Z':
-            return new Zblock{board};
-        case 'T':
-            return new Tblock{board};
-        default:
-            return nullptr;
-    }
+    return createBlock(type);
 }
