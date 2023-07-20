@@ -5,7 +5,10 @@
 #include <string>
 using namespace std;
 
-Tile::Tile(int x, int y, Board *board): x{x}, y{y}, isOccupied{false}, board{board} {}
+// implement piece and occupied somewhere??
+
+
+Tile::Tile(int x, int y, Board *board): x{x}, y{y}, occupied{false}, board{board} {}
 
 int Tile::getX() { return x; }
 int Tile::getY() { return y; }
