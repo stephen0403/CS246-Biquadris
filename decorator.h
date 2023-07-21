@@ -1,7 +1,7 @@
 #ifndef DECORATOR_H
 #define DECORATOR_H
 
-#include absBoard.h 
+#include "absBoard.h" 
 
 class Decorator: public absBoard {
   protected:
