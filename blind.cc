@@ -7,7 +7,7 @@ static const int COLUMN_RIGHT = 9;
 static const int ROW_TOP = 3;
 static const int ROW_BOTTOM = 12;
 
-Blind::Blind(char character, absBoard *board): Decorator{board, character} {}
+Blind::Blind(absBoard *board): Decorator{board} {}
 
 char Blind::tileAt(int row, int col) {
 

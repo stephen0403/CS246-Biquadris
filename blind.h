@@ -8,7 +8,7 @@ class Blind: public Decorator {
   public:
     Blind(absBoard* board);
     char tileAt(int row, int col);
-    void setTrue(); // this will set the blockDropped as true
+    void setBlockDroppedTrue(); // this will set the blockDropped as true
 }
 
 #endif
