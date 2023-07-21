@@ -11,6 +11,8 @@ class Tile: public Subject {
   absBoard *board; // which players board
   char piece;
   bool occupied;
+  bool blindActivated = false;
+  bool blockDroppedAfterBlind = false;
 
  public:
   Tile(int x, int y, absBoard *board);
