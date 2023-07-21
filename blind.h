@@ -5,10 +5,11 @@
 
 class Blind: public Decorator {
     bool blockDropped = false;
+    char character;
   public:
-    Blind(absBoard* board);
+    Blind(absBoard* board, char character);
     char tileAt(int row, int col);
     void setBlockDroppedTrue(); // this will set the blockDropped as true
-}
+};
 
 #endif
