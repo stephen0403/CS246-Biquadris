@@ -19,7 +19,7 @@ char Blind::tileAt(int row, int col) {
   static bool colBounds = col >= COLUMN_LEFT && col <= COLUMN_RIGHT;
 
   if (rowBounds && colBounds && !blockDropped) {
-    return '?';
+    return character; // feed in ? for character
   }
   else {
     return under;
