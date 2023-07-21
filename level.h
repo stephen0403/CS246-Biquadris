@@ -6,10 +6,10 @@
 
 class Level {
     Board *board;
-
+protected:
+    Block *createBlock(char type);
 public:
     Level(Board *board);
-    Block *createBlock(char type);
     virtual Block *generateBlock() = 0;
 };
 
