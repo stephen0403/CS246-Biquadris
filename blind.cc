@@ -14,12 +14,12 @@ char Blind::tileAt(int row, int col) {
   // something along the lines of if in bounds of where it should be covered with ???, then return character
   // else return under
   
-  char under = board->tileAt(row, col);
-  rowBounds = row >= 2 && row <= 8; // put which tiles should be covered // are we starting 0 index or 1 index?
-  colBounds = col >= 2 && <= 11;
+  static char under = board->tileAt(row, col);
+  static bool rowBounds = row >= ROW_TOP && row <= ROW_BOTTOM; // put which tiles should be covered // are we starting 0 index or 1 index?
+  static bool colBounds = col >= COLUMN_LEFT && col <= COLUMN_RIGHT;
 
   if (rowBounds && colBounds && !blockDropped) {
-    return character;
+    return '?';
   }
   else {
     return under;

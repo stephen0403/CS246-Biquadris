@@ -10,3 +10,5 @@ class Decorator: public absBoard {
     Decorator(absBoard* board);
     virtual ~Decorator() = 0; // Note: destructor does not do anything. Client must 
 };                            // deallocate component through the use of smart pointers
+
+#endif
