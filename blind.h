@@ -1,15 +1,14 @@
-#ifndef _BLIND_H
-#define _BLIND_H
+#ifndef BLIND_H
+#define BLIND_H
+
 #include "decorator.h"
 
-class absBoard;
-
-class blind: public Decorator {
-  bool blockDropped = false;  
-public:
-  blind(char character, absBoard *board); 
-  char tileAt(int row, int col) override;
-  void setBlockDroppedTrue(); // this will set the blockDropped as true
-};
+class Blind: public Decorator {
+    bool blockDropped = false;
+  public:
+    Blind(absBoard* board);
+    char tileAt(int row, int col);
+    void setBlockDroppedTrue(); // this will set the blockDropped as true
+}
 
 #endif

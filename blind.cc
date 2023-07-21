@@ -7,10 +7,9 @@ static const int COLUMN_RIGHT = 9;
 static const int ROW_TOP = 3;
 static const int ROW_BOTTOM = 12;
 
-blind::blind(char character, absBoard *board, )
-  : Decorator{board, character} {}
+Blind::Blind(absBoard *board): Decorator{board} {}
 
-char blind::tileAt(int row, int col) {
+char Blind::tileAt(int row, int col) {
 
   // something along the lines of if in bounds of where it should be covered with ???, then return character
   // else return under
@@ -20,7 +19,7 @@ char blind::tileAt(int row, int col) {
   colBounds = col >= 2 && <= 11;
 
   if (rowBounds && colBounds && !blockDropped) {
-    return character;
+    return character; // feed in ? for character
   }
   else {
     return under;
