@@ -1,35 +1,26 @@
 #include "board.h"
+// #include <sstream>
 
-static bool isFull(std::vector<char> &row) {
-  for (auto c : row) {
-    if (c == ' ') {
-      return false;
-    }
-  }
-  return true;
-}
 
-void Board::clearRows() {
-  std::vector<std::vector<char>> newBoard(18, std::vector<char>(11, ' '));
-  int cur_row = 17;
-  for (int i = 17; i >= 3; i--) {
-    if (!isFull(board.at(i))) {
-      newBoard.at(cur_row) = board.at(i);
-      --cur_row;
-    }
-  }
-  board = newBoard;
-}
-
-Board::Board(int lvl): level{lvl}, score{0}, board(18, std::vector<char>(11, ' ')) {}
+Board::Board(): numRows{18}, numCols{11}, board(numRows, std::vector<char>(numCols, ' ')) {}
   //current = std::make_unique<JBlock>(JBlock(this));
   //current->updatePos(0, 0);
 //}
-
-int Board::getScore() const { return score; }
-
-int Board::getLevel() const { return level; }
 /*
+std::string Board::getScore() const {
+  std::ostringstream res;
+  res << " Score:";
+  int numSpaces = 5 - numDigits(score);
+  while (numSpaces) {
+    res << " ";
+    --numSpaces;
+  }
+  res << score;
+  return res.str();
+}
+
+
+
 void Board::move(int x, int y) {
   current->updatePos(x, y);
 }
@@ -42,7 +33,7 @@ void Board::rotate(bool clockwise) {
 void Board::updateCurrent() {
   current = next;
 }
-*/
+
 
 
 void Board::updateScore() {
@@ -53,11 +44,5 @@ void Board::updateScore() {
   }
   score += level;
 }
+*/
 
-std::vector<std::vector<char>> &Board::getBoard() {
-  return board;
-}
-
-char Board::tileAt(int row, int col) {
-  return board.at(row).at(col);
-}
