@@ -20,7 +20,7 @@ class Tile: public Subject {
   char getState(int row, int col) const override;
   int getX();
   int getY();
-  int isOccupied();
+  bool isOccupied();
   ~Tile();
 };
 
