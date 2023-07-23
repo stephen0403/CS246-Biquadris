@@ -1,3 +1,6 @@
+#ifndef LEVEL_H
+#define LEVEL_H
+
 #include "block.h"
 #include <fstream>
 #include <vector>
@@ -51,3 +54,4 @@ class Level4: public Level {
   void effect() const override;
 };
 
+#endif
