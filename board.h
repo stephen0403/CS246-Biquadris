@@ -7,6 +7,7 @@ struct Board {
   int numCols;
   Board();
   std::vector<std::vector<char>> board;
+  char tileAt(int row, int col); // for the decorator, can also use for display
 };
 
 #endif
