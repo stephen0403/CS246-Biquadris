@@ -1,4 +1,4 @@
-#ifndef _BOARD_H_
+#ifndef _BOARD_H_ // concrete subject and concrete component class
 #define _BOARD_H_
 #include <vector>
 #include "absBoard.h"
@@ -13,7 +13,6 @@ class Board: public absBoard, public Subject {
   bool blockDroppedAfterBlind = false;
   public:
   explicit Board(absBoard *board): board{board} {}
-  void notify() override;
   char getState(int row, int col) const override;
   char tileAt(int row, int col) override;
   ~Board();
