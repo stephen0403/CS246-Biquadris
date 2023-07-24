@@ -12,7 +12,7 @@ class Board: public absBoard, public Subject {
   bool blindActivated = false;
   bool blockDroppedAfterBlind = false;
   public:
-  Board();
+  explicit Board(absBoard *board): board{board} {}
   void notify() override;
   char getState(int row, int col) const override;
   char tileAt(int row, int col) override;
