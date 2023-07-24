@@ -1,7 +1,9 @@
 #ifndef ABS_BOARD_H
 #define ABS_BOARD_H
 
+
 class Board;
+class Block;
 
 // Some Global Constants
 
