@@ -1,17 +1,17 @@
-#include "gameplay.h"
+#include "level.h"
 #include <iostream>
 
-Level::Level(GamePlay *game): game{game} {}
+Level::Level(absBoard *board): board{board} {}
 
-Level0::Level0(GamePlay *game): Level{game} {}
+Level0::Level0(absBoard *board, std::string name1, std::string name2): Level{board} {}
 
-Level1::Level1(GamePlay *game): Level{game} {}
+Level1::Level1(absBoard *board): Level{board} {}
 
-Level2::Level2(GamePlay *game): Level{game} {}
+Level2::Level2(absBoard *board): Level{board} {}
 
-Level4::Level4(GamePlay *game): Level{game} {}
+Level4::Level4(absBoard *board): Level{board} {}
 
-Level3::Level3(GamePlay *game): Level{game} {}
+Level3::Level3(absBoard *board): Level{board} {}
 
 void Level::effect() const {}
 

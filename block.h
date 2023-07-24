@@ -8,7 +8,7 @@ class Block {
   // Board *board;
   std::vector<std::vector<int>> pos;
   std::vector<int> lowerLeft;
-  friend class GamePlay;
+  friend class Board;
   public:
     virtual char getType() const = 0;
     Block(std::vector<std::vector<int>>, std::vector<int>);
