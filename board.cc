@@ -5,9 +5,8 @@
 // board is ptr to absBoard
 // theBoard is the vec vec char board
 
-Board::Board(absBoard *board): numRows{18}, numCols{11}, board(board), theBoard(numRows, std::vector<char>(numCols, ' ')) {
-  shift(0, 0, false);
-}
+
+Board::Board(absBoard *board): numRows{18}, numCols{11}, dropped{false}, board(board), theBoard(numRows, std::vector<char>(numCols, ' ')) {}
 
 char Board::tileAt(int row, int col) { return theBoard.at(row).at(col); }
 
@@ -17,7 +16,7 @@ void Board::render() {
   notifyObservers();
 }
 
-char Board::getState(int row, int col) {
+char Board::getState(int row, int col) const {
   return board->tileAt(row, col);
 }
 
@@ -30,16 +29,15 @@ static bool isFull(const std::vector<char> &row) {
   return true;
 }
 
-
-bool Board::shift(int x, int y, bool drop, Block *block) {
+bool Board::shift(int x, int y, Block *block, bool drop) {
   // auto block = queue.front().get();
   std::vector<std::vector<int>> &pos = block->pos;
   for (int i = 0; i < 4; ++i) {
-    board.at(pos[i][0]).at(pos[i][1]) = ' ';
+    theBoard.at(pos[i][0]).at(pos[i][1]) = ' ';
   }
   for (int i = 0; i < 4; ++i) {
     if (pos[i][0] + y >= numRows || pos[i][1] + x < 0 || pos[i][1] + x >= numCols ||
-        board.at(pos[i][0] + y).at(pos[i][1] + x) != ' ') {
+        theBoard.at(pos[i][0] + y).at(pos[i][1] + x) != ' ') {
       if (y && drop) {
         dropped = true;
         for (int i = 0; i < 4; ++i) {
@@ -47,14 +45,14 @@ bool Board::shift(int x, int y, bool drop, Block *block) {
             for (int i = 0; i < 4; ++i) {
               block->pos[i][0] += y;
               block->pos[i][1] += x;
-              board.at(pos[i][0]).at(pos[i][1]) = block->getType();
+              theBoard.at(pos[i][0]).at(pos[i][1]) = block->getType();
             }
             throw; // winner
           }
         }
       }
       for (int i = 0; i < 4; ++i) {
-        board.at(pos[i][0]).at(pos[i][1]) = block->getType();
+        theBoard.at(pos[i][0]).at(pos[i][1]) = block->getType();
       }
       return false;
     }
@@ -64,7 +62,7 @@ bool Board::shift(int x, int y, bool drop, Block *block) {
   for (int i = 0; i < 4; ++i) {
     block->pos[i][0] += y;
     block->pos[i][1] += x;
-    board.at(pos[i][0]).at(pos[i][1]) = block->getType();
+    theBoard.at(pos[i][0]).at(pos[i][1]) = block->getType();
   }
   return true;
 }

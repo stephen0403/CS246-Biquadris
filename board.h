@@ -3,6 +3,7 @@
 #include <vector>
 #include "absBoard.h"
 #include "subject.h"
+#include "block.h"
 
 class Board: public absBoard, public Subject {
   int numRows;
@@ -11,6 +12,7 @@ class Board: public absBoard, public Subject {
   absBoard *board;
   bool blindActivated = false;
   bool blockDroppedAfterBlind = false;
+  bool dropped;
   public:
   Board(absBoard *board);
   char getState(int row, int col) const override;
@@ -18,7 +20,7 @@ class Board: public absBoard, public Subject {
   ~Board();
   void render();
   void rotateBlock(bool);
-  bool shift(int x, int y, bool drop = false, Block *block);
+  bool shift(int x, int y, Block *block, bool drop = false);
 };
 
 #endif
