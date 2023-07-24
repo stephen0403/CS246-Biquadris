@@ -10,11 +10,15 @@ void Tile::render() {
   notifyObservers();
 }
 
-void Tile::render() {
-  notifyObservers();
-}
+// <<<<<<< decorator
+// void Tile::render() {
+//   notifyObservers();
+// }
 
-Tile::Tile(int x, int y, absBoard *board): x{x}, y{y}, board{board} {}
+// Tile::Tile(int x, int y, absBoard *board): x{x}, y{y}, board{board} {}
+// =======
+// Tile::Tile(int x, int y, Board *board): x{x}, y{y}, isOccupied{false}, board{board} {}
+// >>>>>>> main
 
 int Tile::getX() { return x; }
 int Tile::getY() { return y; }
