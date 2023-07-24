@@ -20,7 +20,7 @@ class Board: public absBoard, public Subject {
   ~Board();
   void render();
   void rotateBlock(bool);
-  bool shift(int, int, bool drop = false);
+  bool shift(int x, int y, bool drop = false);
 };
 
 #endif
