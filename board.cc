@@ -28,8 +28,8 @@ static bool isFull(const std::vector<char> &row) {
 }
 
 
-bool Board::shift(int x, int y, bool drop) {
-  auto block = queue.front().get();
+bool Board::shift(int x, int y, bool drop, Block *block) {
+  // auto block = queue.front().get();
   std::vector<std::vector<int>> &pos = block->pos;
   for (int i = 0; i < 4; ++i) {
     board.at(pos[i][0]).at(pos[i][1]) = ' ';
