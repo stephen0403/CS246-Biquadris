@@ -1,36 +1,37 @@
-#ifndef _TEXT_H_
-#define _TEXT_H_
-#include <iostream>
-#include "observer.h"
+// #ifndef _TEXT_H_
+// #define _TEXT_H_
+// #include <iostream>
+// #include "observer.h"
 
-class absBoard;
-class Block;
-class Tile;
+// class absBoard;
+// class Block;
+// class Tile;
 
-class TextDisplay: public Observer {
-  absBoard *b1;
-  absBoard *b2;
-  public:
-  TextDisplay(absBoard *, absBoard *);
-  // void notify(Tile &);
-  void notify() override;
-  void blind(size_t, std::ostream &);
-  void changePreviews(Block *, size_t);
-  void printPreviews(std::ostream &);
-};
+// class TextDisplay: public Observer {
+//   absBoard *b1;
+//   absBoard *b2;
+//   public:
+//   TextDisplay(absBoard *, absBoard *);
+//   // void notify(Tile &);
+//   void notify() override;
+//   void blind(size_t, std::ostream &);
+//   void changePreviews(Block *, size_t);
+//   void printPreviews(std::ostream &);
+// };
 
-#endif
+// #endif
 #ifndef _DISPLAY_H_
 #define _DISPLAY_H_
 #include <string>
 
-class GamePlay;
+class Board;
 
 class TextDisplay {
-  GamePlay *game;
+  Board *b1;
+  Board *b2
   void printHeader(std::string, int) const;
   public:
-  TextDisplay(GamePlay *);
+  TextDisplay(Board *b1, Board *b2);
   void display();
 };
 
