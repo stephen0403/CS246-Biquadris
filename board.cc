@@ -1,12 +1,15 @@
 #include "board.h"
+#include "block.h"
 // #include <sstream>
 
+// board is ptr to absBoard
+// theBoard is the vec vec char board
 
-Board::Board(absBoard *board): numRows{18}, numCols{11}, board(board) {
+Board::Board(absBoard *board): numRows{18}, numCols{11}, board(board), theBoard(numRows, std::vector<char>(numCols, ' ')) {
   shift(0, 0, false);
 }
 
-char Board::tileAt(int row, int col) { return board.at(row).at(col); }
+char Board::tileAt(int row, int col) { return theBoard.at(row).at(col); }
 
 Board::~Board() {}
 
@@ -14,7 +17,7 @@ void Board::render() {
   notifyObservers();
 }
 
-char Board::getState() {
+char Board::getState(int row, int col) {
   return board->tileAt(row, col);
 }
 
@@ -106,4 +109,3 @@ bool Board::shift(int x, int y, bool drop, Block *block) {
 //   }
 //   score += level;
 // }
-
