@@ -12,6 +12,9 @@ void Board::render() {
   notifyObservers();
 }
 
+char Board::getState() {
+  return board->tileAt(row, col);
+}
 
   //current = std::make_unique<JBlock>(JBlock(this));
   //current->updatePos(0, 0);
