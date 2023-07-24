@@ -26,7 +26,7 @@
 
 class Board;
 
-class TextDisplay {
+class TextDisplay : public Observer {
   Board *b1;
   Board *b2
   void printHeader(std::string, int) const;
