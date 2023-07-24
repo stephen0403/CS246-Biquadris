@@ -1,12 +1,15 @@
-#include "gameplay.h"
 #include "text.h"
 #include "board.h"
 #include "block.h"
+#include "tile.h"
 #include <iostream>
 #include <sstream>
 
-TextDisplay::TextDisplay(GamePlay *gp): game{gp} {}
+TextDisplay::TextDisplay(Board *b1, Board *b2, ): b1{} {}
 
+
+
+/*
 static int numDigits(int num) {
   if (!num) return 1;
   int res = 0;
@@ -64,4 +67,4 @@ void TextDisplay::display() {
     std::cout << emptyNext << game->queue.at(1)->secondRow() << std::endl;
   }
 }
-
+*/

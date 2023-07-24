@@ -10,7 +10,7 @@ class Tile: public Subject {
   int y;
   absBoard *board; // which players board
   char piece;
-  bool occupied;
+  bool occupied = false;
   bool blindActivated = false;
   bool blockDroppedAfterBlind = false;
 
