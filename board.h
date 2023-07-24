@@ -17,6 +17,8 @@ class Board: public absBoard, public Subject {
   char tileAt(int row, int col) override;
   ~Board();
   void render();
+  void rotateBlock(bool);
+  bool shift(int, int, bool drop = false);
 };
 
 #endif
