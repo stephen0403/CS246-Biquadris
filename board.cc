@@ -26,6 +26,45 @@ static bool isFull(const std::vector<char> &row) {
 }
 
 
+bool Board::shift(int x, int y, bool drop) {
+  auto block = queue.front().get();
+  std::vector<std::vector<int>> &pos = block->pos;
+  for (int i = 0; i < 4; ++i) {
+    board.at(pos[i][0]).at(pos[i][1]) = ' ';
+  }
+  for (int i = 0; i < 4; ++i) {
+    if (pos[i][0] + y >= numRows || pos[i][1] + x < 0 || pos[i][1] + x >= numCols ||
+        board.at(pos[i][0] + y).at(pos[i][1] + x) != ' ') {
+      if (y && drop) {
+        dropped = true;
+        for (int i = 0; i < 4; ++i) {
+          if (block->pos[i][0] < 3) {
+            for (int i = 0; i < 4; ++i) {
+              block->pos[i][0] += y;
+              block->pos[i][1] += x;
+              board.at(pos[i][0]).at(pos[i][1]) = block->getType();
+            }
+            throw !curPlayer; // replace with what?
+          }
+        }
+      }
+      for (int i = 0; i < 4; ++i) {
+        board.at(pos[i][0]).at(pos[i][1]) = block->getType();
+      }
+      return false;
+    }
+  }
+  block->lowerLeft[0] += y;
+  block->lowerLeft[1] += x;
+  for (int i = 0; i < 4; ++i) {
+    block->pos[i][0] += y;
+    block->pos[i][1] += x;
+    board.at(pos[i][0]).at(pos[i][1]) = block->getType();
+  }
+  return true;
+}
+
+
 
 
 // std::string Board::getScore() const {
