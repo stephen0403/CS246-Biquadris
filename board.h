@@ -13,7 +13,7 @@ class Board: public absBoard, public Subject {
   public:
   Board();
   void notify() override;
-  char getState(int, int) const override;
+  char getState(int row, int col) const override;
   char tileAt(int row, int col) override;
   ~Board();
   void render();
