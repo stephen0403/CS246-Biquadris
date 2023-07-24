@@ -3,9 +3,10 @@
 #include "subject.h"
 #include "observer.h"
 #include <string>
+#include "absboard.h"
 using namespace std;
 
-Tile::Tile(int x, int y, Board *board): x{x}, y{y}, isOccupied{false}, board{board} {}
+Tile::Tile(int x, int y, absBoard *board): x{x}, y{y}, board{board} {}
 
 int Tile::getX() { return x; }
 int Tile::getY() { return y; }
