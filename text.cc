@@ -1,10 +1,10 @@
-#include "text.h"
-#include "board.h"
-#include "block.h"
-#include <iostream>
-#include <sstream>
+// #include "text.h"
+// #include "board.h"
+// #include "block.h"
+// #include <iostream>
+// #include <sstream>
 
-TextDisplay::TextDisplay(Board *b1, Board *b2, ): b1{} {}
+// TextDisplay::TextDisplay(Board *b1, Board *b2, ): b1{} {}
 
 
 
@@ -67,14 +67,13 @@ void TextDisplay::display() {
   }
 }
 */
-#include "gameplay.h"
 #include "text.h"
 #include "board.h"
 #include "block.h"
 #include <iostream>
 #include <sstream>
 
-TextDisplay::TextDisplay(GamePlay *gp): game{gp} {}
+TextDisplay::TextDisplay(Board *b1, Board *b2): b1{b1}, b2{b2} {}
 
 static int numDigits(int num) {
   if (!num) return 1;
@@ -102,8 +101,8 @@ void TextDisplay::display() {
   std::string separateFooter{"                "};
   std::string emptyNext{"                     "};
   std::string border{"+-----------+"};
-  auto bp1 = game->boards[0].board;
-  auto bp2 = game->boards[1].board;
+  auto bp1 = b1;
+  auto bp2 = b2;
   printHeader(" Level:", game->playerLevels[0]);
   std::cout << separateHeader;
   printHeader(" Level:", game->playerLevels[1]);
