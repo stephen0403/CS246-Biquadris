@@ -3,6 +3,16 @@
 
 
 Board::Board(): numRows{18}, numCols{11}, board(numRows, std::vector<char>(numCols, ' ')) {}
+
+char Board::tileAt(int row, int col) { return board.at(row).at(col); }
+
+Board::~Board() {}
+
+void Board::render() {
+  notifyObservers();
+}
+
+
   //current = std::make_unique<JBlock>(JBlock(this));
   //current->updatePos(0, 0);
 //}

@@ -15,12 +15,13 @@ class Tile: public Subject {
   bool blockDroppedAfterBlind = false;
 
  public:
+  void render();
   Tile(int x, int y, absBoard *board);
   // absBoard *&board() { return board; }
   char getState(int row, int col) const override;
   int getX();
   int getY();
-  int isOccupied();
+  bool isOccupied();
   ~Tile();
 };
 
