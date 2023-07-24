@@ -2,7 +2,20 @@
 // #include <sstream>
 
 
-Board::Board(): numRows{18}, numCols{11}, board(numRows, std::vector<char>(numCols, ' ')) {}
+//Board::Board(): numRows{18}, numCols{11}, board(numRows, std::vector<char>(numCols, ' ')) {}
+
+char Board::tileAt(int row, int col) { return board.at(row).at(col); }
+
+Board::~Board() {}
+
+void Board::render() {
+  notifyObservers();
+}
+
+char Board::getState() {
+  return board->tileAt(row, col);
+}
+
   //current = std::make_unique<JBlock>(JBlock(this));
   //current->updatePos(0, 0);
 //}
@@ -45,4 +58,3 @@ void Board::updateScore() {
   score += level;
 }
 */
-
