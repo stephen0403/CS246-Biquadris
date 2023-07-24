@@ -16,6 +16,17 @@ char Board::getState() {
   return board->tileAt(row, col);
 }
 
+static bool isFull(const std::vector<char> &row) {
+  for (auto c : row) {
+    if (c == ' ') {
+      return false;
+    }
+  }
+  return true;
+}
+
+
+
 
 // std::string Board::getScore() const {
 //   std::ostringstream res;
