@@ -1,6 +1,8 @@
 #include "board.h"
 // #include <sstream>
 
+// board is ptr to absBoard
+// theBoard is the vec vec char board
 
 Board::Board(absBoard *board): numRows{18}, numCols{11}, board(board), theBoard(numRows, std::vector<char>(numCols, ' ')) {
   shift(0, 0, false);
