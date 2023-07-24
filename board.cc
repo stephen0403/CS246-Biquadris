@@ -2,11 +2,11 @@
 // #include <sstream>
 
 
-Board::Board(absBoard *board): numRows{18}, numCols{11}, board(board) {
+Board::Board(absBoard *board): numRows{18}, numCols{11}, board(board), theBoard(numRows, std::vector<char>(numCols, ' ')) {
   shift(0, 0, false);
 }
 
-char Board::tileAt(int row, int col) { return board->at(row)->at(col); }
+char Board::tileAt(int row, int col) { return theBoard.at(row).at(col); }
 
 Board::~Board() {}
 
