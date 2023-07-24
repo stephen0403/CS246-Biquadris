@@ -1,4 +1,5 @@
 #include "board.h"
+#include "block.h"
 // #include <sstream>
 
 // board is ptr to absBoard
