@@ -7,7 +7,7 @@
 class Board: public absBoard, public Subject {
   int numRows;
   int numCols;
-  // std::vector<std::vector<char>> board;
+  std::vector<std::vector<char>> theBoard;
   absBoard *board;
   bool blindActivated = false;
   bool blockDroppedAfterBlind = false;
@@ -18,7 +18,7 @@ class Board: public absBoard, public Subject {
   ~Board();
   void render();
   void rotateBlock(bool);
-  bool shift(int x, int y, bool drop = false);
+  bool shift(int x, int y, bool drop = false, Block *block);
 };
 
 #endif
