@@ -16,7 +16,7 @@ void Board::render() {
   notifyObservers();
 }
 
-char Board::getState(int row, int col) {
+char Board::getState(int row, int col) const {
   return board->tileAt(row, col);
 }
 
