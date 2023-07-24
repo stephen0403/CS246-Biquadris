@@ -2,7 +2,7 @@
 // #include <sstream>
 
 
-Board::Board(): numRows{18}, numCols{11}, board(board) {}
+Board::Board(absBoard *board): numRows{18}, numCols{11}, board(board) {}
 
 char Board::tileAt(int row, int col) { return board.at(row).at(col); }
 
