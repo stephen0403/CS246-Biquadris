@@ -19,6 +19,8 @@ int main(int argc, char *argv[]) {
                             Level2(boards.at(currentPlayer)),
                             Level3(boards.at(currentPlayer)),
                             Level4(boards.at(currentPlayer))};
+  std::unique_ptr<Observer> textObserver = std::make_unique<TextDisplay>
+                                                (board1.get(), board2.get());
 
   for (int i = 1; i < argc; i += 2) {
     std::string arg{argv[i]};
@@ -35,36 +37,26 @@ int main(int argc, char *argv[]) {
       } else if (arg == "-seed") {
         iss >> seed;
       }
-    }  }
-
-  //GamePlay game{file1, file2, 2, 2, seed};
-  //TextDisplay td{&game};
-  //std::string cmd;
-  //td.display();
-  std::cout << std::endl;
-  while (std::cin >> cmd) {
-    if (cmd == "d"/*rop"*/) {
-      try {
-        while(game.shift(0, 1, true));
-      } catch (bool player) {
-        std::cout << "Player " << player + 1 << " won!" << std::endl;
-        return 0;
-      }
-    } else if (cmd == "c"/*lockwise"*/) {
-      game.rotateBlock(1);
-    } else if (cmd == "cc"/*ounterclockwise"*/) {
-      game.rotateBlock(0);
-    } else if (cmd == "r"/*ight"*/) {
-      game.shift(1, 0);
-    } else if (cmd == "l"/*eft"*/) {
-      game.shift(-1, 0);
-    } else if (cmd == "down") {
-      game.shift(0, 1, false);
-    } else if (cmd == "levelup") {
-      game.levelUp();
-    } else if (cmd == "leveldown") {
-      game.levelDown();
     }
+  }
+  std::cout << std::endl;
+
+  std::string cmd;
+  while (std::cin >> cmd) {
+    if (cmd == "left") {
+    } else if (cmd == "right") {
+    } else if (cmd == "down") {
+    } else if (cmd == "clockwise") {
+    } else if (cmd == "counterclockwise") {
+    } else if (cmd == "drop") {
+    } else if (cmd == "levelup") {
+    } else if (cmd == "leveldown") {
+    } else if (cmd == "norandom") { //needs further attention
+    } else if (cmd == "random") {
+    } else if (cmd == "sequence") { //needs further attention
+    } else if (cmd == "restart") {
+    }
+    /*
     if (cmd == "d" || cmd == "r" || cmd == "l" || cmd == "down" || cmd == "c" || cmd == "cc") {
       try {
         game.notify();
@@ -78,6 +70,7 @@ int main(int argc, char *argv[]) {
     }
     td.display();
     std::cout << std::endl;
+    */
   }
 }
 
