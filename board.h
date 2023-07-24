@@ -12,7 +12,6 @@ class Board: public absBoard, public Subject {
   bool blindActivated = false;
   bool blockDroppedAfterBlind = false;
   public:
-  std::vector<std::unique_ptr<Block>> queue;
   Board(absBoard *board);
   char getState(int row, int col) const override;
   char tileAt(int row, int col) override;
