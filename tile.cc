@@ -5,6 +5,10 @@
 #include <string>
 using namespace std;
 
+void Tile::render() {
+  notifyObservers();
+}
+
 Tile::Tile(int x, int y, Board *board): x{x}, y{y}, isOccupied{false}, board{board} {}
 
 int Tile::getX() { return x; }
