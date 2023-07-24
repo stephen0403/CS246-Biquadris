@@ -44,7 +44,7 @@ bool Board::shift(int x, int y, bool drop) {
               block->pos[i][1] += x;
               board.at(pos[i][0]).at(pos[i][1]) = block->getType();
             }
-            throw !curPlayer; // replace with what?
+            throw; // winner
           }
         }
       }
