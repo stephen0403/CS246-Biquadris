@@ -6,7 +6,7 @@ Board::Board(absBoard *board): numRows{18}, numCols{11}, board(board) {
   shift(0, 0, false);
 }
 
-char Board::tileAt(int row, int col) { return board.at(row).at(col); }
+char Board::tileAt(int row, int col) { return board->at(row)->at(col); }
 
 Board::~Board() {}
 
