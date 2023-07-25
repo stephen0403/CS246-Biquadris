@@ -10,7 +10,7 @@ class Level {
   absBoard *board;
   bool random;
   public:
-  Level(absBoard board*, bool random);
+  Level(absBoard *, bool random);
   virtual std::unique_ptr<Block> newBlock() = 0;
   virtual void effect() const;
   virtual void getFile(std::string);
