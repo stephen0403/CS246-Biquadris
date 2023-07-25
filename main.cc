@@ -63,9 +63,14 @@ int main(int argc, char *argv[]) {
       if (playerLevels[currentPlayer] < 4) ++playerLevels[currentPlayer];
     } else if (cmd == "leveldown") {
       if (playerLevels[currentPlayer] > 0) --playerLevels[currentPlayer];
-    } else if (cmd == "norandom") { //needs further attention
-    
+    } else if (cmd == "norandom") {
+      std::string fileName;
+      std::cin >> fileName;
+      levels.at(3) = Level3(boards.at(currentPlayer)/*, true, fileName*/);
+      levels.at(4) = Level4(boards.at(currentPlayer)/*, true, fileName*/);
     } else if (cmd == "random") {
+      levels.at(3) = Level3(boards.at(currentPlayer)/*, false*/);
+      levels.at(4) = Level4(boards.at(currentPlayer)/*, false*/);
     } else if (cmd == "sequence") { //needs further attention
     } else if (cmd == "restart") {
     }
