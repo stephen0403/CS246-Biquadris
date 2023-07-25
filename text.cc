@@ -124,7 +124,7 @@ void TextDisplay::display() {
     std::cout << '|' << std::endl;
   }
   std::cout << border << separateHeader << border << std::endl;
-  std::cout << " Next:" << separateFooter << "Next:" << std::endl;
+  std::cout << " Next:" << separateFooter << "Next:" << std::endl; // change game->queue..... to be the next blocks queue
   if (game->curPlayer) { ///////////////////////// JUST NEED TO CHANGE THIS NOW
     std::cout << game->queue.at(1)->firstRow() << std::endl << game->queue.at(1)->secondRow() << std::endl;
   } else {
