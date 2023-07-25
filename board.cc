@@ -112,6 +112,19 @@ void Board::rotateBlock(Block *block, bool clockwise) {
   }
 }
 
+void Board::putBlock(int col, char type) {
+  for (int i = 3; i < 18; ++i) {
+    if (board.at(i).at(5) != ' ') {
+      if (i > 3) {
+        board.at(i - 1).at(col) = type;
+        return;
+      } else {
+        throw; // throw what? Orginally curplayer
+      }
+    }
+  }
+}
+
 // std::string Board::getScore() const {
 //   std::ostringstream res;
 //   res << " Score:";
