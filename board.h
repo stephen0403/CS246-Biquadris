@@ -20,10 +20,10 @@ class Board: public absBoard, public Subject {
   char tileAt(int row, int col) override;
   ~Board();
   void render();
-  void rotateBlock(Block *block, bool clockwise);
-  bool shift(int x, int y, Block *block, bool drop = false);
-  void putBlock(int col, char type);
-  bool clearRows();
+  void rotateBlock(Block *block, bool clockwise) override;
+  bool shift(int x, int y, Block *block, bool drop = false) override;
+  void putBlock(int col, char type) override;
+  int clearRows() override;
 };
 
 #endif

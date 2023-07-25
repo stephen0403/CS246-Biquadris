@@ -127,7 +127,7 @@ void Board::rotateBlock(Block *block, bool clockwise) {
   for (int i = 0; i < 4; ++i) {
     dest[i][0] += block->lowerLeft[0] - newLowerLeft[0];
     dest[i][1] += block->lowerLeft[1] - newLowerLeft[1];
-    if (dest[i][1] >= theBoard.at(0).numCols || theBoard.at(dest[i][0]).at(dest[i][1]) != ' ') {
+    if (dest[i][1] >= numCols || theBoard.at(dest[i][0]).at(dest[i][1]) != ' ') {
       for (int i = 0; i < 4; ++i) {
         theBoard.at(pos[i][0]).at(pos[i][1]) = block->getType();
       }
