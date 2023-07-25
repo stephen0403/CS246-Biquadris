@@ -132,3 +132,7 @@ void TextDisplay::display(std::vector<Block*> &queue, int currPlayer) {
     std::cout << emptyNext << queue.at(1)->secondRow() << std::endl;
   }
 }
+
+void TextDisplay::notify() {
+  display(std::vector<Block*> &queue, int currPlayer);
+  }
