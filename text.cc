@@ -96,7 +96,7 @@ void TextDisplay::printHeader(std::string title, int num) const {
   std::cout << num;
 }
 
-void TextDisplay::display() {
+void TextDisplay::display(std::vector<Block*> &queue, int currPlayer) {
   std::string separateHeader{"        "};
   std::string separateFooter{"                "};
   std::string emptyNext{"                     "};
@@ -125,10 +125,10 @@ void TextDisplay::display() {
   }
   std::cout << border << separateHeader << border << std::endl;
   std::cout << " Next:" << separateFooter << "Next:" << std::endl; // change game->queue..... to be the next blocks queue
-  if (game->curPlayer) { ///////////////////////// JUST NEED TO CHANGE THIS NOW
-    std::cout << game->queue.at(1)->firstRow() << std::endl << game->queue.at(1)->secondRow() << std::endl;
+  if (currPlayer) { ///////////////////////// JUST NEED TO CHANGE THIS NOW
+    std::cout << queue.at(1)->firstRow() << std::endl << queue.at(1)->secondRow() << std::endl;
   } else {
-    std::cout << emptyNext << game->queue.at(1)->firstRow() << std::endl;
-    std::cout << emptyNext << game->queue.at(1)->secondRow() << std::endl;
+    std::cout << emptyNext << queue.at(1)->firstRow() << std::endl;
+    std::cout << emptyNext << queue.at(1)->secondRow() << std::endl;
   }
 }
