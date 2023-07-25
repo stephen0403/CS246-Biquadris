@@ -13,14 +13,17 @@ class Board: public absBoard, public Subject {
   bool blindActivated = false;
   bool blockDroppedAfterBlind = false;
   bool dropped;
+  friend class TextObserver;
   public:
   Board(absBoard *board);
   char getState(int row, int col) const override;
   char tileAt(int row, int col) override;
   ~Board();
   void render();
-  void rotateBlock(bool);
-  bool shift(int x, int y, Block *block, bool drop = false);
+  void rotateBlock(Block *block, bool clockwise) override;
+  bool shift(int x, int y, Block *block, bool drop = false) override;
+  void putBlock(int col, char type) override;
+  int clearRows() override;
 };
 
 #endif
