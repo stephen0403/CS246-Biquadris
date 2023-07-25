@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
   std::string file1{"sequence1.txt"};
   std::string file2{"sequence2.txt"};
   unsigned int seed = 0;
-  int currentPlayer = 0;                                        // current player
+  int currentPlayer = 0;               // current player
   std::vector<int> playerLevels{0, 0}; //the levels each player is on
 
   for (int i = 1; i < argc; i += 2) {
