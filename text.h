@@ -34,7 +34,7 @@ class TextDisplay : public Observer {
   void printHeader(std::string, int) const;
   public:
   TextDisplay(Board *b1, Board *b2);
-  void display(std::vector<Block*> &queue);
+  void display(std::vector<Block*> &queue, int currPlayer);
 };
 
 #endif
