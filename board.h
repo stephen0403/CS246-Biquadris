@@ -22,6 +22,7 @@ class Board: public absBoard, public Subject {
   void render();
   void rotateBlock(Block *block, bool clockwise);
   bool shift(int x, int y, Block *block, bool drop = false);
+  void putBlock(int col, char type);
 };
 
 #endif
