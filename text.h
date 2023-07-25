@@ -23,6 +23,7 @@
 #ifndef _DISPLAY_H_
 #define _DISPLAY_H_
 #include <string>
+#include "observer.h"
 
 class Board;
 
