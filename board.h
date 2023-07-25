@@ -12,7 +12,6 @@ class Board: public absBoard, public Subject {
   absBoard *board;
   bool blindActivated = false;
   bool blockDroppedAfterBlind = false;
-  bool dropped;
   friend class TextObserver;
   public:
   Board(absBoard *board);
