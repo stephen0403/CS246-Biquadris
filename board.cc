@@ -68,7 +68,49 @@ bool Board::shift(int x, int y, Block *block, bool drop) {
 }
 
 
-
+void Board::rotateBlock(Block *block, bool clockwise) {
+  // auto block = queue.front().get();
+  std::vector<std::vector<int>> &pos = block->pos;
+  int dest[4][2];
+  if (clockwise) {
+    for (int i = 0; i < 4; ++i) {
+      dest[i][0] = pos[i][1];
+      dest[i][1] = -pos[i][0];
+    }
+  } else {
+    for (int i = 0; i < 4; ++i) {
+      dest[i][0] = -pos[i][1];
+      dest[i][1] = pos[i][0];
+    }
+  }
+  int newLowerLeft[2] = {dest[0][0], dest[0][1]};
+  for (int i = 0; i < 4; ++i) {
+    if (dest[i][0] > newLowerLeft[0]) {
+      newLowerLeft[0] = dest[i][0];
+    }
+    if (dest[i][1] < newLowerLeft[1]) {
+      newLowerLeft[1] = dest[i][1];
+    }
+  }
+  for (int i = 0; i < 4; ++i) {
+    board.at(pos[i][0]).at(pos[i][1]) = ' ';
+  }
+  for (int i = 0; i < 4; ++i) {
+    dest[i][0] += block->lowerLeft[0] - newLowerLeft[0];
+    dest[i][1] += block->lowerLeft[1] - newLowerLeft[1];
+    if (dest[i][1] >= board.at(0).numCols || board.at(dest[i][0]).at(dest[i][1]) != ' ') {
+      for (int i = 0; i < 4; ++i) {
+        board.at(pos[i][0]).at(pos[i][1]) = block->getType();
+      }
+      return;
+    }
+  }
+  for (int i = 0; i < 4; ++i) {
+    block->pos[i][0] = dest[i][0];
+    block->pos[i][1] = dest[i][1];
+    board.at(pos[i][0]).at(pos[i][1]) = block->getType();
+  }
+}
 
 // std::string Board::getScore() const {
 //   std::ostringstream res;
