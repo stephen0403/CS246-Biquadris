@@ -64,6 +64,7 @@ int main(int argc, char *argv[]) {
     } else if (cmd == "leveldown") {
       if (playerLevels[currentPlayer] > 0) --playerLevels[currentPlayer];
     } else if (cmd == "norandom") { //needs further attention
+    
     } else if (cmd == "random") {
     } else if (cmd == "sequence") { //needs further attention
     } else if (cmd == "restart") {
