@@ -48,17 +48,17 @@ int main(int argc, char *argv[]) {
   std::string cmd;
   while (std::cin >> cmd) {
     if (cmd == "left") {
-      boards[currentPlayer]->shift(-1, 0, blocksQueue.front());
+      boards.at(currentPlayer)->shift(-1, 0, blocksQueue.front());
     } else if (cmd == "right") {
-      boards[currentPlayer]->shift(1, 0, blocksQueue.front());
+      boards.at(currentPlayer)->shift(1, 0, blocksQueue.front());
     } else if (cmd == "down") {
-      boards[currentPlayer]->shift(0, -1, blocksQueue.front());
+      boards.at(currentPlayer)->shift(0, -1, blocksQueue.front());
     } else if (cmd == "clockwise") {
-      boards[currentPlayer]->rotateBlock(blocksQueue.front(), true);
+      boards.at(currentPlayer)->rotateBlock(blocksQueue.front(), true);
     } else if (cmd == "counterclockwise") {
-      boards[currentPlayer]->rotateBlock(blocksQueue.front(), false);
+      boards.at(currentPlayer)->rotateBlock(blocksQueue.front(), false);
     } else if (cmd == "drop") {
-      boards[currentPlayer]->shift(0, -1, blocksQueue.front(), true);
+      boards.at(currentPlayer)->shift(0, -1, blocksQueue.front(), true);
     } else if (cmd == "levelup") {
       if (playerLevels[currentPlayer] < 4) ++playerLevels[currentPlayer];
     } else if (cmd == "leveldown") {
