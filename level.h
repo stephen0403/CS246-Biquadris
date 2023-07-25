@@ -20,7 +20,7 @@ class Level {
 class Level0: public Level {
   std::string name1;
   std::string name2;
-  std::ifstream files[2];
+  std::vector<std::ifstream> files;
   public:
   Level0(absBoard *, std::string, std::string, bool random);
   std::unique_ptr<Block> newBlock() override;
