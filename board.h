@@ -20,7 +20,7 @@ class Board: public absBoard, public Subject {
   char tileAt(int row, int col) override;
   ~Board();
   void render();
-  void rotateBlock(bool);
+  void rotateBlock(Block *block, bool clockwise);
   bool shift(int x, int y, Block *block, bool drop = false);
 };
 
