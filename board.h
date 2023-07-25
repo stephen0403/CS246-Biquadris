@@ -13,8 +13,9 @@ class Board: public absBoard, public Subject {
   bool blindActivated = false;
   bool blockDroppedAfterBlind = false;
   bool dropped;
-  friend class TextObserver
-  public:
+  friend class TextObserver;
+
+public:
   Board(absBoard *board);
   char getState(int row, int col) const override;
   char tileAt(int row, int col) override;
@@ -22,6 +23,7 @@ class Board: public absBoard, public Subject {
   void render();
   void rotateBlock(bool);
   bool shift(int x, int y, Block *block, bool drop = false);
+  int clearRows();
 };
 
 #endif

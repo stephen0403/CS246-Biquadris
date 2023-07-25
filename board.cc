@@ -68,6 +68,21 @@ bool Board::shift(int x, int y, Block *block, bool drop) {
 }
 
 
+int Board::clearRows() {
+  int rowsCleared = 0;
+  for (int i = 0; i < numRows; i++) {
+    if (isFull(theBoard.at(i))) {
+      rowsCleared++;
+      for (int j = i; j > 0; j--) {
+        theBoard.at(j) = theBoard.at(j - 1);
+      }
+      theBoard.at(0) = std::vector<char>(numCols, ' ');
+    }
+  }
+  return rowsCleared;
+}
+
+
 
 
 // std::string Board::getScore() const {
