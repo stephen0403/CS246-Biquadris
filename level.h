@@ -1,4 +1,5 @@
 #include "block.h"
+#include "absBoard.h"
 #include <fstream>
 #include <vector>
 
