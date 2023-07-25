@@ -26,6 +26,7 @@
 #include "observer.h"
 
 class Board;
+class Block;
 
 class TextDisplay : public Observer {
   Board *b1;
@@ -33,7 +34,7 @@ class TextDisplay : public Observer {
   void printHeader(std::string, int) const;
   public:
   TextDisplay(Board *b1, Board *b2);
-  void display();
+  void display(std::vector<Block*> &queue);
 };
 
 #endif
