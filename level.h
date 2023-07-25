@@ -1,8 +1,8 @@
 #include "block.h"
+#include "absBoard.h"
 #include <fstream>
 #include <vector>
 
-class GamePlay;
 
 class Level {
   protected:
