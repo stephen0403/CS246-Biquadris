@@ -47,20 +47,18 @@ int main(int argc, char *argv[]) {
 
   std::string cmd;
   while (std::cin >> cmd) {
-    bool dropped = false;
-
     if (cmd == "left") {
-      dropped = boards[currentPlayer]->shift(-1, 0, blocksQueue.front());
+      boards[currentPlayer]->shift(-1, 0, blocksQueue.front());
     } else if (cmd == "right") {
-      dropped = boards[currentPlayer]->shift(1, 0, blocksQueue.front());
+      boards[currentPlayer]->shift(1, 0, blocksQueue.front());
     } else if (cmd == "down") {
-      dropped = boards[currentPlayer]->shift(0, -1, blocksQueue.front());
+      boards[currentPlayer]->shift(0, -1, blocksQueue.front());
     } else if (cmd == "clockwise") {
       boards[currentPlayer]->rotateBlock(blocksQueue.front(), true);
     } else if (cmd == "counterclockwise") {
       boards[currentPlayer]->rotateBlock(blocksQueue.front(), false);
     } else if (cmd == "drop") {
-      dropped = boards[currentPlayer]->shift(0, -1, blocksQueue.front(), true);
+      boards[currentPlayer]->shift(0, -1, blocksQueue.front(), true);
     } else if (cmd == "levelup") {
       if (playerLevels[currentPlayer] < 4) ++playerLevels[currentPlayer];
     } else if (cmd == "leveldown") {
@@ -74,20 +72,12 @@ int main(int argc, char *argv[]) {
       levels.at(3) = Level3(boards.at(currentPlayer)/*, false*/);
       levels.at(4) = Level4(boards.at(currentPlayer)/*, false*/);
     } else if (cmd == "sequence") { //needs further attention
-    } else if (cmd == "restart") {
+    } else if (cmd == "I" || cmd == "J" || cmd == "L") {
+      if (cmd == "I") blocksQueue.front() = std::make_unique<IBlock>().get();
+      else if (cmd == "J") blocksQueue.front() = std::make_unique<JBlock>().get();
+      else if (cmd == "L") blocksQueue.front() = std::make_unique<LBlock>().get();
     }
-
-    if (dropped) {
-        int rowsCleared = boards[currentPlayer]->clearRows();
-        if (rowsCleared >= 2) {
-          // call special action
-        }
-        currentPlayer = (currentPlayer + 1) % 2;
-
-        // Questionable Codeblock
-        // currentBlock = std::move(nextBlock);
-        // nextBlock = levels[playerLevels[currentPlayer]].newBlock();
-        // blocksQueue = {currentBlock.get(), nextBlock.get()};
+    } else if (cmd == "restart") {
     }
     /*
     if (cmd == "d" || cmd == "r" || cmd == "l" || cmd == "down" || cmd == "c" || cmd == "cc") {
