@@ -9,20 +9,7 @@ int main(int argc, char *argv[]) {
   std::string file2{"sequence2.txt"};
   unsigned int seed = 0;
   int currentPlayer = 0;                                        // current player
-  
-  std::unique_ptr<absBoard> board1 = std::make_unique<Board> (); // board1
-  std::unique_ptr<absBoard> board2 = std::make_unique<Board> (); // board2
-  std::vector<absBoard*> boards {board1.get(), board2.get()};
-  std::vector<Level> levels{Level0(boards.at(currentPlayer)),
-                            Level1(boards.at(currentPlayer)),
-                            Level2(boards.at(currentPlayer)),
-                            Level3(boards.at(currentPlayer)),
-                            Level4(boards.at(currentPlayer))};
-  std::unique_ptr<Observer> textObserver = std::make_unique<TextDisplay>
-                                                (board1.get(), board2.get());
   std::vector<int> playerLevels{0, 0}; //the levels each player is on
-  std::vector<Block> blocksQueue{}
-
 
   for (int i = 1; i < argc; i += 2) {
     std::string arg{argv[i]};
@@ -41,17 +28,37 @@ int main(int argc, char *argv[]) {
       }
     }
   }
+
+  std::unique_ptr<absBoard> board1 = std::make_unique<Board> (); // board1
+  std::unique_ptr<absBoard> board2 = std::make_unique<Board> (); // board2
+  std::vector<absBoard*> boards {board1.get(), board2.get()};
+  std::vector<Level> levels{Level0(boards.at(currentPlayer), file1, file2),
+                            Level1(boards.at(currentPlayer)),
+                            Level2(boards.at(currentPlayer)),
+                            Level3(boards.at(currentPlayer)),
+                            Level4(boards.at(currentPlayer))};
+  std::unique_ptr<Observer> textObserver = std::make_unique<TextDisplay>
+                                                (board1.get(), board2.get());
+  std::unique_ptr<Block> currentBlock = levels[playerLevels[currentPlayer]].newBlock(); 
+  std::unique_ptr<Block> nextBlock = levels[playerLevels[currentPlayer]].newBlock();
+  std::vector<Block*> blocksQueue{currentBlock.get(), nextBlock.get()};
+
   std::cout << std::endl;
-/////////
+
   std::string cmd;
   while (std::cin >> cmd) {
     if (cmd == "left") {
-      boards[currentPlayer]->shift(-1, 0);
+      boards[currentPlayer]->shift(-1, 0, blocksQueue.front());
     } else if (cmd == "right") {
+      boards[currentPlayer]->shift(1, 0, blocksQueue.front());
     } else if (cmd == "down") {
+      boards[currentPlayer]->shift(0, -1, blocksQueue.front());
     } else if (cmd == "clockwise") {
+      boards[currentPlayer]->rotateBlock(blocksQueue.front(), true);
     } else if (cmd == "counterclockwise") {
+      boards[currentPlayer]->rotateBlock(blocksQueue.front(), false);
     } else if (cmd == "drop") {
+      boards[currentPlayer]->shift(0, -1, blocksQueue.front(), true);
     } else if (cmd == "levelup") {
       if (playerLevels[currentPlayer] < 4) ++playerLevels[currentPlayer];
     } else if (cmd == "leveldown") {
