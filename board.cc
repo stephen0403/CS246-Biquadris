@@ -93,14 +93,14 @@ void Board::rotateBlock(Block *block, bool clockwise) {
     }
   }
   for (int i = 0; i < 4; ++i) {
-    board.at(pos[i][0]).at(pos[i][1]) = ' ';
+    theBoard.at(pos[i][0]).at(pos[i][1]) = ' ';
   }
   for (int i = 0; i < 4; ++i) {
     dest[i][0] += block->lowerLeft[0] - newLowerLeft[0];
     dest[i][1] += block->lowerLeft[1] - newLowerLeft[1];
-    if (dest[i][1] >= board.at(0).numCols || board.at(dest[i][0]).at(dest[i][1]) != ' ') {
+    if (dest[i][1] >= theBoard.at(0).numCols || theBoard.at(dest[i][0]).at(dest[i][1]) != ' ') {
       for (int i = 0; i < 4; ++i) {
-        board.at(pos[i][0]).at(pos[i][1]) = block->getType();
+        theBoard.at(pos[i][0]).at(pos[i][1]) = block->getType();
       }
       return;
     }
@@ -108,15 +108,15 @@ void Board::rotateBlock(Block *block, bool clockwise) {
   for (int i = 0; i < 4; ++i) {
     block->pos[i][0] = dest[i][0];
     block->pos[i][1] = dest[i][1];
-    board.at(pos[i][0]).at(pos[i][1]) = block->getType();
+    theBoard.at(pos[i][0]).at(pos[i][1]) = block->getType();
   }
 }
 
 void Board::putBlock(int col, char type) {
   for (int i = 3; i < 18; ++i) {
-    if (board.at(i).at(5) != ' ') {
+    if (theBoard.at(i).at(5) != ' ') {
       if (i > 3) {
-        board.at(i - 1).at(col) = type;
+        theBoard.at(i - 1).at(col) = type;
         return;
       } else {
         throw; // throw what? Orginally curplayer
