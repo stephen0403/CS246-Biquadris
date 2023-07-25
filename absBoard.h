@@ -17,7 +17,7 @@ public:
     virtual void rotateBlock(Block *block, bool clockwise) = 0;
     virtual bool shift(int x, int y, Block *block, bool drop = false) = 0;
     virtual void putBlock(int col, char type) = 0;
-    virtual bool clearRows() = 0;
+    virtual int clearRows() = 0;
 };
 
 #endif

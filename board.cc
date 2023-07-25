@@ -6,7 +6,7 @@
 // theBoard is the vec vec char board
 
 
-Board::Board(absBoard *board): numRows{18}, numCols{11}, dropped{false}, board(board), theBoard(numRows, std::vector<char>(numCols, ' ')) {}
+Board::Board(absBoard *board): numRows{18}, numCols{11}, board(board), theBoard(numRows, std::vector<char>(numCols, ' ')) {}
 
 char Board::tileAt(int row, int col) { return theBoard.at(row).at(col); }
 
@@ -39,7 +39,6 @@ bool Board::shift(int x, int y, Block *block, bool drop) {
     if (pos[i][0] + y >= numRows || pos[i][1] + x < 0 || pos[i][1] + x >= numCols ||
         theBoard.at(pos[i][0] + y).at(pos[i][1] + x) != ' ') {
       if (y && drop) {
-        dropped = true;
         for (int i = 0; i < 4; ++i) {
           if (block->pos[i][0] < 3) {
             for (int i = 0; i < 4; ++i) {

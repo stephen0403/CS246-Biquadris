@@ -47,18 +47,20 @@ int main(int argc, char *argv[]) {
 
   std::string cmd;
   while (std::cin >> cmd) {
+    bool dropped = false;
+
     if (cmd == "left") {
-      boards[currentPlayer]->shift(-1, 0, blocksQueue.front());
+      dropped = boards[currentPlayer]->shift(-1, 0, blocksQueue.front());
     } else if (cmd == "right") {
-      boards[currentPlayer]->shift(1, 0, blocksQueue.front());
+      dropped = boards[currentPlayer]->shift(1, 0, blocksQueue.front());
     } else if (cmd == "down") {
-      boards[currentPlayer]->shift(0, -1, blocksQueue.front());
+      dropped = boards[currentPlayer]->shift(0, -1, blocksQueue.front());
     } else if (cmd == "clockwise") {
       boards[currentPlayer]->rotateBlock(blocksQueue.front(), true);
     } else if (cmd == "counterclockwise") {
       boards[currentPlayer]->rotateBlock(blocksQueue.front(), false);
     } else if (cmd == "drop") {
-      boards[currentPlayer]->shift(0, -1, blocksQueue.front(), true);
+      dropped = boards[currentPlayer]->shift(0, -1, blocksQueue.front(), true);
     } else if (cmd == "levelup") {
       if (playerLevels[currentPlayer] < 4) ++playerLevels[currentPlayer];
     } else if (cmd == "leveldown") {
@@ -73,6 +75,19 @@ int main(int argc, char *argv[]) {
       levels.at(4) = Level4(boards.at(currentPlayer)/*, false*/);
     } else if (cmd == "sequence") { //needs further attention
     } else if (cmd == "restart") {
+    }
+
+    if (dropped) {
+        int rowsCleared = boards[currentPlayer]->clearRows();
+        if (rowsCleared >= 2) {
+          // call special action
+        }
+        currentPlayer = (currentPlayer + 1) % 2;
+
+        // Questionable Codeblock
+        // currentBlock = std::move(nextBlock);
+        // nextBlock = levels[playerLevels[currentPlayer]].newBlock();
+        // blocksQueue = {currentBlock.get(), nextBlock.get()};
     }
     /*
     if (cmd == "d" || cmd == "r" || cmd == "l" || cmd == "down" || cmd == "c" || cmd == "cc") {
