@@ -21,19 +21,19 @@ class Level0: public Level {
   std::string name2;
   std::ifstream files[2];
   public:
-  Level0(absBoard *, std::string, std::string);
+  Level0(absBoard *, std::string, std::string, bool random);
   std::unique_ptr<Block> newBlock() override;
 };
 
 class Level1: public Level {
   public:
-  Level1(absBoard *);
+  Level1(absBoard *, bool random);
   std::unique_ptr<Block> newBlock() override;
 };
 
 class Level2: public Level {
   public:
-  Level2(absBoard *);
+  Level2(absBoard *, bool random);
   std::unique_ptr<Block> newBlock() override;
 };
 
@@ -41,7 +41,7 @@ class Level3: public Level {
   std::string name;
   std::ifstream file;
   public:
-  Level3(absBoard *);
+  Level3(absBoard *, bool random);
   std::unique_ptr<Block> newBlock() override;
   void effect() const override;
   void getFile(std::string) override;
@@ -52,7 +52,7 @@ class Level4: public Level {
   std::string name;
   std::ifstream file;
   public:
-  Level4(absBoard *);
+  Level4(absBoard *, bool random);
   std::unique_ptr<Block> newBlock() override;
   void effect() const override;
   void getFile(std::string) override;
