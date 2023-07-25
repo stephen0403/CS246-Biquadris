@@ -1,8 +1,7 @@
-// #include <fstream>
 #include "text.h"
-#include "gameplay.h"
 #include <iostream>
 #include <sstream>
+#include "level.h"
 
 int main(int argc, char *argv[]) {
   std::string file1{"sequence1.txt"};
@@ -29,6 +28,7 @@ int main(int argc, char *argv[]) {
     }
   }
 
+  
   std::unique_ptr<absBoard> board1 = std::make_unique<Board> (); // board1
   std::unique_ptr<absBoard> board2 = std::make_unique<Board> (); // board2
   std::vector<absBoard*> boards {board1.get(), board2.get()};
@@ -72,28 +72,12 @@ int main(int argc, char *argv[]) {
       levels.at(3) = Level3(boards.at(currentPlayer)/*, false*/);
       levels.at(4) = Level4(boards.at(currentPlayer)/*, false*/);
     } else if (cmd == "sequence") { //needs further attention
-    } else if (cmd == "I" || cmd == "J" || cmd == "L") {
+    } else if (cmd == "I" || cmd == "J" || cmd == "L") { //changes the current block to these
       if (cmd == "I") blocksQueue.front() = std::make_unique<IBlock>().get();
       else if (cmd == "J") blocksQueue.front() = std::make_unique<JBlock>().get();
-      else if (cmd == "L") blocksQueue.front() = std::make_unique<LBlock>().get();
-    }
+      else blocksQueue.front() = std::make_unique<LBlock>().get();
     } else if (cmd == "restart") {
     }
-    /*
-    if (cmd == "d" || cmd == "r" || cmd == "l" || cmd == "down" || cmd == "c" || cmd == "cc") {
-      try {
-        game.notify();
-      } catch (int player) {
-        std::cout << "Player " << player + 1 << " won!" << std::endl;
-        return 0;
-      }
-    }
-    if (cmd == "d") {
-      game.switchPlayer();
-    }
-    td.display();
-    std::cout << std::endl;
-    */
   }
 }
 
