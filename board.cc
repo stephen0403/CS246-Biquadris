@@ -67,20 +67,34 @@ bool Board::shift(int x, int y, Block *block, bool drop) {
   return true;
 }
 
-bool Board::clearRows() {
-  std::vector<std::vector<char>> newBoard(18, std::vector<char>(11, ' '));
-  int cur_row = 17;
-  bool cleared = false;
-  for (int i = 17; i >= 3; --i) {
-    if (!isFull(theBoard.at(i))) {
-      newBoard.at(cur_row) = theBoard.at(i);
-      --cur_row;
-    } else {
-      cleared = true;
+// bool Board::clearRows() {
+//   std::vector<std::vector<char>> newBoard(18, std::vector<char>(11, ' '));
+//   int cur_row = 17;
+//   bool cleared = false;
+//   for (int i = 17; i >= 3; --i) {
+//     if (!isFull(theBoard.at(i))) {
+//       newBoard.at(cur_row) = theBoard.at(i);
+//       --cur_row;
+//     } else {
+//       cleared = true;
+//     }
+//   }
+//   theBoard = newBoard;
+//   return cleared;
+// }
+
+int Board::clearRows() {
+  int rowsCleared = 0;
+  for (int i = numRows - 1; i >= 0; i--) {
+    if (isFull(theBoard.at(i))) {
+      rowsCleared++;
+      for (int j = i; j > 0; j--) {
+        theBoard.at(j) = theBoard.at(j - 1);
+      }
+      i++;
     }
   }
-  theBoard = newBoard;
-  return cleared;
+  return rowsCleared;
 }
 
 void Board::rotateBlock(Block *block, bool clockwise) {
