@@ -18,7 +18,7 @@ void Level::effect() const {}
 std::unique_ptr<Block> Level0::newBlock() {
   char res;
   if (!(files.at(currPlayer) >> res)) {
-    files.at(currPlayer) = std::ifstream{game->names.at(game->getPlayer())};
+    files.at(currPlayer) = std::ifstream{names.at(currPlayer)};
     files.at(currPlayer) >> res;
   }
   return blockGen(res);
