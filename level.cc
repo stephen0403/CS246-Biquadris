@@ -1,19 +1,37 @@
 #include "level.h"
 #include <iostream>
 
-Level::Level(absBoard *board): board{board} {}
+Level::Level(absBoard *board, bool random): board{board}, random{random} {}
 
-Level0::Level0(absBoard *board, std::string name1, std::string name2): Level{board} {}
+void Level::getFile(std::string) {}
 
-Level1::Level1(absBoard *board): Level{board} {}
+void Level3::getFile(std::string f) {
+  name = f;
+  file = std::ifstream{f};
+}
 
-Level2::Level2(absBoard *board): Level{board} {}
+void Level4::getFile(std::string f) {
+  name = f;
+  file = std::ifstream{f};
+}
 
-Level4::Level4(absBoard *board): Level{board} {}
+Level0::Level0(absBoard *board, std::string name1, std::string name2, bool): Level{board, false} {}
 
-Level3::Level3(absBoard *board): Level{board} {}
+Level1::Level1(absBoard *board, bool): Level{board, true} {}
+
+Level2::Level2(absBoard *board, bool): Level{board, true} {}
+
+Level4::Level4(absBoard *board, bool random): Level{board, random} {}
+
+Level3::Level3(absBoard *board, bool random): Level{board, random} {}
 
 void Level::effect() const {}
+
+void Level::setRandom(bool) {}
+
+void Level3::setRandom(bool r) { random = r; }
+
+void Level4::setRandom(bool r) { random = r; }
 
 std::unique_ptr<Block> Level0::newBlock() {
   char res;
@@ -37,30 +55,47 @@ std::unique_ptr<Block> Level2::newBlock() {
 }
 
 std::unique_ptr<Block> Level3::newBlock() {
-  char type[9] = {'I', 'J', 'L', 'T', 'S', 'S', 'Z', 'Z', 'O'};
-  char res = type[rand() % 9];
+  if (random) {
+    char type[9] = {'I', 'J', 'L', 'T', 'S', 'S', 'Z', 'Z', 'O'};
+    char res = type[rand() % 9];
+  } else {
+    char res;
+    if (!(file >> res)) {
+      file = std::ifstream{name};
+      file >> res;
+    }
+  }
   return blockGen(res);
 }
 
 std::unique_ptr<Block> Level4::newBlock() {
-  char type[9] = {'I', 'J', 'L', 'T', 'S', 'S', 'Z', 'Z', 'O'};
-  char res = type[rand() % 9];
+  if (random) {
+    char type[9] = {'I', 'J', 'L', 'T', 'S', 'S', 'Z', 'Z', 'O'};
+    char res = type[rand() % 9];
+  } else {
+    char res;
+    if (!(file >> res)) {
+      file = std::ifstream{name};
+      file >> res;
+    }
+  }
   return blockGen(res);
 }
 
 void Level3::effect() const {
-  if (!game->getState()) {
-    game->shift(0, 1, false);
+  if (!board->dropped) {
+    board->shift(0, 1, false);
   }
 }
 
 void Level4::effect() const {
-  if (game->getState()) {
+  /*
+  if (board->dropped) {
     if (game->getCount() && !(game->getCount() % 5)) {
       game->putBlock(5, '*');
     }
   } else {
-    game->shift(0, 1, false);
-  }
+  */
+    board->shift(0, 1, false);
+  //}
 }
-
