@@ -33,14 +33,14 @@ Level1::Level1(absBoard *board): Level{board, true} {}
 
 Level2::Level2(absBoard *board): Level{board, true} {}
 
-Level3::Level3(absBoard *board, bool random, std::string fileName = "sequence.txt"): Level{board, random} {
+Level3::Level3(absBoard *board, bool random, std::string fileName): Level{board, random} {
   if (random) {
     name = fileName;
     file = std::ifstream{fileName};
   }
 }
 
-Level4::Level4(absBoard *board, bool random, std::string fileName = "sequence.txt"): Level{board, random} {
+Level4::Level4(absBoard *board, bool random, std::string fileName): Level{board, random} {
   if (random) {
     name = fileName;
     file = std::ifstream{fileName};

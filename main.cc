@@ -29,8 +29,8 @@ int main(int argc, char *argv[]) {
   }
 
   
-  std::unique_ptr<absBoard> board1 = std::make_unique<Board> (); // board1
-  std::unique_ptr<absBoard> board2 = std::make_unique<Board> (); // board2
+  std::unique_ptr<Board> board1 = std::make_unique<Board> (); // board1
+  std::unique_ptr<Board> board2 = std::make_unique<Board> (); // board2
   std::vector<absBoard*> boards {board1.get(), board2.get()};
   std::vector<Level> levels{Level0(boards.at(currPlayer), file1, file2),
                             Level1(boards.at(currPlayer)),
@@ -82,10 +82,10 @@ int main(int argc, char *argv[]) {
       dropped = boards.at(currPlayer)->shift(0, -1, blocksQueue.front(), true);
     } 
     else if (cmd == "levelup") {
-      if (playerLevels[currPlayer] < 4) ++playerLevels[currPlayer];
+      if (playerLevels.at(currPlayer) < 4) ++playerLevels.at(currPlayer);
     } 
     else if (cmd == "leveldown") {
-      if (playerLevels[currPlayer] > 0) --playerLevels[currPlayer];
+      if (playerLevels.at(currPlayer) > 0) --playerLevels.at(currPlayer);
     } 
     else if (cmd == "norandom") {
       levels.at(3) = Level3(boards.at(currPlayer), false);
