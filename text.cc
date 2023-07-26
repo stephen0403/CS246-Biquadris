@@ -130,10 +130,10 @@ void TextDisplay::display(std::vector<Block*> &queue, int currPlayer) {
   std::cout << border << separateHeader << border << std::endl;
   std::cout << " Next:" << separateFooter << "Next:" << std::endl; // change game->queue..... to be the next blocks queue
   if (currPlayer) { ///////////////////////// JUST NEED TO CHANGE THIS NOW
-    std::cout << queue.at(1)->firstRow() << std::endl << queue.at(1)->secondRow() << std::endl;
+    std::cout << queue.at(0)->firstRow() << std::endl << queue.at(0)->secondRow() << std::endl;
   } else {
-    std::cout << emptyNext << queue.at(1)->firstRow() << std::endl;
-    std::cout << emptyNext << queue.at(1)->secondRow() << std::endl;
+    std::cout << emptyNext << queue.at(0)->firstRow() << std::endl;
+    std::cout << emptyNext << queue.at(0)->secondRow() << std::endl;
   }
 }
 

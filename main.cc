@@ -73,13 +73,13 @@ int main(int argc, char *argv[]) {
 
     bool dropped = false;
     if (cmd == "left") {
-      dropped = boards.at(currPlayer)->shift(-1, 0, blocksQueue.front());
+      boards.at(currPlayer)->shift(-1, 0, blocksQueue.front());
     } 
     else if (cmd == "right") {
-      dropped = boards.at(currPlayer)->shift(1, 0, blocksQueue.front());
+      boards.at(currPlayer)->shift(1, 0, blocksQueue.front());
     } 
     else if (cmd == "down") {
-      dropped = boards.at(currPlayer)->shift(0, 1, blocksQueue.front());
+      boards.at(currPlayer)->shift(0, 1, blocksQueue.front());
     } 
     else if (cmd == "clockwise") {
       boards.at(currPlayer)->rotateBlock(blocksQueue.front(), true);
@@ -88,7 +88,11 @@ int main(int argc, char *argv[]) {
       boards.at(currPlayer)->rotateBlock(blocksQueue.front(), false);
     } 
     else if (cmd == "drop") {
-      dropped = boards.at(currPlayer)->shift(0, 1, blocksQueue.front(), true);
+      bool dropping = true;
+      while (dropping) {
+        dropping = boards.at(currPlayer)->shift(0, 1, blocksQueue.front(), true);
+      }
+      dropped = true;
     } 
     else if (cmd == "levelup") {
       if (playerLevels.at(currPlayer) < 4) ++playerLevels.at(currPlayer);
