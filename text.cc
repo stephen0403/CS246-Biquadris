@@ -100,7 +100,7 @@ void TextDisplay::printHeader(std::string title, int num) const {
   std::cout << num;
 }
 
-void TextDisplay::display(std::vector<Block*> &queue, int currPlayer) {
+void TextDisplay::display(std::vector<Block*> &queue, int currPlayer, std::vector<int> currLevel) {
   std::string separateHeader{"        "};
   std::string separateFooter{"                "};
   std::string emptyNext{"                     "};
