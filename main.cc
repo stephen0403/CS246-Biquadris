@@ -146,8 +146,7 @@ int main(int argc, char *argv[]) {
 
       currPlayer = (currPlayer + 1) % 2;
       currentBlock = std::move(nextBlock);
-      std::unique_ptr<Block> nextBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-      //nextBlock = levels[playerLevels[currPlayer]].newBlock(currPlayer);
+      std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
       blocksQueue = {currentBlock.get(), nextBlock.get()};
 
       if (rowsCleared > 1) {
