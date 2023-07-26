@@ -117,7 +117,7 @@ int main(int argc, char *argv[]) {
       //levels.at(3) = Level3(boards.at(currPlayer), true, fileName);
       //levels.at(4) = Level4(boards.at(currPlayer), true, fileName);
     } 
-    else if (cmd == "sequence") {
+    else if (cmd == "sequence") { //needs further attention
       std::string fileName;
       if (readFromFile) {
         file >> fileName;
@@ -146,7 +146,7 @@ int main(int argc, char *argv[]) {
 
       currPlayer = (currPlayer + 1) % 2;
       currentBlock = std::move(nextBlock);
-      std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+      std::unique_ptr<Block> nextBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
       //nextBlock = levels[playerLevels[currPlayer]].newBlock(currPlayer);
       blocksQueue = {currentBlock.get(), nextBlock.get()};
 
