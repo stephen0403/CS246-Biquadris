@@ -72,7 +72,6 @@ void TextDisplay::display() {
 #include "block.h"
 #include <iostream>
 #include <sstream>
-#include <vector>
 
 TextDisplay::TextDisplay(Board *b1, Board *b2): b1{b1}, b2{b2} {}
 
