@@ -16,17 +16,17 @@ void Level4::getFile(std::string f) {
 }
 
 Level0::Level0(absBoard *board, std::string name1, std::string name2): Level{board, false} {
-  names.push_back(name1);
-  names.push_back(name2);
+  names.emplace_back(name1);
+  names.emplace_back(name2);
 
-  std::ifstream file1{name1};
-  std::ifstream file2{name2};
-  if (!file1 || !file2) {
-    std::cerr << "File not found" << std::endl;
-    //exit(1);
-  }
-  //files.emplace_back(file1);
-  //files.emplace_back(file2);
+  // std::ifstream file1{name1};
+  // std::ifstream file2{name2};
+  // if (!file1 || !file2) {
+  //   std::cerr << "File not found" << std::endl;
+  //   exit(1);
+  // }
+  files.emplace_back(std::ifstream {name1});
+  files.emplace_back(std::ifstream {name2});
 }
 
 Level1::Level1(absBoard *board): Level{board, true} {}
