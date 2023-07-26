@@ -107,9 +107,9 @@ void TextDisplay::display(std::vector<Block*> &queue, int currPlayer, std::vecto
   std::string border{"+-----------+"};
   auto bp1 = b1;
   auto bp2 = b2;
-  printHeader(" Level:", 0);
+  printHeader(" Level:", currLevel.at(0));
   std::cout << separateHeader;
-  printHeader(" Level:", 0);
+  printHeader(" Level:", currLevel.at(1));
   std::cout << std::endl;
   printHeader(" Score:", 0);
   std::cout << separateHeader;
@@ -140,5 +140,5 @@ void TextDisplay::display(std::vector<Block*> &queue, int currPlayer, std::vecto
 }
 
 void TextDisplay::notify() {
-  display(queue, currPlayer);
+  display(queue, currPlayer, std::vector<int> currLevel);
   }
