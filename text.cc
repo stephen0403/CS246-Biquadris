@@ -85,6 +85,10 @@ static int numDigits(int num) {
   return res;
 }
 
+TextDisplay::~TextDisplay() {
+  // do nothing
+}
+
 void TextDisplay::printHeader(std::string title, int num) const {
   // std::ostringstream res;
   std::cout << title;
