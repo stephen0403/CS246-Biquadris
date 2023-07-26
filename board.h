@@ -23,7 +23,6 @@ class Board: public absBoard, public Subject {
   bool shift(int x, int y, Block *block, bool drop = false) override;
   void putBlock(int col, char type) override;
   int clearRows() override;
-  bool dropped;
 };
 
 #endif

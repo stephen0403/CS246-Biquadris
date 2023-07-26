@@ -62,14 +62,15 @@ int main(int argc, char *argv[]) {
       if (!(std::cin >> cmd)) break;
     }
 
+    bool dropped = false;
     if (cmd == "left") {
-      boards.at(currPlayer)->shift(-1, 0, blocksQueue.front());
+      dropped = boards.at(currPlayer)->shift(-1, 0, blocksQueue.front());
     } 
     else if (cmd == "right") {
-      boards.at(currPlayer)->shift(1, 0, blocksQueue.front());
+      dropped = boards.at(currPlayer)->shift(1, 0, blocksQueue.front());
     } 
     else if (cmd == "down") {
-      boards.at(currPlayer)->shift(0, -1, blocksQueue.front());
+      dropped = boards.at(currPlayer)->shift(0, -1, blocksQueue.front());
     } 
     else if (cmd == "clockwise") {
       boards.at(currPlayer)->rotateBlock(blocksQueue.front(), true);
@@ -78,7 +79,7 @@ int main(int argc, char *argv[]) {
       boards.at(currPlayer)->rotateBlock(blocksQueue.front(), false);
     } 
     else if (cmd == "drop") {
-      boards.at(currPlayer)->shift(0, -1, blocksQueue.front(), true);
+      dropped = boards.at(currPlayer)->shift(0, -1, blocksQueue.front(), true);
     } 
     else if (cmd == "levelup") {
       if (playerLevels[currPlayer] < 4) ++playerLevels[currPlayer];
@@ -128,6 +129,45 @@ int main(int argc, char *argv[]) {
       else blocksQueue.front() = std::make_unique<LBlock>().get();
     } 
     else if (cmd == "restart") { // call board's restart method
+    }
+
+    if (dropped) {
+      int rowsCleared = boards.at(currPlayer)->clearRows();
+
+      currPlayer = (currPlayer + 1) % 2;
+      currentBlock = std::move(nextBlock);
+      nextBlock = levels[playerLevels[currPlayer]].newBlock(currPlayer);
+      blocksQueue = {currentBlock.get(), nextBlock.get()};
+
+      if (rowsCleared > 1) {
+        // call special action
+
+        std::string action;
+        std::cout << "Enter a special action (blind, heavy, or force): " << std::endl;
+        std::cin >> action;
+        while (action != "blind" && action != "heavy" && action != "force") {
+          std::cout << "Invalid action. Please enter a valid action (blind, heavy, or force): " << std::endl;
+          std::cin >> action;
+        }
+
+        if (action == "blind") {
+          // call blind
+          // levels[playerLevels[currPlayer]].blind();
+        }
+        else if (action == "heavy") {
+          // set currentBlock to heavy that falls by 2 rows
+
+        }
+        else {
+          // call force
+          std::string blockType;
+          std::cout << "Enter a block type (I, J, L, O, S, Z, or T): " << std::endl;
+          std::cin >> blockType;
+
+          // set current block to generated Block of blockType
+        }
+      }
+
     }
   }
 }
