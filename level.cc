@@ -59,6 +59,7 @@ std::unique_ptr<Block> Level0::newBlock(int currPlayer) {
     files.at(currPlayer) = std::ifstream{names.at(currPlayer)};
     files.at(currPlayer) >> res;
   }
+  std::cout << "Block for Player " << currPlayer << ": " << res << std::endl;
   return blockGen(res);
 }
 

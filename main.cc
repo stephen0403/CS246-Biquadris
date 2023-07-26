@@ -47,10 +47,10 @@ int main(int argc, char *argv[]) {
   levels.emplace_back(l4.get());
   std::unique_ptr<TextDisplay> textObserver = std::make_unique<TextDisplay>
                                                 (board1.get(), board2.get());
-  std::unique_ptr<Block> currentBlock1 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer); 
-  std::unique_ptr<Block> nextBlock1 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-  std::unique_ptr<Block> currentBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer); 
-  std::unique_ptr<Block> nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+  std::unique_ptr<Block> currentBlock1 = levels.at(playerLevels[0])->newBlock(0); 
+  std::unique_ptr<Block> nextBlock1 = levels.at(playerLevels[0])->newBlock(0);
+  std::unique_ptr<Block> currentBlock2 = levels.at(playerLevels[1])->newBlock(1); 
+  std::unique_ptr<Block> nextBlock2 = levels.at(playerLevels[1])->newBlock(1);
   std::vector<Block*> blocksQueue1{currentBlock1.get(), nextBlock1.get()};
   std::vector<Block*> blocksQueue2{currentBlock2.get(), nextBlock2.get()};
   std::vector<std::vector<Block*>> queueOfBlockQueues{blocksQueue1, blocksQueue2};
@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
   bool readFromFile = false;
   std::ifstream file;
 
-  textObserver->display(blocksQueue1, blocksQueue2, currPlayer, playerLevels);
+  textObserver->display(blocksQueue1, blocksQueue2, playerLevels);
 
   while (true) {
 
@@ -99,10 +99,10 @@ int main(int argc, char *argv[]) {
 
       boards.at(currPlayer)->clearRows(); //clears rows
 
-      currPlayer = (currPlayer + 1) % 2;
-      queueOfBlockQueues.at(currPlayer).front() = std::move(queueOfBlockQueues.at(currPlayer).at(1));
+      queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
       std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
       queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
+      currPlayer = (currPlayer + 1) % 2;
     } 
     else if (cmd == "levelup") {
       if (playerLevels.at(currPlayer) < 4) ++playerLevels.at(currPlayer);
@@ -157,7 +157,7 @@ int main(int argc, char *argv[]) {
     } 
     else if (cmd == "restart") { // call board's restart method
     }
-    textObserver->display(blocksQueue1, blocksQueue2, currPlayer, playerLevels);
+    textObserver->display(blocksQueue1, blocksQueue2, playerLevels);
   }
 }
 
