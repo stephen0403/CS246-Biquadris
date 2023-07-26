@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
   bool readFromFile = false;
   std::ifstream file;
 
-  textObserver->display(blocksQueue, currPlayer);
+  textObserver->display(blocksQueue, currPlayer, playerLevels);
 
   while (true) {
 
@@ -190,7 +190,7 @@ int main(int argc, char *argv[]) {
     //   }
 
     // }
-    textObserver->display(blocksQueue, currPlayer);
+    textObserver->display(blocksQueue, currPlayer, playerLevels);
   }
 }
 
