@@ -34,16 +34,21 @@ int main(int argc, char *argv[]) {
   std::unique_ptr<Board> board1 = std::make_unique<Board> (); // board1
   std::unique_ptr<Board> board2 = std::make_unique<Board> (); // board2
   std::vector<absBoard*> boards {board1.get(), board2.get()};
-  std::vector<Level> levels;
-  levels.emplace_back(Level0(boards.at(currPlayer), file1, file2));
-  levels.emplace_back(Level1(boards.at(currPlayer)));
-  levels.emplace_back(Level2(boards.at(currPlayer)));
-  levels.emplace_back(Level3(boards.at(currPlayer), false));
-  levels.emplace_back(Level4(boards.at(currPlayer), false));
+  std::vector<Level*> levels;
+  std::unique_ptr<Level0> l0 = std::make_unique<Level0> (boards.at(currPlayer), file1, file2);
+  std::unique_ptr<Level1> l1 = std::make_unique<Level1> (boards.at(currPlayer));
+  std::unique_ptr<Level2> l2 = std::make_unique<Level2> (boards.at(currPlayer));
+  std::unique_ptr<Level3> l3 = std::make_unique<Level3> (boards.at(currPlayer), false);
+  std::unique_ptr<Level4> l4 = std::make_unique<Level4> (boards.at(currPlayer), false);
+  levels.emplace_back(l0.get());
+  levels.emplace_back(l1.get());
+  levels.emplace_back(l2.get());
+  levels.emplace_back(l3.get());
+  levels.emplace_back(l4.get());
   std::unique_ptr<Observer> textObserver = std::make_unique<TextDisplay>
                                                 (board1.get(), board2.get());
-  std::unique_ptr<Block> currentBlock = levels[playerLevels[currPlayer]].newBlock(currPlayer); 
-  std::unique_ptr<Block> nextBlock = levels[playerLevels[currPlayer]].newBlock(currPlayer);
+  std::unique_ptr<Block> currentBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer); 
+  std::unique_ptr<Block> nextBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
   std::vector<Block*> blocksQueue{currentBlock.get(), nextBlock.get()};
 
   std::cout << std::endl;
@@ -91,8 +96,10 @@ int main(int argc, char *argv[]) {
       if (playerLevels.at(currPlayer) > 0) --playerLevels.at(currPlayer);
     } 
     else if (cmd == "norandom") {
-      levels.at(3) = Level3(boards.at(currPlayer), false);
-      levels.at(4) = Level4(boards.at(currPlayer), false);
+      auto newL3 = std::make_unique<Level3> (boards.at(currPlayer), false);
+      auto newL4 = std::make_unique<Level4> (boards.at(currPlayer), false);
+      levels.at(3) = newL3.get();
+      levels.at(4) = newL4.get();
     } 
     else if (cmd == "random") {
       std::string fileName;
@@ -107,8 +114,8 @@ int main(int argc, char *argv[]) {
         std::cin >> fileName;
       }
 
-      levels.at(3) = Level3(boards.at(currPlayer), true, fileName);
-      levels.at(4) = Level4(boards.at(currPlayer), true, fileName);
+      //levels.at(3) = Level3(boards.at(currPlayer), true, fileName);
+      //levels.at(4) = Level4(boards.at(currPlayer), true, fileName);
     } 
     else if (cmd == "sequence") { //needs further attention
       std::string fileName;
@@ -139,7 +146,8 @@ int main(int argc, char *argv[]) {
 
       currPlayer = (currPlayer + 1) % 2;
       currentBlock = std::move(nextBlock);
-      nextBlock = levels[playerLevels[currPlayer]].newBlock(currPlayer);
+      std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+      //nextBlock = levels[playerLevels[currPlayer]].newBlock(currPlayer);
       blocksQueue = {currentBlock.get(), nextBlock.get()};
 
       if (rowsCleared > 1) {
