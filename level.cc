@@ -23,10 +23,10 @@ Level0::Level0(absBoard *board, std::string name1, std::string name2): Level{boa
   std::ifstream file2{name2};
   if (!file1 || !file2) {
     std::cerr << "File not found" << std::endl;
-    exit(1);
+    //exit(1);
   }
-  files.push_back(file1);
-  files.push_back(file2);
+  //files.emplace_back(file1);
+  //files.emplace_back(file2);
 }
 
 Level1::Level1(absBoard *board): Level{board, true} {}
@@ -105,9 +105,9 @@ std::unique_ptr<Block> Level4::newBlock(int currPlayer) {
 }
 
 void Level3::effect() const {
-  if (!board->dropped) {
-    board->shift(0, 1, false);
-  }
+  //if (!board->dropped) {
+    //board->shift(0, 1, false);
+  //}
 }
 
 void Level4::effect() const {
@@ -118,6 +118,6 @@ void Level4::effect() const {
     }
   } else {
   */
-    board->shift(0, 1, false);
+    //board->shift(0, 1, false);
   //}
 }
