@@ -103,13 +103,13 @@ void TextDisplay::display(std::vector<Block*> &queue, int currPlayer) {
   std::string border{"+-----------+"};
   auto bp1 = b1;
   auto bp2 = b2;
-  printHeader(" Level:", "filler 1");
+  printHeader(" Level:", 0);
   std::cout << separateHeader;
-  printHeader(" Level:", "filler 2");
+  printHeader(" Level:", 0);
   std::cout << std::endl;
-  printHeader(" Score:", "filler 3");
+  printHeader(" Score:", 0);
   std::cout << separateHeader;
-  printHeader(" Score:", "filler 4");
+  printHeader(" Score:", 0);
   std::cout << std::endl;
   std::cout << border << separateHeader << border << std::endl;
   for (int i = 0; i < 18; ++i) {
