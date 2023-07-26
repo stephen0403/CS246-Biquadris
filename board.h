@@ -14,7 +14,7 @@ class Board: public absBoard, public Subject {
   bool blockDroppedAfterBlind = false;
   friend class TextObserver;
   public:
-  Board(absBoard *board);
+  Board();
   char getState(int row, int col) const override;
   char tileAt(int row, int col) override;
   ~Board();
