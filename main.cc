@@ -129,8 +129,10 @@ int main(int argc, char *argv[]) {
         std::cin >> fileName;
       }
 
-      //levels.at(3) = Level3(boards.at(currPlayer), true, fileName);
-      //levels.at(4) = Level4(boards.at(currPlayer), true, fileName);
+      std::unique_ptr<Level3> l3 = std::make_unique<Level3> (boards.at(currPlayer), true, fileName);
+      std::unique_ptr<Level4> l4 = std::make_unique<Level4> (boards.at(currPlayer), true, fileName);
+      levels.at(3) = l3.get();
+      levels.at(4) = l4.get();
     } 
     else if (cmd == "sequence") { //needs further attention
       std::string fileName;
