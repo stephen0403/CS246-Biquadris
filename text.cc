@@ -100,7 +100,7 @@ void TextDisplay::printHeader(std::string title, int num) const {
   std::cout << num;
 }
 
-void TextDisplay::display(std::vector<Block*> &queue, int currPlayer, std::vector<int> currLevel) {
+void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queue2, std::vector<int> currLevel) {
   std::string separateHeader{"        "};
   std::string separateFooter{"                "};
   std::string emptyNext{"                     "};
@@ -129,16 +129,14 @@ void TextDisplay::display(std::vector<Block*> &queue, int currPlayer, std::vecto
   }
   std::cout << border << separateHeader << border << std::endl;
   std::cout << " Next:" << separateFooter << "Next:" << std::endl; // change game->queue..... to be the next blocks queue
-  if (currPlayer) { ///////////////////////// JUST NEED TO CHANGE THIS NOW
-    std::cout << queue.at(0)->firstRow() << std::endl << queue.at(0)->secondRow() << std::endl;
-  } else {
-    // check if queue is empty
-    // std::cout << "Queue Size: " << queue.size() << std::endl;
-    std::cout << emptyNext << queue.at(0)->firstRow() << std::endl;
-    std::cout << emptyNext << queue.at(0)->secondRow() << std::endl;
-  }
+
+  // Print out Next blocks for both players based on their respective block queues
+  std::cout << queue1.at(0)->firstRow() << std::endl; 
+  std::cout << queue1.at(0)->secondRow() << std::endl;
+  std::cout << emptyNext << queue2.at(0)->firstRow() << std::endl;
+  std::cout << emptyNext << queue2.at(0)->secondRow() << std::endl;
 }
 
 void TextDisplay::notify() {
-  display(queue, currPlayer, currLevel);
-  }
+  // display(queue1, queue2, currLevel);
+}
