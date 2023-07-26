@@ -134,5 +134,5 @@ void TextDisplay::display(std::vector<Block*> &queue, int currPlayer) {
 }
 
 void TextDisplay::notify() {
-  display(std::vector<Block*> &queue, int currPlayer);
+  display(queue, currPlayer);
   }
