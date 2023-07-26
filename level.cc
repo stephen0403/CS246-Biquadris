@@ -29,13 +29,23 @@ Level0::Level0(absBoard *board, std::string name1, std::string name2): Level{boa
   files.push_back(file2);
 }
 
-Level1::Level1(absBoard *board, bool): Level{board, true} {}
+Level1::Level1(absBoard *board): Level{board, true} {}
 
-Level2::Level2(absBoard *board, bool): Level{board, true} {}
+Level2::Level2(absBoard *board): Level{board, true} {}
 
-Level4::Level4(absBoard *board, bool random): Level{board, random} {}
+Level3::Level3(absBoard *board, bool random, std::string fileName = "sequence.txt"): Level{board, random} {
+  if (random) {
+    name = fileName;
+    file = std::ifstream{fileName};
+  }
+}
 
-Level3::Level3(absBoard *board, bool random): Level{board, random} {}
+Level4::Level4(absBoard *board, bool random, std::string fileName = "sequence.txt"): Level{board, random} {
+  if (random) {
+    name = fileName;
+    file = std::ifstream{fileName};
+  }
+}
 
 void Level::effect() const {}
 
