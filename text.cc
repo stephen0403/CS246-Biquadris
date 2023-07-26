@@ -132,6 +132,8 @@ void TextDisplay::display(std::vector<Block*> &queue, int currPlayer) {
   if (currPlayer) { ///////////////////////// JUST NEED TO CHANGE THIS NOW
     std::cout << queue.at(0)->firstRow() << std::endl << queue.at(0)->secondRow() << std::endl;
   } else {
+    // check if queue is empty
+    // std::cout << "Queue Size: " << queue.size() << std::endl;
     std::cout << emptyNext << queue.at(0)->firstRow() << std::endl;
     std::cout << emptyNext << queue.at(0)->secondRow() << std::endl;
   }
