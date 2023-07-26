@@ -51,8 +51,6 @@ int main(int argc, char *argv[]) {
   std::unique_ptr<Block> nextBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
   std::vector<Block*> blocksQueue{currentBlock.get(), nextBlock.get()};
 
-  std::cout << std::endl;
-
   std::string cmd;
   bool readFromFile = false;
   std::ifstream file;
