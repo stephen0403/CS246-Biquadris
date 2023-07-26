@@ -12,7 +12,7 @@ class Board: public absBoard, public Subject {
   absBoard *board;
   bool blindActivated = false;
   bool blockDroppedAfterBlind = false;
-  friend class TextObserver;
+  friend class TextDisplay;
   public:
   Board();
   char getState(int row, int col) const override;
