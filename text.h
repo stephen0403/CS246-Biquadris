@@ -30,7 +30,7 @@ class Block;
 
 class TextDisplay : public Observer {
   Board *b1;
-  Board *b2
+  Board *b2;
   void printHeader(std::string, int) const;
   public:
   TextDisplay(Board *b1, Board *b2);
