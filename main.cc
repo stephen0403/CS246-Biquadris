@@ -45,15 +45,18 @@ int main(int argc, char *argv[]) {
   levels.emplace_back(l2.get());
   levels.emplace_back(l3.get());
   levels.emplace_back(l4.get());
-  std::unique_ptr<Observer> textObserver = std::make_unique<TextDisplay>
+  std::unique_ptr<TextDisplay> textObserver = std::make_unique<TextDisplay>
                                                 (board1.get(), board2.get());
   std::unique_ptr<Block> currentBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer); 
   std::unique_ptr<Block> nextBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
   std::vector<Block*> blocksQueue{currentBlock.get(), nextBlock.get()};
+  boards.at(currPlayer)->shift(0, 0, blocksQueue.front(), false);
 
   std::string cmd;
   bool readFromFile = false;
   std::ifstream file;
+
+  textObserver->display(blocksQueue, currPlayer);
 
   while (true) {
 
@@ -76,7 +79,7 @@ int main(int argc, char *argv[]) {
       dropped = boards.at(currPlayer)->shift(1, 0, blocksQueue.front());
     } 
     else if (cmd == "down") {
-      dropped = boards.at(currPlayer)->shift(0, -1, blocksQueue.front());
+      dropped = boards.at(currPlayer)->shift(0, 1, blocksQueue.front());
     } 
     else if (cmd == "clockwise") {
       boards.at(currPlayer)->rotateBlock(blocksQueue.front(), true);
@@ -85,7 +88,7 @@ int main(int argc, char *argv[]) {
       boards.at(currPlayer)->rotateBlock(blocksQueue.front(), false);
     } 
     else if (cmd == "drop") {
-      dropped = boards.at(currPlayer)->shift(0, -1, blocksQueue.front(), true);
+      dropped = boards.at(currPlayer)->shift(0, 1, blocksQueue.front(), true);
     } 
     else if (cmd == "levelup") {
       if (playerLevels.at(currPlayer) < 4) ++playerLevels.at(currPlayer);
@@ -177,6 +180,7 @@ int main(int argc, char *argv[]) {
       }
 
     }
+    textObserver->display(blocksQueue, currPlayer);
   }
 }
 
