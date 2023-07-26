@@ -92,7 +92,7 @@ int main(int argc, char *argv[]) {
         dropping = boards.at(currPlayer)->shift(0, 1, blocksQueue.front(), true);
       }
 
-      int rowsCleared = boards.at(currPlayer)->clearRows();
+      boards.at(currPlayer)->clearRows(); //clears rows
 
       currPlayer = (currPlayer + 1) % 2;
       currentBlock = std::move(nextBlock);
