@@ -36,6 +36,7 @@ class TextDisplay : public Observer {
   public:
   TextDisplay(Board *b1, Board *b2);
   std::vector<Block*> queue;
+  std::vector<int> currLevel;
   int currPlayer;
   void display(std::vector<Block*> &queue, int currPlayer, std::vector<int> currLevel);
   void notify() override;
