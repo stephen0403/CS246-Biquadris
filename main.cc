@@ -2,6 +2,8 @@
 #include <iostream>
 #include <sstream>
 #include "level.h"
+#include "absBoard.h"
+#include "board.h"
 
 int main(int argc, char *argv[]) {
   std::string file1{"sequence1.txt"};
@@ -32,11 +34,12 @@ int main(int argc, char *argv[]) {
   std::unique_ptr<Board> board1 = std::make_unique<Board> (); // board1
   std::unique_ptr<Board> board2 = std::make_unique<Board> (); // board2
   std::vector<absBoard*> boards {board1.get(), board2.get()};
-  std::vector<Level> levels{Level0(boards.at(currPlayer), file1, file2),
-                            Level1(boards.at(currPlayer)),
-                            Level2(boards.at(currPlayer)),
-                            Level3(boards.at(currPlayer), false),
-                            Level4(boards.at(currPlayer), false)};
+  std::vector<Level> levels;
+  levels.emplace_back(Level0(boards.at(currPlayer), file1, file2));
+  levels.emplace_back(Level1(boards.at(currPlayer)));
+  levels.emplace_back(Level2(boards.at(currPlayer)));
+  levels.emplace_back(Level3(boards.at(currPlayer), false));
+  levels.emplace_back(Level4(boards.at(currPlayer), false));
   std::unique_ptr<Observer> textObserver = std::make_unique<TextDisplay>
                                                 (board1.get(), board2.get());
   std::unique_ptr<Block> currentBlock = levels[playerLevels[currPlayer]].newBlock(currPlayer); 
