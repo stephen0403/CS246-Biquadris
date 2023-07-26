@@ -47,8 +47,6 @@ Level4::Level4(absBoard *board, bool random, std::string fileName): Level{board,
   }
 }
 
-void Level::effect() const {}
-
 void Level::setRandom(bool) {}
 
 void Level3::setRandom(bool r) { random = r; }
@@ -104,13 +102,14 @@ std::unique_ptr<Block> Level4::newBlock(int currPlayer) {
   return blockGen(res);
 }
 
-void Level3::effect() const {
+void Level3::blind() const {
   //if (!board->dropped) {
     //board->shift(0, 1, false);
   //}
+  std::cout << "Blinded Board" << std::endl;
 }
 
-void Level4::effect() const {
+void Level4::blind() const {
   /*
   if (board->dropped) {
     if (game->getCount() && !(game->getCount() % 5)) {
@@ -120,4 +119,5 @@ void Level4::effect() const {
   */
     //board->shift(0, 1, false);
   //}
+  std::cout << "Blinded Board" << std::endl;
 }

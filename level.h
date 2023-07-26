@@ -12,7 +12,6 @@ class Level {
   public:
   Level(absBoard *, bool random);
   virtual std::unique_ptr<Block> newBlock(int currPlayer) = 0;
-  virtual void effect() const;
   virtual void getFile(std::string);
   virtual void setRandom(bool);
 };
@@ -43,7 +42,7 @@ class Level3: public Level {
   public:
   Level3(absBoard *, bool random, std::string fileName = "sequence.txt");
   std::unique_ptr<Block> newBlock(int currPlayer) override;
-  void effect() const override;
+  void blind() const;
   void getFile(std::string) override;
   void setRandom(bool) override;
 };
@@ -54,7 +53,7 @@ class Level4: public Level {
   public:
   Level4(absBoard *, bool random, std::string fileName = "sequence.txt");
   std::unique_ptr<Block> newBlock(int currPlayer) override;
-  void effect() const override;
+  void blind() const;
   void getFile(std::string) override;
   void setRandom(bool) override;
 };

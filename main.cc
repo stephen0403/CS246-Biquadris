@@ -110,7 +110,7 @@ int main(int argc, char *argv[]) {
       levels.at(3) = Level3(boards.at(currPlayer), true, fileName);
       levels.at(4) = Level4(boards.at(currPlayer), true, fileName);
     } 
-    else if (cmd == "sequence") { //needs further attention
+    else if (cmd == "sequence") {
       std::string fileName;
       if (readFromFile) {
         file >> fileName;
