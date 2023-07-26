@@ -48,11 +48,11 @@ void TextDisplay::display() {
   std::cout << border << separateHeader << border << std::endl;
   for (int i = 0; i < 18; ++i) {
     std::cout << '|';
-    for (auto c : bp1.at(i)) {
+    for (auto c : bp1->at(i)) {
       std::cout << c;
     }
     std::cout << '|' << separateHeader << '|';
-    for (auto c : bp2.at(i)) {
+    for (auto c : bp2->at(i)) {
       std::cout << c;
     }
     std::cout << '|' << std::endl;
@@ -114,11 +114,11 @@ void TextDisplay::display(std::vector<Block*> &queue, int currPlayer) {
   std::cout << border << separateHeader << border << std::endl;
   for (int i = 0; i < 18; ++i) {
     std::cout << '|';
-    for (auto c : bp1.at(i)) {
+    for (auto c : bp1->at(i)) {
       std::cout << c;
     }
     std::cout << '|' << separateHeader << '|';
-    for (auto c : bp2.at(i)) {
+    for (auto c : bp2->at(i)) {
       std::cout << c;
     }
     std::cout << '|' << std::endl;
