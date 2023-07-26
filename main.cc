@@ -47,16 +47,21 @@ int main(int argc, char *argv[]) {
   levels.emplace_back(l4.get());
   std::unique_ptr<TextDisplay> textObserver = std::make_unique<TextDisplay>
                                                 (board1.get(), board2.get());
-  std::unique_ptr<Block> currentBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer); 
-  std::unique_ptr<Block> nextBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-  std::vector<Block*> blocksQueue{currentBlock.get(), nextBlock.get()};
-  boards.at(currPlayer)->shift(0, 0, blocksQueue.front(), false);
+  std::unique_ptr<Block> currentBlock1 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer); 
+  std::unique_ptr<Block> nextBlock1 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+  std::unique_ptr<Block> currentBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer); 
+  std::unique_ptr<Block> nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+  std::vector<Block*> blocksQueue1{currentBlock1.get(), nextBlock1.get()};
+  std::vector<Block*> blocksQueue2{currentBlock2.get(), nextBlock2.get()};
+  std::vector<std::vector<Block*>> queueOfBlockQueues{blocksQueue1, blocksQueue2};
+
+  boards.at(currPlayer)->shift(0, 0, queueOfBlockQueues.at(currPlayer).front(), false);
 
   std::string cmd;
   bool readFromFile = false;
   std::ifstream file;
 
-  textObserver->display(blocksQueue, currPlayer, playerLevels);
+  textObserver->display(blocksQueue1, blocksQueue2, currPlayer, playerLevels);
 
   while (true) {
 
@@ -72,32 +77,32 @@ int main(int argc, char *argv[]) {
     }
 
     if (cmd == "left") {
-      boards.at(currPlayer)->shift(-1, 0, blocksQueue.front());
+      boards.at(currPlayer)->shift(-1, 0, queueOfBlockQueues.at(currPlayer).front());
     } 
     else if (cmd == "right") {
-      boards.at(currPlayer)->shift(1, 0, blocksQueue.front());
+      boards.at(currPlayer)->shift(1, 0, queueOfBlockQueues.at(currPlayer).front());
     } 
     else if (cmd == "down") {
-      boards.at(currPlayer)->shift(0, 1, blocksQueue.front());
+      boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
     } 
     else if (cmd == "clockwise") {
-      boards.at(currPlayer)->rotateBlock(blocksQueue.front(), true);
+      boards.at(currPlayer)->rotateBlock(queueOfBlockQueues.at(currPlayer).front(), true);
     } 
     else if (cmd == "counterclockwise") {
-      boards.at(currPlayer)->rotateBlock(blocksQueue.front(), false);
+      boards.at(currPlayer)->rotateBlock(queueOfBlockQueues.at(currPlayer).front(), false);
     } 
     else if (cmd == "drop") {
       bool dropping = true;
       while (dropping) {
-        dropping = boards.at(currPlayer)->shift(0, 1, blocksQueue.front(), true);
+        dropping = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front(), true);
       }
 
       boards.at(currPlayer)->clearRows(); //clears rows
 
       currPlayer = (currPlayer + 1) % 2;
-      currentBlock = std::move(nextBlock);
-      nextBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-      blocksQueue = {currentBlock.get(), nextBlock.get()};
+      queueOfBlockQueues.at(currPlayer).front() = std::move(queueOfBlockQueues.at(currPlayer).at(1));
+      std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+      queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
     } 
     else if (cmd == "levelup") {
       if (playerLevels.at(currPlayer) < 4) ++playerLevels.at(currPlayer);
@@ -144,13 +149,13 @@ int main(int argc, char *argv[]) {
       readFromFile = true;
     } 
     else if (cmd == "I" || cmd == "J" || cmd == "L") { //changes the current block to these
-      if (cmd == "I") blocksQueue.front() = std::make_unique<IBlock>().get();
-      else if (cmd == "J") blocksQueue.front() = std::make_unique<JBlock>().get();
-      else blocksQueue.front() = std::make_unique<LBlock>().get();
+      if (cmd == "I") queueOfBlockQueues.at(currPlayer).front() = std::make_unique<IBlock>().get();
+      else if (cmd == "J") queueOfBlockQueues.at(currPlayer).front() = std::make_unique<JBlock>().get();
+      else queueOfBlockQueues.at(currPlayer).front() = std::make_unique<LBlock>().get();
     } 
     else if (cmd == "restart") { // call board's restart method
     }
-    textObserver->display(blocksQueue, currPlayer, playerLevels);
+    textObserver->display(blocksQueue1, blocksQueue2, currPlayer, playerLevels);
   }
 }
 
