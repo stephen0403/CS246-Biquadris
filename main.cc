@@ -60,9 +60,31 @@ int main(int argc, char *argv[]) {
   std::string cmd;
   bool readFromFile = false;
   std::ifstream file;
+  int rowsCleared = 0;
 
 
   while (true) {
+    // check for special action
+    if (rowsCleared >= 2) {
+      rowsCleared = 0;
+      std::cout << "Choose a special action: blind, heavy, force " << std::endl;
+      std::string s;
+      std::cin >> s;
+      // implement trie?
+      if (s == "blind" || s == "Blind" || s == "BLIND" || s == "b" || s == "B") {
+        // blind effect
+      }
+      else if (s == "heavy" || s == "Heavy" || s == "HEAVY" || s == "h" || s == "H") {
+        int nextPlayer = (currPlayer + 1) % 2;
+        boards.at(nextPlayer)->setHeavy();
+      }
+      else if (s == "force" || s == "Force" || s == "FORCE" || s == "f" || s == "F") {
+        char c;
+        std::cin >> c;
+        // force next players block
+      }
+      rowsCleared = 0;
+    }
     boards.at(0)->shift(0, 0, queueOfBlockQueues.at(0).front());
     boards.at(1)->shift(0, 0, queueOfBlockQueues.at(1).front());
     textObserver->display(blocksQueue1, blocksQueue2, playerLevels);
@@ -177,10 +199,6 @@ int main(int argc, char *argv[]) {
       else queueOfBlockQueues.at(currPlayer).front() = std::make_unique<LBlock>().get();
     } 
     else if (cmd == "restart") { // call board's restart method
-    }
-    else if (cmd == "heavy") {
-      int nextPlayer = (currPlayer + 1) % 2;
-      boards.at(nextPlayer)->setHeavy();
     }
   }
 }
