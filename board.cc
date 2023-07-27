@@ -16,6 +16,15 @@ void Board::render() {
   notifyObservers();
 }
 
+bool Board::isHeavy() {
+  return heavy;
+}
+
+void Board::setHeavy() {
+  heavy = true;
+}
+
+
 char Board::getState(int row, int col) const {
   return board->tileAt(row, col);
 }
