@@ -18,6 +18,8 @@ public:
     virtual bool shift(int x, int y, Block *block, bool drop = false) = 0;
     virtual void putBlock(int col, char type) = 0;
     virtual int clearRows() = 0;
+    virtual bool isHeavy() = 0;
+    virtual void setHeavy() = 0;
 };
 
 #endif
