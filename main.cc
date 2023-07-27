@@ -80,17 +80,27 @@ int main(int argc, char *argv[]) {
     if (cmd == "left") {
       boards.at(currPlayer)->shift(-1, 0, queueOfBlockQueues.at(currPlayer).front());
       if (boards.at(currPlayer)->isHeavy()) {
-        boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-        boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-        // need to add logic if it reaches bottom then its considered "dropped"
+        bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+        bool two = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+        if (!one || !two) {
+          queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
+          std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+          queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
+          currPlayer = (currPlayer + 1) % 2;
+        }
       }
     } 
     else if (cmd == "right") {
       boards.at(currPlayer)->shift(1, 0, queueOfBlockQueues.at(currPlayer).front());
       if (boards.at(currPlayer)->isHeavy()) {
-        boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-        boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-        // need to add logic if it reaches bottom then its considered "dropped"
+        bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+        bool two = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+        if (!one || !two) {
+          queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
+          std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+          queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
+          currPlayer = (currPlayer + 1) % 2;
+        }
       }
     } 
     else if (cmd == "down") {
