@@ -131,9 +131,9 @@ void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queu
   std::cout << " Next:" << separateFooter << "Next:" << std::endl; // change game->queue..... to be the next blocks queue
 
   // Print out Next blocks for both players based on their respective block queues
-  std::cout << queue1.at(0)->firstRow() << std::endl; 
-  std::cout << queue1.at(0)->secondRow() << std::endl;
+  std::cout << queue1.at(0)->firstRow(); 
   std::cout << emptyNext << queue2.at(0)->firstRow() << std::endl;
+  std::cout << queue1.at(0)->secondRow();
   std::cout << emptyNext << queue2.at(0)->secondRow() << std::endl;
 }
 
