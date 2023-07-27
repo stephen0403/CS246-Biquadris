@@ -60,7 +60,6 @@ int main(int argc, char *argv[]) {
   std::string cmd;
   bool readFromFile = false;
   std::ifstream file;
-  bool isHeavy = false;
 
 
   while (true) {
@@ -80,7 +79,7 @@ int main(int argc, char *argv[]) {
 
     if (cmd == "left") {
       boards.at(currPlayer)->shift(-1, 0, queueOfBlockQueues.at(currPlayer).front());
-      if (isHeavy) {
+      if (boards.at(currPlayer)->isHeavy) {
         boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
         boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
         // need to add logic if it reaches bottom then its considered "dropped"
@@ -88,7 +87,7 @@ int main(int argc, char *argv[]) {
     } 
     else if (cmd == "right") {
       boards.at(currPlayer)->shift(1, 0, queueOfBlockQueues.at(currPlayer).front());
-      if (isHeavy) {
+      if (boards.at(currPlayer)->isHeavy) {
         boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
         boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
         // need to add logic if it reaches bottom then its considered "dropped"
