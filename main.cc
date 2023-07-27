@@ -61,10 +61,12 @@ int main(int argc, char *argv[]) {
   bool readFromFile = false;
   std::ifstream file;
 
-  textObserver->display(blocksQueue1, blocksQueue2, playerLevels);
+
 
   while (true) {
-
+    boards.at(0)->shift(0, 0, queueOfBlockQueues.at(0).front());
+    boards.at(1)->shift(0, 0, queueOfBlockQueues.at(1).front());
+    textObserver->display(blocksQueue1, blocksQueue2, playerLevels);
     if (readFromFile) {
       file >> cmd;
       if (file.eof()) {
@@ -157,8 +159,5 @@ int main(int argc, char *argv[]) {
     } 
     else if (cmd == "restart") { // call board's restart method
     }
-    textObserver->display(blocksQueue1, blocksQueue2, playerLevels);
   }
 }
-
-
