@@ -15,6 +15,7 @@ class Blind: public Decorator {
     bool shift(int x, int y, Block *block, bool drop = false) override;
     void putBlock(int col, char type) override;
     int clearRows() override;
+    void setHeavy() override;
 };
 
 #endif
