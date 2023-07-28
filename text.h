@@ -17,7 +17,7 @@ public:
   std::vector<Block*> queue;
   std::vector<int> currLevel;
   int currPlayer;
-  void display(std::vector<Block*> &queue1, std::vector<Block*> &queue2, std::vector<int> currLevel);
+  void display(std::vector<Block*> &queue1, std::vector<Block*> &queue2, std::vector<int> currLevel, bool p1blind = false, bool p2blind = false);
   void notify() override;
   ~TextDisplay();
 };
