@@ -159,10 +159,10 @@ int main(int argc, char *argv[]) {
       if (playerLevels.at(currPlayer) > 0) --playerLevels.at(currPlayer);
     } 
     else if (cmd == "norandom") {
-      auto newL3 = std::make_unique<Level3> (boards.at(currPlayer), false);
-      auto newL4 = std::make_unique<Level4> (boards.at(currPlayer), false);
-      levels.at(3) = newL3.get();
-      levels.at(4) = newL4.get();
+      l3 = std::make_unique<Level3> (boards.at(currPlayer), false);
+      l4 = std::make_unique<Level4> (boards.at(currPlayer), false);
+      levels.at(3) = l3.get();
+      levels.at(4) = l4.get();
     } 
     else if (cmd == "random") {
       std::string fileName;
@@ -177,8 +177,8 @@ int main(int argc, char *argv[]) {
         std::cin >> fileName;
       }
 
-      std::unique_ptr<Level3> l3 = std::make_unique<Level3> (boards.at(currPlayer), true, fileName);
-      std::unique_ptr<Level4> l4 = std::make_unique<Level4> (boards.at(currPlayer), true, fileName);
+      l3 = std::make_unique<Level3> (boards.at(currPlayer), true, fileName);
+      l4 = std::make_unique<Level4> (boards.at(currPlayer), true, fileName);
       levels.at(3) = l3.get();
       levels.at(4) = l4.get();
     } 
