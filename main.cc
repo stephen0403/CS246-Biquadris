@@ -201,26 +201,38 @@ int main(int argc, char *argv[]) {
     else if (cmd == "I" || cmd == "J" || cmd == "L") { //changes the current block to these
       if (cmd == "I") {
         if (currPlayer == 0) {
+          auto oldBlock = std::move(currentBlock1);
           currentBlock1 = std::make_unique<IBlock>();
+          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
           queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
         } else {
+          auto oldBlock = std::move(currentBlock2);
           currentBlock2 = std::make_unique<IBlock>();
+          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
           queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
         }
       } else if (cmd == "J") {
         if (currPlayer == 0) {
+          auto oldBlock = std::move(currentBlock1);
           currentBlock1 = std::make_unique<JBlock>();
+          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
           queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
         } else {
+          auto oldBlock = std::move(currentBlock2);
           currentBlock2 = std::make_unique<JBlock>();
+          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
           queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
         }
       } else {
         if (currPlayer == 0) {
+          auto oldBlock = std::move(currentBlock1);
           currentBlock1 = std::make_unique<LBlock>();
+          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
           queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
         } else {
+          auto oldBlock = std::move(currentBlock2);
           currentBlock2 = std::make_unique<LBlock>();
+          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
           queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
         }
       }

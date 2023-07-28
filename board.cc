@@ -75,6 +75,29 @@ bool Board::shift(int x, int y, Block *block, bool drop) {
   return true;
 }
 
+bool Board::swapBlock(Block *oldBlock, Block *newBlock) {
+  std::vector<std::vector<int>> &oldBlockPos = oldBlock->pos;
+  std::vector<std::vector<int>> &newBlockPos = newBlock->pos;
+  char oldBlockType = oldBlock->getType();
+  char newBlockType = newBlock->getType();
+
+  for (int i = 0; i < 4; ++i) {
+    theBoard.at(oldBlockPos[i][0]).at(oldBlockPos[i][1]) = ' ';
+  }
+  // for (int i = 0; i < 4; ++i) {
+  //   if (theBoard.at(newBlockPos[i][0]).at(newBlockPos[i][1]) != ' ') {
+  //     for (int j = 0; j < 4; ++i) {
+  //       theBoard.at(oldBlockPos[j][0]).at(oldBlockPos[j][1]) = oldBlockType;
+  //     }
+  //     return false;
+  //   }
+  // }
+  // for (int i = 0; i < 4; ++i) {
+  //   theBoard.at(newBlockPos[i][0]).at(newBlockPos[i][1]) = newBlockType;
+  // }
+  return true;
+}
+
 // bool Board::clearRows() {
 //   std::vector<std::vector<char>> newBoard(18, std::vector<char>(11, ' '));
 //   int cur_row = 17;
