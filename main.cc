@@ -4,7 +4,7 @@
 #include "level.h"
 #include "absBoard.h"
 #include "board.h"
-#include "trie.h"
+// #include "trie.h"
 
 int main(int argc, char *argv[]) {
   std::string file1{"sequence1.txt"};
@@ -13,19 +13,19 @@ int main(int argc, char *argv[]) {
   int currPlayer = 0;               // current player
   std::vector<int> playerLevels{0, 0}; //the levels each player is on
 
-  std::unique_ptr<TrieNode> trie = std::make_unique<TrieNode>();
-  trie->insert("left");
-  trie->insert("right");
-  trie->insert("down");
-  trie->insert("clockwise");
-  trie->insert("counterclockwise");
-  trie->insert("drop");
-  trie->insert("levelup");
-  trie->insert("leveldown");
-  trie->insert("norandom");
-  trie->insert("random");
-  trie->insert("sequence");
-  trie->insert("restart");
+  // std::unique_ptr<TrieNode> trie = std::make_unique<TrieNode>();
+  // trie->insert("left");
+  // trie->insert("right");
+  // trie->insert("down");
+  // trie->insert("clockwise");
+  // trie->insert("counterclockwise");
+  // trie->insert("drop");
+  // trie->insert("levelup");
+  // trie->insert("leveldown");
+  // trie->insert("norandom");
+  // trie->insert("random");
+  // trie->insert("sequence");
+  // trie->insert("restart");
   
   for (int i = 1; i < argc; i += 2) {
     std::string arg{argv[i]};
@@ -106,13 +106,13 @@ int main(int argc, char *argv[]) {
     boards.at(1)->shift(0, 0, queueOfBlockQueues.at(1).front());
     if (boards.at(currPlayer)->isBlind() || boards.at(nextPlayer)->isBlind()) {
       if (whoisblind) {
-        textObserver->display(blocksQueue1, blocksQueue2, playerLevels, !whoisblind, whoisblind);
+        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, !whoisblind, whoisblind);
       }
       else {
-        textObserver->display(blocksQueue1, blocksQueue2, playerLevels, whoisblind, !whoisblind);
+        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, whoisblind, !whoisblind);
       }
     } else {
-      textObserver->display(blocksQueue1, blocksQueue2, playerLevels);
+      textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels);
     }
     if (readFromFile) {
       file >> cmd;
