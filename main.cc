@@ -137,7 +137,9 @@ int main(int argc, char *argv[]) {
     } else {
       if (!(std::cin >> cmd)) break;
     }
-      
+    
+    std::vector<std::string> possibleCommands = trie->autocomplete(cmd);
+    if (trie.size() == 1);
     if (cmd == "left") {
       boards.at(currPlayer)->shift(-1, 0, queueOfBlockQueues.at(currPlayer).front());
       if (boards.at(currPlayer)->isHeavy()) {
