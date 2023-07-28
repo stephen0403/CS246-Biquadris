@@ -85,16 +85,17 @@ int main(int argc, char *argv[]) {
     bool whoisblind = nextPlayer % 2 == 0;
     boards.at(0)->shift(0, 0, queueOfBlockQueues.at(0).front());
     boards.at(1)->shift(0, 0, queueOfBlockQueues.at(1).front());
-    if (blind) {
-      if (whoisblind) {
-        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, !whoisblind, whoisblind);
-      }
-      else {
-        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, whoisblind, !whoisblind);
-      }
-    } else {
-      textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels);
-    }
+    textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels);
+    // if (blind) {
+    //   if (whoisblind) {
+    //     textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, !whoisblind, whoisblind);
+    //   }
+    //   else {
+    //     textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, whoisblind, !whoisblind);
+    //   }
+    // } else {
+    //   textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels);
+    // }
     if (rowsCleared >= 2) {
       rowsCleared = 0;
       std::cout << "Choose a special action: blind, heavy, force " << std::endl;
@@ -104,6 +105,11 @@ int main(int argc, char *argv[]) {
       if (s == "blind" || s == "Blind" || s == "BLIND" || s == "b" || s == "B") {
         boards.at(nextPlayer)->triggerBlind();
         blind = true;
+        if (whoisblind) {
+          textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, !whoisblind, whoisblind);
+        } else {
+          textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, whoisblind, !whoisblind);
+        }
       }
       else if (s == "heavy" || s == "Heavy" || s == "HEAVY" || s == "h" || s == "H") {
         boards.at(nextPlayer)->setHeavy();
