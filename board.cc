@@ -197,6 +197,14 @@ void Board::putBlock(int col, char type) {
 //   return res.str();
 // }
 
+void Board::triggerBlind() {
+  blindActivated = !blindActivated;
+}
+
+bool Board::isBlind() {
+  return blindActivated;
+}
+
 
 
 // void Board::move(int x, int y) {
