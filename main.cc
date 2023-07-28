@@ -166,7 +166,7 @@ int main(int argc, char *argv[]) {
         dropping = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front(), true);
       }
 
-      boards.at(currPlayer)->clearRows(); //clears rows
+      rowsCleared = boards.at(currPlayer)->clearRows(); //clears rows
       if (currPlayer) {
         currentBlock2 = std::move(nextBlock2);
         nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
