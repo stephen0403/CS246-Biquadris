@@ -36,8 +36,6 @@ void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queu
   std::string separateFooter{"                "};
   std::string emptyNext{"                     "};
   std::string border{"+-----------+"};
-  auto bp1 = b1;
-  auto bp2 = b2;
   printHeader(" Level:", currLevel.at(0));
   std::cout << separateHeader;
   printHeader(" Level:", currLevel.at(1));
@@ -49,12 +47,12 @@ void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queu
   std::cout << border << separateHeader << border << std::endl;
   for (int i = 0; i < 18; ++i) {
     std::cout << '|';
-    for (auto c : bp1->theBoard.at(i)) {
-      std::cout << c;
+    for (int k = 0; k < 11; ++k) {
+      std::cout << b1->tileAt(i, k);
     }
     std::cout << '|' << separateHeader << '|';
-    for (auto c : bp2->theBoard.at(i)) {
-      std::cout << c;
+    for (int k = 0; k < 11; ++k) {
+      std::cout << b2->tileAt(i, k);
     }
     std::cout << '|' << std::endl;
   }
