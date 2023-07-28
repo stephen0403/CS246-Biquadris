@@ -141,10 +141,16 @@ int main(int argc, char *argv[]) {
       }
 
       boards.at(currPlayer)->clearRows(); //clears rows
+      if (currPlayer) {
+        currentBlock2 = std::move(nextBlock2);
+        nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+        queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
+      } else {
+        currentBlock1 = std::move(nextBlock1);
+        nextBlock1 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+        queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
+      }
 
-      queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
-      std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-      queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
       currPlayer = (currPlayer + 1) % 2;
     } 
     else if (cmd == "levelup") {
