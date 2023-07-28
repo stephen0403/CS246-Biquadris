@@ -27,6 +27,8 @@ class Board: public absBoard, public Subject {
   int clearRows() override;
   bool isHeavy() override;
   void setHeavy() override;
+  void triggerBlind() override;
+  bool isBlind() override;
 };
 
 #endif
