@@ -87,7 +87,7 @@ int main(int argc, char *argv[]) {
     }
     boards.at(0)->shift(0, 0, queueOfBlockQueues.at(0).front());
     boards.at(1)->shift(0, 0, queueOfBlockQueues.at(1).front());
-    textObserver->display(blocksQueue1, blocksQueue2, playerLevels);
+    textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels);
     if (readFromFile) {
       file >> cmd;
       if (file.eof()) {
