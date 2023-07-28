@@ -4,6 +4,7 @@
 #include "level.h"
 #include "absBoard.h"
 #include "board.h"
+#include "trie.h"
 
 int main(int argc, char *argv[]) {
   std::string file1{"sequence1.txt"};
@@ -12,6 +13,20 @@ int main(int argc, char *argv[]) {
   int currPlayer = 0;               // current player
   std::vector<int> playerLevels{0, 0}; //the levels each player is on
 
+  std::unique_ptr<TrieNode> trie = std::make_unique<TrieNode>();
+  trie->insert("left");
+  trie->insert("right");
+  trie->insert("down");
+  trie->insert("clockwise");
+  trie->insert("counterclockwise");
+  trie->insert("drop");
+  trie->insert("levelup");
+  trie->insert("leveldown");
+  trie->insert("norandom");
+  trie->insert("random");
+  trie->insert("sequence");
+  trie->insert("restart");
+  
   for (int i = 1; i < argc; i += 2) {
     std::string arg{argv[i]};
     if (arg == "-text") {
