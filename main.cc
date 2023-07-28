@@ -73,7 +73,8 @@ int main(int argc, char *argv[]) {
       std::cin >> s;
       // implement trie?
       if (s == "blind" || s == "Blind" || s == "BLIND" || s == "b" || s == "B") {
-        boards.at(nextPlayer) = Blind(boards.at(nextPlayer), "?"); // ?
+        boards.at(nextPlayer)->triggerBlind();
+        
       }
       else if (s == "heavy" || s == "Heavy" || s == "HEAVY" || s == "h" || s == "H") {
         boards.at(nextPlayer)->setHeavy();
