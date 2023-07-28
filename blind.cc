@@ -31,7 +31,7 @@ void Blind::setBlockDroppedTrue() {
 }
 
 
-void Blind::isHeavy() {
+bool Blind::isHeavy() {
   return heavy;
 }
 
