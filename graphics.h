@@ -1,6 +1,6 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
-#inclue "board.h"
+#include "board.h"
 #include "block.h"
 #include "observer.h"
 #include "window.h"
