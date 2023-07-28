@@ -12,5 +12,6 @@ class GraphicDisplay : public Observer {
 public:
   GraphicDisplay(Board *b1, Board *b2);
   void notify() override;
+  void init();
   ~GraphicDisplay();
 };
