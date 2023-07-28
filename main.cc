@@ -254,6 +254,38 @@ int main(int argc, char *argv[]) {
       }
     } 
     else if (cmd == "restart") { // call board's restart method
+      board1 = std::make_unique<Board> (); // board1
+      board2 = std::make_unique<Board> (); // board2
+      boards = {board1.get(), board2.get()};
+      levels = {};
+      l0 = std::make_unique<Level0> (boards.at(currPlayer), file1, file2);
+      l1 = std::make_unique<Level1> (boards.at(currPlayer));
+      l2 = std::make_unique<Level2> (boards.at(currPlayer));
+      l3 = std::make_unique<Level3> (boards.at(currPlayer), false);
+      l4 = std::make_unique<Level4> (boards.at(currPlayer), false);
+      levels.emplace_back(l0.get());
+      levels.emplace_back(l1.get());
+      levels.emplace_back(l2.get());
+      levels.emplace_back(l3.get());
+      levels.emplace_back(l4.get());
+      textObserver = std::make_unique<TextDisplay>
+                                                    (board1.get(), board2.get());
+      currentBlock1 = levels.at(playerLevels[0])->newBlock(0); 
+      nextBlock1 = levels.at(playerLevels[0])->newBlock(0);
+      currentBlock2 = levels.at(playerLevels[1])->newBlock(1); 
+      nextBlock2 = levels.at(playerLevels[1])->newBlock(1);
+      blocksQueue1 = {currentBlock1.get(), nextBlock1.get()};
+      blocksQueue2 = {currentBlock2.get(), nextBlock2.get()};
+      queueOfBlockQueues = {blocksQueue1, blocksQueue2};
+
+      currPlayer = 0;
+      playerLevels = {0, 0};
+
+      boards.at(currPlayer)->shift(0, 0, queueOfBlockQueues.at(currPlayer).front(), false);
+
+      cmd = "";
+      readFromFile = false;
+      rowsCleared = 0;
     }
   }
 }
