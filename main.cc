@@ -112,6 +112,18 @@ int main(int argc, char *argv[]) {
         char c;
         std::cin >> c;
         // force next players block
+
+        if (currPlayer == 0) {
+          auto oldBlock = std::move(currentBlock1);
+          currentBlock1 = blockGen(c);
+          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
+          queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
+        } else {
+          auto oldBlock = std::move(currentBlock2);
+          currentBlock2 = blockGen(c);
+          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
+          queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
+        }
       }
       rowsCleared = 0;
     }
