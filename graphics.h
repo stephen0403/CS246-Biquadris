@@ -8,9 +8,10 @@
 class GraphicDisplay : public Observer {
   Board *b1;
   Board *b2;
-  Xwindow *win;
+  Xwindow win;
 public:
   GraphicDisplay(Board *b1, Board *b2);
   void notify() override;
+  void init();
   ~GraphicDisplay();
 };
