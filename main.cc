@@ -142,9 +142,15 @@ int main(int argc, char *argv[]) {
 
       boards.at(currPlayer)->clearRows(); //clears rows
 
-      queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
-      std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-      queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
+      if (currPlayer == 0) {
+        currentBlock1 = std::move(nextBlock1);
+        nextBlock1 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+        queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
+      } else {
+        currentBlock2 = std::move(nextBlock2);
+        nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+        queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
+      }
       currPlayer = (currPlayer + 1) % 2;
     } 
     else if (cmd == "levelup") {
@@ -194,9 +200,31 @@ int main(int argc, char *argv[]) {
       readFromFile = true;
     } 
     else if (cmd == "I" || cmd == "J" || cmd == "L") { //changes the current block to these
-      if (cmd == "I") queueOfBlockQueues.at(currPlayer).front() = std::make_unique<IBlock>().get();
-      else if (cmd == "J") queueOfBlockQueues.at(currPlayer).front() = std::make_unique<JBlock>().get();
-      else queueOfBlockQueues.at(currPlayer).front() = std::make_unique<LBlock>().get();
+      if (cmd == "I") {
+        if (currPlayer == 0) {
+          currentBlock1 = std::make_unique<IBlock>();
+          queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
+        } else {
+          currentBlock2 = std::make_unique<IBlock>();
+          queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
+        }
+      } else if (cmd == "J") {
+        if (currPlayer == 0) {
+          currentBlock1 = std::make_unique<JBlock>();
+          queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
+        } else {
+          currentBlock2 = std::make_unique<JBlock>();
+          queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
+        }
+      } else {
+        if (currPlayer == 0) {
+          currentBlock1 = std::make_unique<LBlock>();
+          queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
+        } else {
+          currentBlock2 = std::make_unique<LBlock>();
+          queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
+        }
+      }
     } 
     else if (cmd == "restart") { // call board's restart method
     }
