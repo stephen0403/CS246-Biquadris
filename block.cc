@@ -10,11 +10,11 @@ LBlock::LBlock(/*Board *board*/): Block{/*board, */{{2, 2}, {3, 0}, {3, 1}, {3, 
 
 OBlock::OBlock(/*Board *board*/): Block{/*board, */{{2, 0}, {2, 1}, {3, 0}, {3, 1}}, {3, 0}} {}
 
-SBlock::SBlock(/*Board *board*/): Block{/*board, */{{3, 1}, {3, 2}, {4, 0}, {4, 1}}, {4, 0}} {}
+SBlock::SBlock(/*Board *board*/): Block{/*board, */{{2, 1}, {2, 2}, {3, 0}, {3, 1}}, {3, 0}} {}
 
-ZBlock::ZBlock(/*Board *board*/): Block{/*board, */{{3, 0}, {3, 1}, {4, 1}, {4, 2}}, {4, 0}} {}
+ZBlock::ZBlock(/*Board *board*/): Block{/*board, */{{2, 0}, {2, 1}, {3, 1}, {3, 2}}, {3, 0}} {}
 
-TBlock::TBlock(/*Board *board*/): Block{/*board, */{{3, 0}, {3, 1}, {3, 2}, {4, 1}}, {4, 0}} {}
+TBlock::TBlock(/*Board *board*/): Block{/*board, */{{2, 0}, {2, 1}, {2, 2}, {3, 1}}, {3, 0}} {}
 
 // Board *Block::getBoard() const { return board; }
 
