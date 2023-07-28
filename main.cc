@@ -101,9 +101,19 @@ int main(int argc, char *argv[]) {
       }
       rowsCleared = 0;
     }
+    bool whoisblind = nextPlayer % 2 == 0;
     boards.at(0)->shift(0, 0, queueOfBlockQueues.at(0).front());
     boards.at(1)->shift(0, 0, queueOfBlockQueues.at(1).front());
-    textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels);
+    if (boards.at(currPlayer)->isBlind() || boards.at(nextPlayer)->isBlind()) {
+      if (whoisblind) {
+        textObserver->display(blocksQueue1, blocksQueue2, playerLevels, !whoisblind, whoisblind);
+      }
+      else {
+        textObserver->display(blocksQueue1, blocksQueue2, playerLevels, whoisblind, !whoisblind);
+      }
+    } else {
+      textObserver->display(blocksQueue1, blocksQueue2, playerLevels);
+    }
     if (readFromFile) {
       file >> cmd;
       if (file.eof()) {
