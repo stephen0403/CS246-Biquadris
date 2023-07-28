@@ -31,11 +31,14 @@ void TextDisplay::printHeader(std::string title, int num) const {
   std::cout << num;
 }
 
-void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queue2, std::vector<int> currLevel) {
+
+void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queue2, std::vector<int> currLevel, bool p1blind, bool p2blind) {
   std::string separateHeader{"        "};
   std::string separateFooter{"                "};
   std::string emptyNext{"                     "};
   std::string border{"+-----------+"};
+  auto bp1 = b1;
+  auto bp2 = b2;
   printHeader(" Level:", currLevel.at(0));
   std::cout << separateHeader;
   printHeader(" Level:", currLevel.at(1));
@@ -45,8 +48,65 @@ void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queu
   printHeader(" Score:", 0);
   std::cout << std::endl;
   std::cout << border << separateHeader << border << std::endl;
-  for (int i = 0; i < 18; ++i) {
-    std::cout << '|';
+  if (p1blind && p2blind) {
+    for (int i = 0; i < 18; ++i) {
+      std::cout << '|';
+      for (auto c : bp1->theBoard.at(i)) {
+        if (i >= 2 && i <= 11) {
+          std::cout << "?";
+        }
+        else {
+          std::cout << c;
+        }
+      }
+      std::cout << '|' << separateHeader << '|';
+      for (auto c : bp2->theBoard.at(i)) {
+        if (i >= 2 && i <= 11) {
+          std::cout << "?";
+        }
+        else {
+          std::cout << c;
+        }
+      }
+      std::cout << '|' << std::endl;
+    }
+  } else if (p1blind && !p2blind) {
+    for (int i = 0; i < 18; ++i) {
+      std::cout << '|';
+      for (auto c : bp1->theBoard.at(i)) {
+        if (i >= 2 && i <= 11) {
+          std::cout << "?";
+        }
+        else {
+          std::cout << c;
+        }
+      }
+      std::cout << '|' << separateHeader << '|';
+      for (auto c : bp2->theBoard.at(i)) {
+        std::cout << c;
+      }
+      std::cout << '|' << std::endl;
+    }
+  } else if (!p1blind && p2blind) {
+    for (int i = 0; i < 18; ++i) {
+      std::cout << '|';
+      for (auto c : bp1->theBoard.at(i)) {
+        std::cout << c;
+      }
+      std::cout << '|' << separateHeader << '|';
+      for (auto c : bp2->theBoard.at(i)) {
+        if (i >= 2 && i <= 11) {
+          std::cout << "?";
+        }
+        else {
+          std::cout << c;
+        }
+      }
+      std::cout << '|' << std::endl;
+    }
+  } else {
+    for (int i = 0; i < 18; ++i) {
+      std::cout << '|';
     for (int k = 0; k < 11; ++k) {
       std::cout << b1->tileAt(i, k);
     }
@@ -55,6 +115,7 @@ void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queu
       std::cout << b2->tileAt(i, k);
     }
     std::cout << '|' << std::endl;
+    }
   }
   std::cout << border << separateHeader << border << std::endl;
   std::cout << " Next:" << separateFooter << "Next:" << std::endl; // change game->queue..... to be the next blocks queue
@@ -65,6 +126,41 @@ void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queu
   std::cout << queue1.at(1)->secondRow();
   std::cout << emptyNext << queue2.at(1)->secondRow() << std::endl;
 }
+
+// void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queue2, std::vector<int> currLevel) {
+//   std::string separateHeader{"        "};
+//   std::string separateFooter{"                "};
+//   std::string emptyNext{"                     "};
+//   std::string border{"+-----------+"};
+//   printHeader(" Level:", currLevel.at(0));
+//   std::cout << separateHeader;
+//   printHeader(" Level:", currLevel.at(1));
+//   std::cout << std::endl;
+//   printHeader(" Score:", 0);
+//   std::cout << separateHeader;
+//   printHeader(" Score:", 0);
+//   std::cout << std::endl;
+//   std::cout << border << separateHeader << border << std::endl;
+//   for (int i = 0; i < 18; ++i) {
+//     std::cout << '|';
+//     for (int k = 0; k < 11; ++k) {
+//       std::cout << b1->tileAt(i, k);
+//     }
+//     std::cout << '|' << separateHeader << '|';
+//     for (int k = 0; k < 11; ++k) {
+//       std::cout << b2->tileAt(i, k);
+//     }
+//     std::cout << '|' << std::endl;
+//   }
+//   std::cout << border << separateHeader << border << std::endl;
+//   std::cout << " Next:" << separateFooter << "Next:" << std::endl; // change game->queue..... to be the next blocks queue
+
+//   // Print out Next blocks for both players based on their respective block queues
+//   std::cout << queue1.at(1)->firstRow(); 
+//   std::cout << emptyNext << queue2.at(1)->firstRow() << std::endl;
+//   std::cout << queue1.at(1)->secondRow();
+//   std::cout << emptyNext << queue2.at(1)->secondRow() << std::endl;
+// }
 
 void TextDisplay::notify() {
   // display(queue1, queue2, currLevel);
