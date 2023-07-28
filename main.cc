@@ -76,11 +76,24 @@ int main(int argc, char *argv[]) {
   bool readFromFile = false;
   std::ifstream file;
   int rowsCleared = 0;
-
+  bool blind = false;
 
   while (true) {
     int nextPlayer = (currPlayer + 1) % 2;
     // check for special action
+    bool whoisblind = nextPlayer % 2 == 0;
+    boards.at(0)->shift(0, 0, queueOfBlockQueues.at(0).front());
+    boards.at(1)->shift(0, 0, queueOfBlockQueues.at(1).front());
+    if (blind) {
+      if (whoisblind) {
+        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, !whoisblind, whoisblind);
+      }
+      else {
+        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, whoisblind, !whoisblind);
+      }
+    } else {
+      textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels);
+    }
     if (rowsCleared >= 2) {
       rowsCleared = 0;
       std::cout << "Choose a special action: blind, heavy, force " << std::endl;
@@ -89,7 +102,7 @@ int main(int argc, char *argv[]) {
       // implement trie?
       if (s == "blind" || s == "Blind" || s == "BLIND" || s == "b" || s == "B") {
         boards.at(nextPlayer)->triggerBlind();
-        
+        blind = true;
       }
       else if (s == "heavy" || s == "Heavy" || s == "HEAVY" || s == "h" || s == "H") {
         boards.at(nextPlayer)->setHeavy();
@@ -100,19 +113,6 @@ int main(int argc, char *argv[]) {
         // force next players block
       }
       rowsCleared = 0;
-    }
-    bool whoisblind = nextPlayer % 2 == 0;
-    boards.at(0)->shift(0, 0, queueOfBlockQueues.at(0).front());
-    boards.at(1)->shift(0, 0, queueOfBlockQueues.at(1).front());
-    if (boards.at(currPlayer)->isBlind() || boards.at(nextPlayer)->isBlind()) {
-      if (whoisblind) {
-        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, !whoisblind, whoisblind);
-      }
-      else {
-        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, whoisblind, !whoisblind);
-      }
-    } else {
-      textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels);
     }
     if (readFromFile) {
       file >> cmd;
@@ -175,6 +175,10 @@ int main(int argc, char *argv[]) {
         currentBlock1 = std::move(nextBlock1);
         nextBlock1 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
         queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
+      }
+      if (boards.at(currPlayer)->isBlind()) {
+        boards.at(currPlayer)->triggerBlind();
+        blind = false;
       }
       currPlayer = (currPlayer + 1) % 2;
     } 
