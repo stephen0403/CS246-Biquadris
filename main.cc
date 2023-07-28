@@ -77,6 +77,7 @@ int main(int argc, char *argv[]) {
   std::ifstream file;
   int rowsCleared = 0;
   bool blind = false;
+  
 
   while (true) {
     int nextPlayer = (currPlayer + 1) % 2;
@@ -124,7 +125,7 @@ int main(int argc, char *argv[]) {
     } else {
       if (!(std::cin >> cmd)) break;
     }
-
+      
     if (cmd == "left") {
       boards.at(currPlayer)->shift(-1, 0, queueOfBlockQueues.at(currPlayer).front());
       if (boards.at(currPlayer)->isHeavy()) {
