@@ -64,6 +64,7 @@ int main(int argc, char *argv[]) {
 
 
   while (true) {
+    int nextPlayer = (currPlayer + 1) % 2;
     // check for special action
     if (rowsCleared >= 2) {
       rowsCleared = 0;
@@ -72,10 +73,9 @@ int main(int argc, char *argv[]) {
       std::cin >> s;
       // implement trie?
       if (s == "blind" || s == "Blind" || s == "BLIND" || s == "b" || s == "B") {
-        // blind effect
+        boards.at(nextPlayer) = Blind(boards.at(nextPlayer), "?"); // ?
       }
       else if (s == "heavy" || s == "Heavy" || s == "HEAVY" || s == "h" || s == "H") {
-        int nextPlayer = (currPlayer + 1) % 2;
         boards.at(nextPlayer)->setHeavy();
       }
       else if (s == "force" || s == "Force" || s == "FORCE" || s == "f" || s == "F") {
