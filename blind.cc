@@ -1,6 +1,8 @@
 #include "blind.h"
 #include "absboard.h"
 #include <iostream>
+#include "board.h"
+#include "block.h"
 
 static const int COLUMN_LEFT = 3;
 static const int COLUMN_RIGHT = 9;
