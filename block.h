@@ -14,7 +14,8 @@ class Block {
     Block(std::vector<std::vector<int>>, std::vector<int>);
     virtual std::string firstRow() const = 0;
     virtual std::string secondRow() const = 0;
-    // Board *getBoard() const;
+    int numCells() const;
+    void clearCell();
 };
 
 class IBlock: public Block {
