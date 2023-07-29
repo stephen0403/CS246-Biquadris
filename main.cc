@@ -82,6 +82,7 @@ int main(int argc, char *argv[]) {
   
 
   while (true) {
+    int multiplier = 1;
     int nextPlayer = (currPlayer + 1) % 2;
     // check for special action
     bool whoisblind = nextPlayer % 2 == 0;
@@ -140,6 +141,7 @@ int main(int argc, char *argv[]) {
       rowsCleared = 0;
     }
     if (readFromFile) {
+      file >> multiplier;
       file >> cmd;
       if (file.eof()) {
         readFromFile = false;
@@ -147,207 +149,212 @@ int main(int argc, char *argv[]) {
         continue;
       }
     } else {
+      std::cin >> multiplier;
       if (!(std::cin >> cmd)) break;
     }
     
-    //trie implementation 
+    //trie implementation - needs testing
+    /////////////////////////////////////////
     std::vector<std::string> possibleCommands = trie->find(cmd);
     if (possibleCommands.size() == 1) {
       cmd = possibleCommands.front();
     }
-    if (cmd == "left") {
-      boards.at(currPlayer)->shift(-1, 0, queueOfBlockQueues.at(currPlayer).front());
-      if (playerLevels.at(currPlayer) == 3 || playerLevels.at(currPlayer) == 4) { // && cnt == amt
-        bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-        if (!one) {
-          queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
-          std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-          queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
-          currPlayer = (currPlayer + 1) % 2;
+    /////////////////////////////////////////
+    for (int i = 0; i < multiplier; ++i) {
+      if (cmd == "left") {
+        boards.at(currPlayer)->shift(-1, 0, queueOfBlockQueues.at(currPlayer).front());
+        if (playerLevels.at(currPlayer) == 3 || playerLevels.at(currPlayer) == 4) { // && cnt == amt
+          bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+          if (!one) {
+            queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
+            std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+            queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
+            currPlayer = (currPlayer + 1) % 2;
+          }
         }
-      }
-      if (boards.at(currPlayer)->isHeavy()) {
-        bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-        bool two = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-        if (!one || !two) {
-          queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
-          std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-          queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
-          currPlayer = (currPlayer + 1) % 2;
+        if (boards.at(currPlayer)->isHeavy()) {
+          bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+          bool two = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+          if (!one || !two) {
+            queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
+            std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+            queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
+            currPlayer = (currPlayer + 1) % 2;
+          }
         }
-      }
-    } 
-    else if (cmd == "right") {
-      boards.at(currPlayer)->shift(1, 0, queueOfBlockQueues.at(currPlayer).front());
-      if (playerLevels.at(currPlayer) == 3 || playerLevels.at(currPlayer) == 4) { // && cnt == amt
-        bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-        if (!one) {
-          queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
-          std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-          queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
-          currPlayer = (currPlayer + 1) % 2;
+      } 
+      else if (cmd == "right") {
+        boards.at(currPlayer)->shift(1, 0, queueOfBlockQueues.at(currPlayer).front());
+        if (playerLevels.at(currPlayer) == 3 || playerLevels.at(currPlayer) == 4) { // && cnt == amt
+          bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+          if (!one) {
+            queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
+            std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+            queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
+            currPlayer = (currPlayer + 1) % 2;
+          }
         }
-      }
-      if (boards.at(currPlayer)->isHeavy()) {
-        bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-        bool two = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-        if (!one || !two) {
-          queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
-          std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-          queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
-          currPlayer = (currPlayer + 1) % 2;
+        if (boards.at(currPlayer)->isHeavy()) {
+          bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+          bool two = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+          if (!one || !two) {
+            queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
+            std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+            queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
+            currPlayer = (currPlayer + 1) % 2;
+          }
         }
-      }
-    } 
-    else if (cmd == "down") {
-      boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-    } 
-    else if (cmd == "clockwise") {
-      boards.at(currPlayer)->rotateBlock(queueOfBlockQueues.at(currPlayer).front(), true);
-    } 
-    else if (cmd == "counterclockwise") {
-      boards.at(currPlayer)->rotateBlock(queueOfBlockQueues.at(currPlayer).front(), false);
-    } 
-    else if (cmd == "drop") {
-      bool dropping = true;
-      while (dropping) {
-        dropping = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front(), true);
-      }
+      } 
+      else if (cmd == "down") {
+        boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+      } 
+      else if (cmd == "clockwise") {
+        boards.at(currPlayer)->rotateBlock(queueOfBlockQueues.at(currPlayer).front(), true);
+      } 
+      else if (cmd == "counterclockwise") {
+        boards.at(currPlayer)->rotateBlock(queueOfBlockQueues.at(currPlayer).front(), false);
+      } 
+      else if (cmd == "drop") {
+        bool dropping = true;
+        while (dropping) {
+          dropping = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front(), true);
+        }
 
-      rowsCleared = boards.at(currPlayer)->clearRows(); //clears rows
-      if (currPlayer) {
-        currentBlock2 = std::move(nextBlock2);
-        nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-        queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
-      } else {
-        currentBlock1 = std::move(nextBlock1);
-        nextBlock1 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-        queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
-      }
-      if (boards.at(currPlayer)->isBlind()) {
-        boards.at(currPlayer)->triggerBlind();
-        blind = false;
-      }
-      currPlayer = (currPlayer + 1) % 2;
-    } 
-    else if (cmd == "levelup") {
-      if (playerLevels.at(currPlayer) < 4) ++playerLevels.at(currPlayer);
-    } 
-    else if (cmd == "leveldown") {
-      if (playerLevels.at(currPlayer) > 0) --playerLevels.at(currPlayer);
-    } 
-    else if (cmd == "norandom") {
-      l3 = std::make_unique<Level3> (boards.at(currPlayer), false);
-      l4 = std::make_unique<Level4> (boards.at(currPlayer), false);
-      levels.at(3) = l3.get();
-      levels.at(4) = l4.get();
-    } 
-    else if (cmd == "random") {
-      std::string fileName;
-      if (readFromFile) {
-        file >> fileName;
-        if (file.eof()) {
-          readFromFile = false;
-          file.close();
+        rowsCleared = boards.at(currPlayer)->clearRows(); //clears rows
+        if (currPlayer) {
+          currentBlock2 = std::move(nextBlock2);
+          nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+          queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
+        } else {
+          currentBlock1 = std::move(nextBlock1);
+          nextBlock1 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+          queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
+        }
+        if (boards.at(currPlayer)->isBlind()) {
+          boards.at(currPlayer)->triggerBlind();
+          blind = false;
+        }
+        currPlayer = (currPlayer + 1) % 2;
+      } 
+      else if (cmd == "levelup") {
+        if (playerLevels.at(currPlayer) < 4) ++playerLevels.at(currPlayer);
+      } 
+      else if (cmd == "leveldown") {
+        if (playerLevels.at(currPlayer) > 0) --playerLevels.at(currPlayer);
+      } 
+      else if (cmd == "norandom") {
+        l3 = std::make_unique<Level3> (boards.at(currPlayer), false);
+        l4 = std::make_unique<Level4> (boards.at(currPlayer), false);
+        levels.at(3) = l3.get();
+        levels.at(4) = l4.get();
+      } 
+      else if (cmd == "random") {
+        std::string fileName;
+        if (readFromFile) {
+          file >> fileName;
+          if (file.eof()) {
+            readFromFile = false;
+            file.close();
+            std::cin >> fileName;
+          }
+        } else {
           std::cin >> fileName;
         }
-      } else {
-        std::cin >> fileName;
-      }
 
-      l3 = std::make_unique<Level3> (boards.at(currPlayer), true, fileName);
-      l4 = std::make_unique<Level4> (boards.at(currPlayer), true, fileName);
-      levels.at(3) = l3.get();
-      levels.at(4) = l4.get();
-    } 
-    else if (cmd == "sequence") { //needs further attention
-      std::string fileName;
-      if (readFromFile) {
-        file >> fileName;
-        if (file.eof()) {
-          readFromFile = false;
-          file.close();
+        l3 = std::make_unique<Level3> (boards.at(currPlayer), true, fileName);
+        l4 = std::make_unique<Level4> (boards.at(currPlayer), true, fileName);
+        levels.at(3) = l3.get();
+        levels.at(4) = l4.get();
+      } 
+      else if (cmd == "sequence") { //needs further attention
+        std::string fileName;
+        if (readFromFile) {
+          file >> fileName;
+          if (file.eof()) {
+            readFromFile = false;
+            file.close();
+            std::cin >> fileName;
+          }
+        } else {
           std::cin >> fileName;
         }
-      } else {
-        std::cin >> fileName;
+
+        file = std::ifstream{fileName};
+        readFromFile = true;
+      } 
+      else if (cmd == "I" || cmd == "J" || cmd == "L") { //changes the current block to these
+        if (cmd == "I") {
+          if (currPlayer == 0) {
+            auto oldBlock = std::move(currentBlock1);
+            currentBlock1 = std::make_unique<IBlock>();
+            boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
+            queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
+          } else {
+            auto oldBlock = std::move(currentBlock2);
+            currentBlock2 = std::make_unique<IBlock>();
+            boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
+            queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
+          }
+        } else if (cmd == "J") {
+          if (currPlayer == 0) {
+            auto oldBlock = std::move(currentBlock1);
+            currentBlock1 = std::make_unique<JBlock>();
+            boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
+            queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
+          } else {
+            auto oldBlock = std::move(currentBlock2);
+            currentBlock2 = std::make_unique<JBlock>();
+            boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
+            queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
+          }
+        } else {
+          if (currPlayer == 0) {
+            auto oldBlock = std::move(currentBlock1);
+            currentBlock1 = std::make_unique<LBlock>();
+            boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
+            queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
+          } else {
+            auto oldBlock = std::move(currentBlock2);
+            currentBlock2 = std::make_unique<LBlock>();
+            boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
+            queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
+          }
+        }
+      } 
+      else if (cmd == "restart") { // call board's restart method
+        board1 = std::make_unique<Board> (); // board1
+        board2 = std::make_unique<Board> (); // board2
+        boards = {board1.get(), board2.get()};
+        levels = {};
+        l0 = std::make_unique<Level0> (boards.at(currPlayer), file1, file2);
+        l1 = std::make_unique<Level1> (boards.at(currPlayer));
+        l2 = std::make_unique<Level2> (boards.at(currPlayer));
+        l3 = std::make_unique<Level3> (boards.at(currPlayer), false);
+        l4 = std::make_unique<Level4> (boards.at(currPlayer), false);
+        levels.emplace_back(l0.get());
+        levels.emplace_back(l1.get());
+        levels.emplace_back(l2.get());
+        levels.emplace_back(l3.get());
+        levels.emplace_back(l4.get());
+        textObserver = std::make_unique<TextDisplay>
+                                                      (board1.get(), board2.get());
+        currentBlock1 = levels.at(playerLevels[0])->newBlock(0); 
+        nextBlock1 = levels.at(playerLevels[0])->newBlock(0);
+        currentBlock2 = levels.at(playerLevels[1])->newBlock(1); 
+        nextBlock2 = levels.at(playerLevels[1])->newBlock(1);
+        blocksQueue1 = {currentBlock1.get(), nextBlock1.get()};
+        blocksQueue2 = {currentBlock2.get(), nextBlock2.get()};
+        queueOfBlockQueues = {blocksQueue1, blocksQueue2};
+
+        currPlayer = 0;
+        playerLevels = {0, 0};
+
+        boards.at(currPlayer)->shift(0, 0, queueOfBlockQueues.at(currPlayer).front(), false);
+
+        cmd = "";
+        readFromFile = false;
+        rowsCleared = 0;
       }
-
-      file = std::ifstream{fileName};
-      readFromFile = true;
-    } 
-    else if (cmd == "I" || cmd == "J" || cmd == "L") { //changes the current block to these
-      if (cmd == "I") {
-        if (currPlayer == 0) {
-          auto oldBlock = std::move(currentBlock1);
-          currentBlock1 = std::make_unique<IBlock>();
-          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
-          queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
-        } else {
-          auto oldBlock = std::move(currentBlock2);
-          currentBlock2 = std::make_unique<IBlock>();
-          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
-          queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
-        }
-      } else if (cmd == "J") {
-        if (currPlayer == 0) {
-          auto oldBlock = std::move(currentBlock1);
-          currentBlock1 = std::make_unique<JBlock>();
-          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
-          queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
-        } else {
-          auto oldBlock = std::move(currentBlock2);
-          currentBlock2 = std::make_unique<JBlock>();
-          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
-          queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
-        }
-      } else {
-        if (currPlayer == 0) {
-          auto oldBlock = std::move(currentBlock1);
-          currentBlock1 = std::make_unique<LBlock>();
-          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
-          queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
-        } else {
-          auto oldBlock = std::move(currentBlock2);
-          currentBlock2 = std::make_unique<LBlock>();
-          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
-          queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
-        }
-      }
-    } 
-    else if (cmd == "restart") { // call board's restart method
-      board1 = std::make_unique<Board> (); // board1
-      board2 = std::make_unique<Board> (); // board2
-      boards = {board1.get(), board2.get()};
-      levels = {};
-      l0 = std::make_unique<Level0> (boards.at(currPlayer), file1, file2);
-      l1 = std::make_unique<Level1> (boards.at(currPlayer));
-      l2 = std::make_unique<Level2> (boards.at(currPlayer));
-      l3 = std::make_unique<Level3> (boards.at(currPlayer), false);
-      l4 = std::make_unique<Level4> (boards.at(currPlayer), false);
-      levels.emplace_back(l0.get());
-      levels.emplace_back(l1.get());
-      levels.emplace_back(l2.get());
-      levels.emplace_back(l3.get());
-      levels.emplace_back(l4.get());
-      textObserver = std::make_unique<TextDisplay>
-                                                    (board1.get(), board2.get());
-      currentBlock1 = levels.at(playerLevels[0])->newBlock(0); 
-      nextBlock1 = levels.at(playerLevels[0])->newBlock(0);
-      currentBlock2 = levels.at(playerLevels[1])->newBlock(1); 
-      nextBlock2 = levels.at(playerLevels[1])->newBlock(1);
-      blocksQueue1 = {currentBlock1.get(), nextBlock1.get()};
-      blocksQueue2 = {currentBlock2.get(), nextBlock2.get()};
-      queueOfBlockQueues = {blocksQueue1, blocksQueue2};
-
-      currPlayer = 0;
-      playerLevels = {0, 0};
-
-      boards.at(currPlayer)->shift(0, 0, queueOfBlockQueues.at(currPlayer).front(), false);
-
-      cmd = "";
-      readFromFile = false;
-      rowsCleared = 0;
     }
   }
 }
