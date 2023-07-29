@@ -4,6 +4,7 @@
 #include "absBoard.h"
 #include "subject.h"
 #include "block.h"
+#include "cell.h"
 
 class Board: public absBoard, public Subject {
   int numRows;
