@@ -8,7 +8,7 @@
 class Board: public absBoard, public Subject {
   int numRows;
   int numCols;
-  std::vector<std::vector<char>> theBoard;
+  std::vector<std::vector<Cell>> theBoard;
   absBoard *board;
   bool blindActivated = false;
   bool blockDroppedAfterBlind = false;
