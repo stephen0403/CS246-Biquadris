@@ -50,10 +50,14 @@ class Level3: public Level {
 class Level4: public Level {
   std::string name;
   std::ifstream file;
+  int count = 0;
   public:
   Level4(absBoard *, bool random, std::string fileName = "sequence.txt");
   std::unique_ptr<Block> newBlock(int currPlayer) override;
   void blind() const;
   void getFile(std::string) override;
   void setRandom(bool) override;
+  void addStarCount();
+  void clearStarCount();
+  int getStarCount();
 };
