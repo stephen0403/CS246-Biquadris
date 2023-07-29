@@ -99,7 +99,7 @@ int main(int argc, char *argv[]) {
     // }
     if (rowsCleared >= 1) {
       // add to score
-      scores.at(currPlayer) += (rowsCleared + playerLevels.at(currPlayer)) * (rowsCleared + playerLevels.at(currPlayer));
+      scores.at(nextPlayer) += (rowsCleared + playerLevels.at(nextPlayer)) * (rowsCleared + playerLevels.at(nextPlayer));
 
       if (rowsCleared >= 2) {
         std::cout << "Choose a special action: blind, heavy, force " << std::endl;
