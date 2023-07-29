@@ -1,3 +1,6 @@
+#ifndef TRIE_H
+#define TRIE_H
+
 #include <string>
 #include <vector>
 
@@ -42,3 +45,5 @@ class TrieNode {
 
   
 };
+
+#endif
