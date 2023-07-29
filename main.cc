@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
   
 
   while (true) {
-    if (playerLevels.at(currPlayer) == 4 && l4->getStarCount % 5 == 0) {
+    if (playerLevels.at(currPlayer) == 4 && l4->getStarCount() % 5 == 0) {
       auto starBlock = blockGen("*");
     }
     int nextPlayer = (currPlayer + 1) % 2;
