@@ -76,6 +76,7 @@ int main(int argc, char *argv[]) {
   bool readFromFile = false;
   std::ifstream file;
   int rowsCleared = 0;
+  std::vector<int> scores{0, 0};
   bool blind = false;
   
 
@@ -85,7 +86,7 @@ int main(int argc, char *argv[]) {
     bool whoisblind = nextPlayer % 2 == 0;
     boards.at(0)->shift(0, 0, queueOfBlockQueues.at(0).front());
     boards.at(1)->shift(0, 0, queueOfBlockQueues.at(1).front());
-    textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels);
+    textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, false, false);
     // if (blind) {
     //   if (whoisblind) {
     //     textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, !whoisblind, whoisblind);
@@ -96,39 +97,43 @@ int main(int argc, char *argv[]) {
     // } else {
     //   textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels);
     // }
-    if (rowsCleared >= 2) {
-      rowsCleared = 0;
-      std::cout << "Choose a special action: blind, heavy, force " << std::endl;
-      std::string s;
-      std::cin >> s;
-      // implement trie?
-      if (s == "blind" || s == "Blind" || s == "BLIND" || s == "b" || s == "B") {
-        boards.at(nextPlayer)->triggerBlind();
-        blind = true;
-        if (whoisblind) {
-          textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, !whoisblind, whoisblind);
-        } else {
-          textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, whoisblind, !whoisblind);
-        }
-      }
-      else if (s == "heavy" || s == "Heavy" || s == "HEAVY" || s == "h" || s == "H") {
-        boards.at(nextPlayer)->setHeavy();
-      }
-      else if (s == "force" || s == "Force" || s == "FORCE" || s == "f" || s == "F") {
-        char c;
-        std::cin >> c;
-        // force next players block
+    if (rowsCleared >= 1) {
+      // add to score
+      scores.at(currPlayer) += (rowsCleared + playerLevels.at(currPlayer)) * (rowsCleared + playerLevels.at(currPlayer));
 
-        if (currPlayer == 0) {
-          auto oldBlock = std::move(currentBlock1);
-          currentBlock1 = blockGen(c);
-          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
-          queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
-        } else {
-          auto oldBlock = std::move(currentBlock2);
-          currentBlock2 = blockGen(c);
-          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
-          queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
+      if (rowsCleared >= 2) {
+        std::cout << "Choose a special action: blind, heavy, force " << std::endl;
+        std::string s;
+        std::cin >> s;
+        // implement trie?
+        if (s == "blind" || s == "Blind" || s == "BLIND" || s == "b" || s == "B") {
+          boards.at(nextPlayer)->triggerBlind();
+          blind = true;
+          if (whoisblind) {
+            textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
+          } else {
+            textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, whoisblind, !whoisblind);
+          }
+        }
+        else if (s == "heavy" || s == "Heavy" || s == "HEAVY" || s == "h" || s == "H") {
+          boards.at(nextPlayer)->setHeavy();
+        }
+        else if (s == "force" || s == "Force" || s == "FORCE" || s == "f" || s == "F") {
+          char c;
+          std::cin >> c;
+          // force next players block
+
+          if (currPlayer == 0) {
+            auto oldBlock = std::move(currentBlock1);
+            currentBlock1 = blockGen(c);
+            boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
+            queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
+          } else {
+            auto oldBlock = std::move(currentBlock2);
+            currentBlock2 = blockGen(c);
+            boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
+            queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
+          }
         }
       }
       rowsCleared = 0;
