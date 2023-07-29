@@ -84,7 +84,8 @@ int main(int argc, char *argv[]) {
 
   while (true) {
     if (playerLevels.at(currPlayer) == 4 && l4->getStarCount() % 5 == 0) {
-      auto starBlock = blockGen("*");
+      auto starBlock = blockGen('*');
+      std::cout << "generated star block" << std::endl;
     }
     int nextPlayer = (currPlayer + 1) % 2;
     // check for special action
