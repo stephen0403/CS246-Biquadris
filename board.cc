@@ -6,7 +6,7 @@
 // theBoard is the vec vec char board
 
 
-Board::Board(): numRows{18}, numCols{11}, theBoard(numRows, std::vector<char>(numCols, ' ')) {}
+Board::Board(): numRows{18}, numCols{11}, theBoard(numRows, std::vector<Cell>(numCols, Cell{})) {}
 
 char Board::tileAt(int row, int col) { return theBoard.at(row).at(col); }
 
