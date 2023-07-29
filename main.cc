@@ -151,6 +151,15 @@ int main(int argc, char *argv[]) {
       
     if (cmd == "left") {
       boards.at(currPlayer)->shift(-1, 0, queueOfBlockQueues.at(currPlayer).front());
+      if (playerLevels.at(currPlayer) == 3 || playerLevels.at(currPlayer) == 4) { // && cnt == amt
+        bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+        if (!one) {
+          queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
+          std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+          queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
+          currPlayer = (currPlayer + 1) % 2;
+        }
+      }
       if (boards.at(currPlayer)->isHeavy()) {
         bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
         bool two = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
@@ -164,6 +173,15 @@ int main(int argc, char *argv[]) {
     } 
     else if (cmd == "right") {
       boards.at(currPlayer)->shift(1, 0, queueOfBlockQueues.at(currPlayer).front());
+      if (playerLevels.at(currPlayer) == 3 || playerLevels.at(currPlayer) == 4) { // && cnt == amt
+        bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+        if (!one) {
+          queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
+          std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+          queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
+          currPlayer = (currPlayer + 1) % 2;
+        }
+      }
       if (boards.at(currPlayer)->isHeavy()) {
         bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
         bool two = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
