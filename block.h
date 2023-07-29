@@ -73,5 +73,13 @@ class TBlock: public Block {
     std::string secondRow() const override;
 };
 
+class StarBlock: public Block {
+  public:
+    StarBlock();
+    char getType() const override;
+    std::string firstRow() const override;
+    std::string secondRow() const override;
+};
+
 std::unique_ptr<Block> blockGen(char);
 #endif

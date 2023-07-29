@@ -122,3 +122,15 @@ void Level4::blind() const {
   //}
   std::cout << "Blinded Board" << std::endl;
 }
+
+void Level4::addStarCount() {
+  count++;
+}
+
+void Level4::clearStarCount() {
+  count = 0;
+}
+
+int Level4::getStarCount() {
+  return count;
+}

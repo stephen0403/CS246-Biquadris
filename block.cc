@@ -16,7 +16,13 @@ ZBlock::ZBlock(/*Board *board*/): Block{/*board, */{{2, 0}, {2, 1}, {3, 1}, {3, 
 
 TBlock::TBlock(/*Board *board*/): Block{/*board, */{{2, 0}, {2, 1}, {2, 2}, {3, 1}}, {3, 0}} {}
 
+StarBlock::StarBlock(/*Board *board*/): Block{/*board, */{{2,2}, {2,1}, {2,2}, {3,1}}, {3,2}} {}
+
 // Board *Block::getBoard() const { return board; }
+
+std::string StarBlock::firstRow() const { return "  *  "; }
+
+std::string StarBlock::secondRow() const { return "     "; }
 
 std::string IBlock::firstRow() const { return " IIII"; }
 
@@ -46,6 +52,8 @@ std::string ZBlock::firstRow() const { return " ZZ  "; }
 
 std::string ZBlock::secondRow() const { return "  ZZ "; }
 
+char StarBlock::getType() const { return '*'; }
+
 char IBlock::getType() const { return 'I'; }
 
 char JBlock::getType() const { return 'J'; }
@@ -74,8 +82,9 @@ std::unique_ptr<Block> blockGen(char res) {
     return std::make_unique<SBlock>();
   } else if (res == 'Z') {
     return std::make_unique<ZBlock>();
+  } else if (res == '*') {
+    return std::make_unique<StarBlock>();
   } else { 
     return std::make_unique<OBlock>();
   }
 }
-
