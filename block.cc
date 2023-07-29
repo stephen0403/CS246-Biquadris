@@ -18,6 +18,9 @@ TBlock::TBlock(/*Board *board*/): Block{/*board, */{{2, 0}, {2, 1}, {2, 2}, {3, 
 
 StarBlock::StarBlock(/*Board *board*/): Block{/*board, */{{2,2}, {2,1}, {2,2}, {3,1}}, {3,2}} {}
 
+int Block::numCells() const { return cellsLeft; }
+
+void Block::clearCell() { --cellsLeft; }
 // Board *Block::getBoard() const { return board; }
 
 std::string StarBlock::firstRow() const { return "  *  "; }
