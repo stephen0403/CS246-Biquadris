@@ -242,13 +242,13 @@ int main(int argc, char *argv[]) {
       else if (cmd == "leveldown") {
         if (playerLevels.at(currPlayer) > 0) --playerLevels.at(currPlayer);
       } 
-      else if (cmd == "norandom") {
+      else if (cmd == "norandom" && i < 1) {
         l3 = std::make_unique<Level3> (boards.at(currPlayer), false);
         l4 = std::make_unique<Level4> (boards.at(currPlayer), false);
         levels.at(3) = l3.get();
         levels.at(4) = l4.get();
       } 
-      else if (cmd == "random") {
+      else if (cmd == "random" && i < 1) {
         std::string fileName;
         if (readFromFile) {
           file >> fileName;
@@ -321,7 +321,7 @@ int main(int argc, char *argv[]) {
           }
         }
       } 
-      else if (cmd == "restart") { // call board's restart method
+      else if (cmd == "restart" && i < 1) { // call board's restart method
         board1 = std::make_unique<Board> (); // board1
         board2 = std::make_unique<Board> (); // board2
         boards = {board1.get(), board2.get()};
