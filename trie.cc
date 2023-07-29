@@ -144,7 +144,7 @@ void TrieNode::remove(const string &word) {
     updateWords();
 }
 
-std::vector<std::string> TrieNode::addWords(const string &word, int &wordCount) const {
+std::vector<std::string> TrieNode::find(const string &word) const {
     std::vector<std::string> autocompletions;
     const TrieNode *currentNode = this;
     int length = word.length();
@@ -159,21 +159,15 @@ std::vector<std::string> TrieNode::addWords(const string &word, int &wordCount) 
 
     if (currentNode->isWord) {
         autocompletions.emplace_back(word);
-        ++wordCount;
     }
 
     for (int i = 0; i < NUM_CHARS; ++i) {
         if (currentNode->letters[i]) {
-            std::vector<std::string> a1 = addWords(word + char('a' + i), wordCount);
+            std::vector<std::string> a1 = find(word + char('a' + i));
             autocompletions.insert(autocompletions.end(), a1.begin(), a1.end());
         }
     }
     return autocompletions;
-}
-
-std::vector<std::string> TrieNode::find(const string &word) const {
-    int wordCount = 0;
-    return addWords(word, wordCount);
 }
 
 int TrieNode::getSize() const {

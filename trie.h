@@ -9,8 +9,6 @@ class TrieNode {
 
   // Add private helper methods if needed
 
-  std::vector<std::string> addWords(const std::string &word, int &wordCount) const;
-
   void updateWords();
  public:
   // Initializes an "empty" node. size = 1 (only root node), words = 0, isWord = false.
