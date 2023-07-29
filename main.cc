@@ -239,7 +239,7 @@ int main(int argc, char *argv[]) {
           boards.at(currPlayer)->triggerBlind();
           blind = false;
         }
-        if (multiplier < 2) currPlayer = (currPlayer + 1) % 2; //don't change player if they do xdrop, x>1
+        if (i == multiplier - 1) currPlayer = (currPlayer + 1) % 2; //don't change player if they do xdrop, x>1
       } 
       else if (cmd == "levelup") {
         if (playerLevels.at(currPlayer) < 4) ++playerLevels.at(currPlayer);
