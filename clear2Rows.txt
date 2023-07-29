@@ -50,3 +50,14 @@ right
 right
 right
 drop
+drop
+
+I
+clockwise
+right
+right
+right
+right
+right
+right
+drop
