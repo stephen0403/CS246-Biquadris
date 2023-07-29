@@ -76,23 +76,17 @@ int main(int argc, char *argv[]) {
   bool readFromFile = false;
   std::ifstream file;
   int rowsCleared = 0;
+  std::vector<int> scores{0, 0};
   bool blind = false;
-  int cnt = 0; // for the command interpreter: 4r = cnt++ 4 times 
-  int amt = 0; // amt = 4 (so in the logic for 4r, we call shift 4 times while cnt++ after each call, 
-               // when cnt = 4 we then shift down and reset cnt to 0)
   
 
   while (true) {
-    if (playerLevels.at(currPlayer) == 4 && l4->getStarCount() % 5 == 0) {
-      auto starBlock = blockGen('*');
-      std::cout << "generated star block" << std::endl;
-    }
     int nextPlayer = (currPlayer + 1) % 2;
     // check for special action
     bool whoisblind = nextPlayer % 2 == 0;
     boards.at(0)->shift(0, 0, queueOfBlockQueues.at(0).front());
     boards.at(1)->shift(0, 0, queueOfBlockQueues.at(1).front());
-    textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels);
+    textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, false, false);
     // if (blind) {
     //   if (whoisblind) {
     //     textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, !whoisblind, whoisblind);
@@ -103,39 +97,43 @@ int main(int argc, char *argv[]) {
     // } else {
     //   textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels);
     // }
-    if (rowsCleared >= 2) {
-      rowsCleared = 0;
-      std::cout << "Choose a special action: blind, heavy, force " << std::endl;
-      std::string s;
-      std::cin >> s;
-      // implement trie?
-      if (s == "blind" || s == "Blind" || s == "BLIND" || s == "b" || s == "B") {
-        boards.at(nextPlayer)->triggerBlind();
-        blind = true;
-        if (whoisblind) {
-          textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, !whoisblind, whoisblind);
-        } else {
-          textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, whoisblind, !whoisblind);
-        }
-      }
-      else if (s == "heavy" || s == "Heavy" || s == "HEAVY" || s == "h" || s == "H") {
-        boards.at(nextPlayer)->setHeavy();
-      }
-      else if (s == "force" || s == "Force" || s == "FORCE" || s == "f" || s == "F") {
-        char c;
-        std::cin >> c;
-        // force next players block
+    if (rowsCleared >= 1) {
+      // add to score
+      scores.at(nextPlayer) += (rowsCleared + playerLevels.at(nextPlayer)) * (rowsCleared + playerLevels.at(nextPlayer));
 
-        if (currPlayer == 0) {
-          auto oldBlock = std::move(currentBlock1);
-          currentBlock1 = blockGen(c);
-          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
-          queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
-        } else {
-          auto oldBlock = std::move(currentBlock2);
-          currentBlock2 = blockGen(c);
-          boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
-          queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
+      if (rowsCleared >= 2) {
+        std::cout << "Choose a special action: blind, heavy, force " << std::endl;
+        std::string s;
+        std::cin >> s;
+        // implement trie?
+        if (s == "blind" || s == "Blind" || s == "BLIND" || s == "b" || s == "B") {
+          boards.at(nextPlayer)->triggerBlind();
+          blind = true;
+          if (whoisblind) {
+            textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
+          } else {
+            textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, whoisblind, !whoisblind);
+          }
+        }
+        else if (s == "heavy" || s == "Heavy" || s == "HEAVY" || s == "h" || s == "H") {
+          boards.at(nextPlayer)->setHeavy();
+        }
+        else if (s == "force" || s == "Force" || s == "FORCE" || s == "f" || s == "F") {
+          char c;
+          std::cin >> c;
+          // force next players block
+
+          if (currPlayer == 0) {
+            auto oldBlock = std::move(currentBlock1);
+            currentBlock1 = blockGen(c);
+            boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
+            queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
+          } else {
+            auto oldBlock = std::move(currentBlock2);
+            currentBlock2 = blockGen(c);
+            boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
+            queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
+          }
         }
       }
       rowsCleared = 0;
@@ -154,37 +152,47 @@ int main(int argc, char *argv[]) {
     std::vector<std::string> possibleCommands = trie->autocomplete(cmd);
     if (trie.size() == 1);
     if (cmd == "left") {
-      bool one, two = true;
       boards.at(currPlayer)->shift(-1, 0, queueOfBlockQueues.at(currPlayer).front());
       if (playerLevels.at(currPlayer) == 3 || playerLevels.at(currPlayer) == 4) { // && cnt == amt
-        one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-      }
-      if (boards.at(currPlayer)->isHeavy()) { // add and cnt == amt && level == 3 || 4
-        one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-        two = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-      }
-      if (!one || !two) {
+        bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+        if (!one) {
           queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
           std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
           queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
           currPlayer = (currPlayer + 1) % 2;
+        }
+      }
+      if (boards.at(currPlayer)->isHeavy()) {
+        bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+        bool two = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+        if (!one || !two) {
+          queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
+          std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+          queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
+          currPlayer = (currPlayer + 1) % 2;
+        }
       }
     } 
     else if (cmd == "right") {
-      bool one, two = true;
       boards.at(currPlayer)->shift(1, 0, queueOfBlockQueues.at(currPlayer).front());
       if (playerLevels.at(currPlayer) == 3 || playerLevels.at(currPlayer) == 4) { // && cnt == amt
-        one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-      }
-      if (boards.at(currPlayer)->isHeavy()) {
-        one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-        two = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-      }
-      if (!one || !two) {
+        bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+        if (!one) {
           queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
           std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
           queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
           currPlayer = (currPlayer + 1) % 2;
+        }
+      }
+      if (boards.at(currPlayer)->isHeavy()) {
+        bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+        bool two = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
+        if (!one || !two) {
+          queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
+          std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+          queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
+          currPlayer = (currPlayer + 1) % 2;
+        }
       }
     } 
     else if (cmd == "down") {
@@ -203,11 +211,6 @@ int main(int argc, char *argv[]) {
       }
 
       rowsCleared = boards.at(currPlayer)->clearRows(); //clears rows
-      if (rowsCleared == 0 && playerLevels.at(currPlayer) == 4) {
-        l4->addStarCount();
-      } else {
-        l4->clearStarCount();
-      }
       if (currPlayer) {
         currentBlock2 = std::move(nextBlock2);
         nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);

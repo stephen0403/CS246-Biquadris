@@ -32,7 +32,7 @@ void TextDisplay::printHeader(std::string title, int num) const {
 }
 
 
-void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queue2, std::vector<int> currLevel, bool p1blind, bool p2blind) {
+void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queue2, std::vector<int> currLevel, std::vector<int> currScore, bool p1blind, bool p2blind) {
   std::string separateHeader{"        "};
   std::string separateFooter{"                "};
   std::string emptyNext{"                     "};
@@ -43,9 +43,9 @@ void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queu
   std::cout << separateHeader;
   printHeader(" Level:", currLevel.at(1));
   std::cout << std::endl;
-  printHeader(" Score:", 0);
+  printHeader(" Score:", currScore.at(0));
   std::cout << separateHeader;
-  printHeader(" Score:", 0);
+  printHeader(" Score:", currScore.at(1));
   std::cout << std::endl;
   std::cout << border << separateHeader << border << std::endl;
   if (p1blind && p2blind) {
