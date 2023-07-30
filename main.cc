@@ -96,13 +96,22 @@ int main(int argc, char *argv[]) {
       rowsCleared = boards.at(currPlayer)->clearRows();
       starsCount[currPlayer] = 0;
     }
-    int multiplier = 1;
+    int multiplier = 0;
     int nextPlayer = (currPlayer + 1) % 2;
     // check for special action
     bool whoisblind = nextPlayer % 2 == 0;
     boards.at(0)->shift(0, 0, queueOfBlockQueues.at(0).front());
     boards.at(1)->shift(0, 0, queueOfBlockQueues.at(1).front());
-    textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, false, false);
+    if (blind) {
+      if (whoisblind) {
+        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
+      } else {
+        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, whoisblind, !whoisblind);
+      }
+      blind = false;
+    } else {
+      textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, false, false);
+    }
     // if (blind) {
     //   if (whoisblind) {
     //     textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, !whoisblind, whoisblind);
@@ -127,11 +136,7 @@ int main(int argc, char *argv[]) {
         if (s == "blind" || s == "Blind" || s == "BLIND" || s == "b" || s == "B") {
           boards.at(nextPlayer)->triggerBlind();
           blind = true;
-          if (whoisblind) {
-            textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
-          } else {
-            textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, whoisblind, !whoisblind);
-          }
+          
         }
         else if (s == "heavy" || s == "Heavy" || s == "HEAVY" || s == "h" || s == "H") {
           boards.at(nextPlayer)->setHeavy();
