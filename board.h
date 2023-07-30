@@ -14,6 +14,7 @@ class Board: public absBoard, public Subject {
   bool blindActivated = false;
   bool blockDroppedAfterBlind = false;
   bool heavy = false;
+  friend class Graphics;
   friend class TextDisplay;
   
 public:
