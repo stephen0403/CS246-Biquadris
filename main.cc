@@ -98,7 +98,7 @@ int main(int argc, char *argv[]) {
         while (dropping) {
           dropping = boards.at(currPlayer)->shift(0, 1, starBlock.get(), true);
       }
-      rowsCleared = boards.at(currPlayer)->clearRows();
+      rowsCleared = boards.at(currPlayer)->clearRows(scores, currPlayer);
       starsCount[currPlayer] = 0;
     }
     int multiplier = 0;
@@ -266,7 +266,7 @@ int main(int argc, char *argv[]) {
         }
 
         
-        rowsCleared = boards.at(currPlayer)->clearRows(); // clears rows and checks how many rows cleared
+        rowsCleared = boards.at(currPlayer)->clearRows(scores, currPlayer); // clears rows and checks how many rows cleared
 
         if (rowsCleared == 0) { // check if we cleared more than 0 rows, if not then add to stars count
           ++starsCount[currPlayer];
