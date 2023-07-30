@@ -114,11 +114,17 @@ bool Board::swapBlock(Block *oldBlock, Block *newBlock) {
 //   return cleared;
 // }
 
-int Board::clearRows() {
+int Board::clearRows(std::vector<int> &playerScores, int currPlayer) {
   int rowsCleared = 0;
   for (int i = numRows - 1; i >= 0; i--) {
     if (isFull(theBoard.at(i))) {
       rowsCleared++;
+      for (auto c : theBoard.at(i)) {
+        c.getBlock()->clearCell();
+        if (c.getBlock()->numCells() == 0) {
+          playerScores[currPlayer] += (c.getBlock()->getLevel() + 1) * (c.getBlock()->getLevel() + 1);
+        }
+      }
       for (int j = i; j > 0; j--) {
         theBoard.at(j) = theBoard.at(j - 1);
       }

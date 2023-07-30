@@ -6,10 +6,11 @@
 class absBoard;
 
 class Level {
-  protected:
+protected:
   absBoard *board;
   bool random;
-  public:
+  int level;
+public:
   Level(absBoard *, bool random);
   virtual std::unique_ptr<Block> newBlock(int currPlayer) = 0;
   virtual void getFile(std::string);
@@ -19,19 +20,22 @@ class Level {
 class Level0: public Level {
   std::vector<std::string> names;
   std::vector<std::ifstream> files;
+  int level = 0;
 public:
   Level0(absBoard *board, std::string name1, std::string name2);
   std::unique_ptr<Block> newBlock(int currPlayer) override;
 };
 
 class Level1: public Level {
-  public:
+  int level = 1;
+public:
   Level1(absBoard *);
   std::unique_ptr<Block> newBlock(int currPlayer) override;
 };
 
 class Level2: public Level {
-  public:
+  int level = 2;
+public:
   Level2(absBoard *);
   std::unique_ptr<Block> newBlock(int currPlayer) override;
 };
@@ -39,7 +43,9 @@ class Level2: public Level {
 class Level3: public Level {
   std::string name;
   std::ifstream file;
-  public:
+  int level = 3;
+
+public:
   Level3(absBoard *, bool random, std::string fileName = "sequence.txt");
   std::unique_ptr<Block> newBlock(int currPlayer) override;
   void blind() const;
@@ -51,7 +57,9 @@ class Level4: public Level {
   std::string name;
   std::ifstream file;
   int count = 0;
-  public:
+  int level = 4;
+
+public:
   Level4(absBoard *, bool random, std::string fileName = "sequence.txt");
   std::unique_ptr<Block> newBlock(int currPlayer) override;
   void blind() const;

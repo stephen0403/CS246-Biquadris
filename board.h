@@ -15,7 +15,8 @@ class Board: public absBoard, public Subject {
   bool blockDroppedAfterBlind = false;
   bool heavy = false;
   friend class TextDisplay;
-  public:
+  
+public:
   Board();
   char getState(int row, int col) const override;
   char tileAt(int row, int col) override;
@@ -25,7 +26,7 @@ class Board: public absBoard, public Subject {
   int shift(int x, int y, Block *block, bool drop = false) override;
   bool swapBlock(Block *oldBlock, Block *newBlock) override;
   void putBlock(int col, char type) override;
-  int clearRows() override;
+  int clearRows(std::vector<int> &playerScores, int currPlayer) override;
   bool isHeavy() override;
   void setHeavy() override;
   void triggerBlind() override;

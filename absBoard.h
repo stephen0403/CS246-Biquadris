@@ -1,6 +1,7 @@
 #ifndef ABS_BOARD_H
 #define ABS_BOARD_H
 
+#include <vector>
 
 class Board;
 class Block;
@@ -18,7 +19,7 @@ public:
     virtual void rotateBlock(Block *block, bool clockwise) = 0;
     virtual int shift(int x, int y, Block *block, bool drop = false) = 0;
     virtual void putBlock(int col, char type) = 0;
-    virtual int clearRows() = 0;
+    virtual int clearRows(std::vector<int> &playerScores, int currPlayer) = 0;
     virtual bool isHeavy() = 0;
     virtual void setHeavy() = 0;
     virtual void triggerBlind() = 0;
