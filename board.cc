@@ -55,7 +55,7 @@ int Board::shift(int x, int y, Block *block, bool drop) {
               block->pos[i][1] += x;
               theBoard.at(pos[i][0]).at(pos[i][1]).updateBlock(block, block->getType());
             }
-            throw; // winner
+            return 5;
           }
         }
       }
