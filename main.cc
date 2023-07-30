@@ -5,6 +5,7 @@
 #include "absBoard.h"
 #include "board.h"
 #include "trie.h"
+#include <cctype>
 
 int main(int argc, char *argv[]) {
   std::string file1{"sequence1.txt"};
@@ -80,6 +81,7 @@ int main(int argc, char *argv[]) {
   int rowsCleared = 0;
   std::vector<int> scores{0, 0};
   bool blind = false;
+  auto star = std::make_unique<StarBlock>();
   
 
   while (true) {
@@ -128,7 +130,6 @@ int main(int argc, char *argv[]) {
         else if (s == "force" || s == "Force" || s == "FORCE" || s == "f" || s == "F") {
           char c;
           std::cin >> c;
-          // force next players block
 
           if (currPlayer == 0) {
             auto oldBlock = std::move(currentBlock1);
@@ -166,7 +167,11 @@ int main(int argc, char *argv[]) {
     
     //trie implementation - needs testing
     /////////////////////////////////////////
-    std::vector<std::string> possibleCommands = trie->find(cmd);
+    std::string cmdlower = cmd;
+    for (char& c : cmdlower) {
+        c = std::tolower(c); // Convert each character to lowercase
+    }
+    std::vector<std::string> possibleCommands = trie->find(cmdlower);
     if (possibleCommands.size() == 1) {
       cmd = possibleCommands.front();
     }
@@ -231,7 +236,13 @@ int main(int argc, char *argv[]) {
           dropping = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front(), true);
         }
 
-        rowsCleared = boards.at(currPlayer)->clearRows(); //clears rows
+        rowsCleared = boards.at(currPlayer)->clearRows(); // clears rows and checks how many rows cleared
+
+        if (rowsCleared == 0) { // check if we cleared more than 0 rows, if not then add to stars count
+          ++starsCount[currPlayer];
+        } else {
+          starsCount[currPlayer] = 0;
+        }
         if (currPlayer) {
           currentBlock2 = std::move(nextBlock2);
           nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
