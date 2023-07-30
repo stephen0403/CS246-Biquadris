@@ -6,58 +6,28 @@ drop
 drop
 
 I 
-right
-right
-right
-right
-right
-right
-right
-right
-right
-right
+8right
 drop
 drop
 
 I 
-right
-right
-right
-right
-right
-right
-right
-right
-right
-right
+8right
 drop
 drop
 
 I
 clockwise
-right
-right
-right
-right
+4right
 drop
 drop
 
 I
 clockwise
-right
-right
-right
-right
-right
+5right
 drop
 drop
 
 I
 clockwise
-right
-right
-right
-right
-right
-right
+6right
 drop

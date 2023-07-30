@@ -85,6 +85,7 @@ int main(int argc, char *argv[]) {
   int rowsCleared = 0;
   std::vector<int> scores{0, 0};
   std::unique_ptr<Graphics> graphicObserver = std::make_unique<Graphics>(board1.get(), board2.get(), playerLevels, currPlayer, scores, blocksQueue1, blocksQueue2);
+  int highScore = 0;
   bool blind = false;
   auto star = std::make_unique<StarBlock>();
   
@@ -133,6 +134,7 @@ int main(int argc, char *argv[]) {
     if (rowsCleared >= 1) {
       // add to score
       scores.at(nextPlayer) += (rowsCleared + playerLevels.at(nextPlayer)) * (rowsCleared + playerLevels.at(nextPlayer));
+      highScore = std::max(highScore, scores.at(nextPlayer));
       starsCount[nextPlayer] = 0;
     }
 
@@ -371,7 +373,9 @@ int main(int argc, char *argv[]) {
             queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
           }
         }
-      } 
+      } else if (cmd == "highscore" && i < 1) {
+        std::cout << "High Score: " << highScore << std::endl;
+      }
       else if (cmd == "restart" && i < 1) { // call board's restart method
         board1 = std::make_unique<Board> (); // board1
         board2 = std::make_unique<Board> (); // board2
