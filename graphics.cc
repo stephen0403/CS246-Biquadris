@@ -1,8 +1,8 @@
 #include "graphics.h"
-#include "gameplay.h"
 #include <string>
 #include <sstream>
 
+// what does this mean
 static Xwindow::Color typeToColor(std::string type) {
   if (type == "I") return Xwindow::Cyan;
   if (type == "J") return Xwindow::Blue;
@@ -16,8 +16,8 @@ static Xwindow::Color typeToColor(std::string type) {
   return Xwindow::Red;
 }
 
-Graphics::Graphics(GamePlay *game): window{std::make_unique<Xwindow>(500, 700)},
-  game{game}, board{game->boards[0].board, game->boards[1].board} {
+Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer, std::vector<int> scores): window{std::make_unique<Xwindow>(500, 700)},
+  b1{b1}, b2{b2}, levels{levels}, currPlayer{currPlayer}, scores{scores} {
   window->fillRectangle(10, 210, 2, 364, Xwindow::Black);
   window->fillRectangle(10, 210, 224, 2, Xwindow::Black);
   window->fillRectangle(232, 210, 2, 364, Xwindow::Black);
@@ -31,22 +31,22 @@ Graphics::Graphics(GamePlay *game): window{std::make_unique<Xwindow>(500, 700)},
   window->drawString(255, 593, "Next:");
   for (int i = 2; i <= 3; ++i) {
     for (int j = 0; j < 4; ++j) {
-      window->fillRectangle(12 + j * 20, 212 + i * 20, 20, 20, typeToColor(board[0].at(i).at(j).getType()));
-      window->fillRectangle(252 + j * 20, 212 + i * 20, 20, 20, typeToColor(board[1].at(i).at(j).getType()));
+      window->fillRectangle(12 + j * 20, 212 + i * 20, 20, 20, typeToColor(std::string{b1->theBoard.at(i).at(j).getType()}));
+      window->fillRectangle(252 + j * 20, 212 + i * 20, 20, 20, typeToColor(std::string{b2->theBoard.at(i).at(j).getType()}));
     }
   }
   for (int i = 0; i < 4; ++i) {
-    int x = game->getNextPos().at(i).at(1);
-    int y = game->getNextPos().at(i).at(0);
-    window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(game->getNextType()));
+    int x = 1;// game->getNextPos().at(i).at(1);
+    int y = 1;//game->getNextPos().at(i).at(0);
+    window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{b1->theBoard.at(i).at(i).getType()}/*game->getNextType()*/));
   }
   window->drawString(20, 100, "Player 1 Level:");
   std::ostringstream oss;
-  oss << game->playerLevels[0];
+  oss << levels[0];
   window->drawString(20, 115, oss.str());
   window->drawString(270, 100, "Player 2 Level:");
   std::ostringstream oss1;
-  oss1 << game->playerLevels[1];
+  oss1 << levels[1];
   window->drawString(270, 115, oss1.str());
   window->drawString(20, 150, "Player 1 Score:");
   window->drawString(20, 170, "0");
@@ -57,57 +57,43 @@ Graphics::Graphics(GamePlay *game): window{std::make_unique<Xwindow>(500, 700)},
 };
 
 void Graphics::updateBoard() {
-  for (int i = 0; i < game->boards[0].numRows; ++i) {
-    for (int j = 0; j < game->boards[0].numCols; ++j) {
-      Cell &cell1 = board[game->curPlayer].at(i).at(j);
-      Cell &cell2 = game->boards[game->curPlayer].board.at(i).at(j);
-      Cell &cell3 = board[!game->curPlayer].at(i).at(j);
-      Cell &cell4 = game->boards[!game->curPlayer].board.at(i).at(j);
-      if (cell1.getType() != cell2.getType()) {
-        cell1.updateBlock(cell2.getBlock(), cell2.getType());
-        window->fillRectangle((game->curPlayer ? 252 : 12) + j * 20, 212 + i * 20, 20, 20, typeToColor(cell1.getType()));
+  for (int i = 0; i < b1->numRows; ++i) {
+    for (int j = 0; j < b1->numCols; ++j) {
+      if (currPlayer == 1) {
+        Cell &cell1 = b1->theBoard.at(i).at(j);
+        //Cell &cell2 = game->boards[game->curPlayer].board.at(i).at(j);
+        Cell &cell3 = b2->theBoard.at(i).at(j);
+        //Cell &cell4 = game->boards[!game->curPlayer].board.at(i).at(j);
       }
-      if (cell3.getType() != cell4.getType()) {
-        cell3.updateBlock(cell4.getBlock(), cell4.getType());
-        window->fillRectangle((game->curPlayer ? 12 : 252) + j * 20, 212 + i * 20, 20, 20, typeToColor(cell3.getType()));
-      }
+      // if (cell1.getType() != cell2.getType()) {
+      //   cell1.updateBlock(cell2.getBlock(), cell2.getType());
+      //   window->fillRectangle((game->curPlayer ? 252 : 12) + j * 20, 212 + i * 20, 20, 20, typeToColor(cell1.getType()));
+      // }
+      // if (cell3.getType() != cell4.getType()) {
+      //   cell3.updateBlock(cell4.getBlock(), cell4.getType());
+      //   window->fillRectangle((game->curPlayer ? 12 : 252) + j * 20, 212 + i * 20, 20, 20, typeToColor(cell3.getType()));
+      // }
     }
   }
-  window->fillRectangle((game->curPlayer ? 15 : 255), 600, 80, 40, Xwindow::White);
+  window->fillRectangle((currPlayer ? 15 : 255), 600, 80, 40, Xwindow::White);
   for (int i = 0; i < 4; ++i) {
-    int x = game->getNextPos().at(i).at(1);
-    int y = game->getNextPos().at(i).at(0);
-    window->fillRectangle((game->curPlayer ? 255 : 15) + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(game->getNextType()));
+    int x = 1;// game->getNextPos().at(i).at(1);
+    int y = 1;//game->getNextPos().at(i).at(0);
+    window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{b1->theBoard.at(i).at(i).getType()}/*game->getNextType()*/));
   }
   {
   std::ostringstream oss;
-  oss << game->playerScores[0];
+  oss << scores.front();
   window->drawString(20, 170, oss.str());
   std::ostringstream oss1;
-  oss1 << game->playerScores[1];
+  oss1 << scores.back();
   window->drawString(270, 170, oss1.str());
-  window->drawString(260, 51, (game->playerScores[0] > game->playerScores[1] ? oss.str() : oss1.str()));
+  window->drawString(260, 51, (scores.front() > scores.back() ? oss.str() : oss1.str()));
   }
   std::ostringstream oss;
-  oss << game->playerLevels[0];
+  oss << levels.front();
   window->drawString(20, 115, oss.str());
   std::ostringstream oss1;
-  oss1 << game->playerLevels[1];
+  oss1 << levels.back();
   window->drawString(270, 115, oss1.str());
 }
-
-#include "window.h"
-#include <memory>
-#include "cell.h"
-#include <vector>
-
-class GamePlay;
-
-class Graphics {
-  std::unique_ptr<Xwindow> window;
-  GamePlay *game;
-  std::vector<std::vector<Cell>> board[2];
-  public:
-  Graphics(GamePlay *);
-  void updateBoard();
-};
