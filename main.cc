@@ -72,6 +72,7 @@ int main(int argc, char *argv[]) {
   std::vector<Block*> blocksQueue1{currentBlock1.get(), nextBlock1.get()};
   std::vector<Block*> blocksQueue2{currentBlock2.get(), nextBlock2.get()};
   std::vector<std::vector<Block*>> queueOfBlockQueues{blocksQueue1, blocksQueue2};
+  std::vector<std::vector<Block*>> activeBlocks{queueOfBlockQueues.at(0), queueOfBlockQueues.at(1)};
 
   boards.at(currPlayer)->shift(0, 0, queueOfBlockQueues.at(currPlayer).front(), false);
 

@@ -128,6 +128,36 @@ int Board::clearRows() {
   return rowsCleared;
 }
 
+// int Board::clearRows() {
+//   std::vector<std::vector<Cell>> newBoard(18, std::vector<Cell>(11, Cell{}));
+//   int cur_row = 17;
+//   int rowsCleared = 0;
+//   for (int i = 17; i >= 0; --i) {
+//     if (!isFull(theBoard.at(i))) {
+//       newBoard.at(cur_row) = theBoard.at(i);
+//       --cur_row;
+//     } else {
+//       ++rowsCleared;
+//       for (auto c : theBoard.at(i)) {
+//         if (c.getBlock()) { // if it is a player placed block instead of * in the middle column
+//           c.getBlock()->clearCell();
+//           if (!c.getBlock()->numCells()) { // if all cells in this block are removed
+//             playerScores[currPlayer] += (c.getBlock()->getLevel() + 1) * (c.getBlock()->getLevel() + 1); // get score for this block
+//             auto block = activeBlocks[currPlayer].begin();
+//             while (block->get() != c.getBlock()) ++block;
+//             activeBlocks[currPlayer].erase(block); // find the block in activeBlocks[curPlayer] and erase it
+//           }
+//         }
+//       }
+//     }
+//   }
+//   theBoard = newBoard;
+//   if (rowsCleared) {
+//     playerScores[curPlayer] += (playerLevels[curPlayer] + rowsCleared) * (playerLevels[curPlayer] + rowsCleared);
+//   }
+//   return rowsCleared;
+// }
+
 void Board::rotateBlock(Block *block, bool clockwise) {
   // auto block = queue.front().get();
   std::vector<std::vector<int>> &pos = block->pos;
@@ -249,9 +279,9 @@ bool GamePlay::clearRows() {
           c.getBlock()->clearCell();
           if (!c.getBlock()->numCells()) { // if all cells in this block are removed
             playerScores[curPlayer] += (c.getBlock()->getLevel() + 1) * (c.getBlock()->getLevel() + 1); // get score for this block
-            auto block = blocksOnBoard[curPlayer].begin();
+            auto block = activeBlocks[curPlayer].begin();
             while (block->get() != c.getBlock()) ++block;
-            blocksOnBoard[curPlayer].erase(block); // find the block in blocksOnBoard[curPlayer] and erase it
+            activeBlocks[curPlayer].erase(block); // find the block in activeBlocks[curPlayer] and erase it
           }
         }
       }
