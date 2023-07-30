@@ -16,7 +16,7 @@ public:
     virtual ~absBoard();
     virtual bool swapBlock(Block *oldBlock, Block *newBlock) = 0;
     virtual void rotateBlock(Block *block, bool clockwise) = 0;
-    virtual bool shift(int x, int y, Block *block, bool drop = false) = 0;
+    virtual int shift(int x, int y, Block *block, bool drop = false) = 0;
     virtual void putBlock(int col, char type) = 0;
     virtual int clearRows() = 0;
     virtual bool isHeavy() = 0;
