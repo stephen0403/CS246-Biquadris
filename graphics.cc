@@ -59,19 +59,19 @@ Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer
 void Graphics::updateBoard() {
   for (int i = 0; i < b1->numRows; ++i) {
     for (int j = 0; j < b1->numCols; ++j) {
-      if (currPlayer == 1) {
+      //if (currPlayer == 1) {
         Cell &cell1 = b1->theBoard.at(i).at(j);
         //Cell &cell2 = game->boards[game->curPlayer].board.at(i).at(j);
         Cell &cell3 = b2->theBoard.at(i).at(j);
         //Cell &cell4 = game->boards[!game->curPlayer].board.at(i).at(j);
-      }
+      //}
       // if (cell1.getType() != cell2.getType()) {
       //   cell1.updateBlock(cell2.getBlock(), cell2.getType());
-      //   window->fillRectangle((game->curPlayer ? 252 : 12) + j * 20, 212 + i * 20, 20, 20, typeToColor(cell1.getType()));
+      window->fillRectangle((currPlayer ? 252 : 12) + j * 20, 212 + i * 20, 20, 20, typeToColor(std::string{cell1.getType()}));
       // }
       // if (cell3.getType() != cell4.getType()) {
       //   cell3.updateBlock(cell4.getBlock(), cell4.getType());
-      //   window->fillRectangle((game->curPlayer ? 12 : 252) + j * 20, 212 + i * 20, 20, 20, typeToColor(cell3.getType()));
+      window->fillRectangle((currPlayer ? 12 : 252) + j * 20, 212 + i * 20, 20, 20, typeToColor(std::string{cell3.getType()}));
       // }
     }
   }
