@@ -146,8 +146,10 @@ int main(int argc, char *argv[]) {
       rowsCleared = 0;
     }
     if (readFromFile) {
-      file >> multiplier;
-      file.clear();
+      if (!(file >> multiplier)) {
+        file.clear();
+        multiplier = 1;
+      }
       file >> cmd;
       if (file.eof()) {
         readFromFile = false;
@@ -155,10 +157,10 @@ int main(int argc, char *argv[]) {
         continue;
       }
     } else {
-      if(!std::cin >> multiplier) {
+      if(!(std::cin >> multiplier)) {
         std::cin.clear();
+        multiplier = 1;
       }
-
       if (!(std::cin >> cmd)) break;
     }
     
