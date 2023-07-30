@@ -16,15 +16,15 @@ ZBlock::ZBlock(/*Board *board*/): Block{/*board, */{{2, 0}, {2, 1}, {3, 1}, {3, 
 
 TBlock::TBlock(/*Board *board*/): Block{/*board, */{{2, 0}, {2, 1}, {2, 2}, {3, 1}}, {3, 0}} {}
 
-StarBlock::StarBlock(/*Board *board*/): Block{/*board, */{{2,2}, {2,1}, {2,2}, {3,1}}, {3,2}} {}
+StarBlock::StarBlock(/*Board *board*/): Block{/*board, */{{1, 5}, {1, 5}, {1, 5}, {1, 5}}, {1, 5}} {}
 
 int Block::numCells() const { return cellsLeft; }
 
 void Block::clearCell() { --cellsLeft; }
 
-std::string StarBlock::firstRow() const { return "  *  "; }
+std::string StarBlock::firstRow() const { return "    "; }
 
-std::string StarBlock::secondRow() const { return "     "; }
+std::string StarBlock::secondRow() const { return " * "; }
 
 std::string IBlock::firstRow() const { return " IIII"; }
 

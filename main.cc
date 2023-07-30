@@ -85,9 +85,15 @@ int main(int argc, char *argv[]) {
   
 
   while (true) {
-    if (playerLevels.at(currPlayer) == 4 && starsCount[currPlayer] % 5 == 0) {
+    if (playerLevels.at(currPlayer) == 4 && starsCount[currPlayer] % 5 == 0 && starsCount[currPlayer] != 0) {
       // spawn new * block and drop it
-      
+      std::unique_ptr<Block> starBlock = std::make_unique<StarBlock>();
+      bool dropping = true;
+        while (dropping) {
+          dropping = boards.at(currPlayer)->shift(0, 1, starBlock.get(), true);
+      }
+      rowsCleared = boards.at(currPlayer)->clearRows();
+      starsCount[currPlayer] = 0;
     }
     int multiplier = 1;
     int nextPlayer = (currPlayer + 1) % 2;
@@ -109,8 +115,10 @@ int main(int argc, char *argv[]) {
     if (rowsCleared >= 1) {
       // add to score
       scores.at(nextPlayer) += (rowsCleared + playerLevels.at(nextPlayer)) * (rowsCleared + playerLevels.at(nextPlayer));
+      starsCount[nextPlayer] = 0;
+    }
 
-      if (rowsCleared >= 2) {
+    if (rowsCleared >= 2) {
         std::cout << "Choose a special action: blind, heavy, force " << std::endl;
         std::string s;
         std::cin >> s;
@@ -144,8 +152,9 @@ int main(int argc, char *argv[]) {
           }
         }
       }
+
       rowsCleared = 0;
-    }
+
     if (readFromFile) {
       if (!(file >> multiplier)) {
         file.clear();
@@ -179,7 +188,7 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < multiplier; ++i) {
       if (cmd == "left") {
         boards.at(currPlayer)->shift(-1, 0, queueOfBlockQueues.at(currPlayer).front());
-        if (playerLevels.at(currPlayer) == 3 || playerLevels.at(currPlayer) == 4) { // && cnt == amt
+        if (playerLevels.at(currPlayer) >= 3) { // && cnt == amt
           bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
           if (!one) {
             queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
@@ -201,7 +210,7 @@ int main(int argc, char *argv[]) {
       } 
       else if (cmd == "right") {
         boards.at(currPlayer)->shift(1, 0, queueOfBlockQueues.at(currPlayer).front());
-        if (playerLevels.at(currPlayer) == 3 || playerLevels.at(currPlayer) == 4) { // && cnt == amt
+        if (playerLevels.at(currPlayer) >= 3) { // && cnt == amt
           bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
           if (!one) {
             queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
@@ -257,6 +266,7 @@ int main(int argc, char *argv[]) {
           blind = false;
         }
         if (i == multiplier - 1) currPlayer = (currPlayer + 1) % 2; //don't change player if they do xdrop, x>1
+        starsCount[currPlayer]++;
       } 
       else if (cmd == "levelup") {
         if (playerLevels.at(currPlayer) < 4) ++playerLevels.at(currPlayer);
