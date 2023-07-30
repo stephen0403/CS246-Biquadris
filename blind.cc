@@ -1,5 +1,5 @@
 #include "blind.h"
-#include "absboard.h"
+#include "absBoard.h"
 #include <iostream>
 #include "board.h"
 #include "block.h"
