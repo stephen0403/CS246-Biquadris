@@ -38,7 +38,7 @@ static bool isFull(const std::vector<Cell> &row) {
   return true;
 }
 
-bool Board::shift(int x, int y, Block *block, bool drop) {
+int Board::shift(int x, int y, Block *block, bool drop) {
   // auto block = queue.front().get();
   std::vector<std::vector<int>> &pos = block->pos;
   for (int i = 0; i < 4; ++i) {
