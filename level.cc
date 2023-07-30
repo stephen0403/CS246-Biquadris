@@ -60,19 +60,19 @@ std::unique_ptr<Block> Level0::newBlock(int currPlayer) {
     files.at(currPlayer) >> res;
   }
   std::cout << "Block for Player " << currPlayer << ": " << res << std::endl;
-  return blockGen(res);
+  return blockGen(res, level);
 }
 
 std::unique_ptr<Block> Level1::newBlock(int currPlayer) {
   char type[12] = {'I', 'I', 'J', 'J', 'L', 'L', 'T', 'T', 'S', 'Z', 'O', 'O'};
   char res = type[rand() % 12];
-  return blockGen(res);
+  return blockGen(res, level);
 }
 
 std::unique_ptr<Block> Level2::newBlock(int currPlayer) {
   char type[7] = {'I', 'J', 'L', 'T', 'S', 'Z', 'O'};
   char res = type[rand() % 7];
-  return blockGen(res);
+  return blockGen(res, level);
 }
 
 std::unique_ptr<Block> Level3::newBlock(int currPlayer) {
@@ -86,7 +86,7 @@ std::unique_ptr<Block> Level3::newBlock(int currPlayer) {
       file >> res;
     }
   }
-  return blockGen(res);
+  return blockGen(res, level);
 }
 
 std::unique_ptr<Block> Level4::newBlock(int currPlayer) {
@@ -100,7 +100,7 @@ std::unique_ptr<Block> Level4::newBlock(int currPlayer) {
       file >> res;
     }
   }
-  return blockGen(res);
+  return blockGen(res, level);
 }
 
 void Level3::blind() const {
