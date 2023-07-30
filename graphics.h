@@ -17,3 +17,4 @@ class Graphics {
   Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer, std::vector<int> scores);
   void updateBoard();
 };
+
