@@ -1,6 +1,6 @@
-#include <iostream>;
-#include <string>;
-#include <utility>;
+#include <iostream>
+#include <string>
+#include <utility>
 #include "trie.h"
 using namespace std;
 

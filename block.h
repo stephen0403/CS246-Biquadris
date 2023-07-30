@@ -8,6 +8,7 @@ class Block {
   // Board *board;
   std::vector<std::vector<int>> pos;
   std::vector<int> lowerLeft;
+  int cellsLeft;
   friend class Board;
   public:
     virtual char getType() const = 0;

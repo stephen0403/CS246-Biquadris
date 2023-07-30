@@ -56,7 +56,7 @@ void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queu
           std::cout << "?";
         }
         else {
-          std::cout << c;
+          std::cout << c.getType();
         }
       }
       std::cout << '|' << separateHeader << '|';
@@ -65,7 +65,7 @@ void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queu
           std::cout << "?";
         }
         else {
-          std::cout << c;
+          std::cout << c.getType();
         }
       }
       std::cout << '|' << std::endl;
@@ -78,12 +78,12 @@ void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queu
           std::cout << "?";
         }
         else {
-          std::cout << c;
+          std::cout << c.getType();
         }
       }
       std::cout << '|' << separateHeader << '|';
       for (auto c : bp2->theBoard.at(i)) {
-        std::cout << c;
+        std::cout << c.getType();
       }
       std::cout << '|' << std::endl;
     }
@@ -91,7 +91,7 @@ void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queu
     for (int i = 0; i < 18; ++i) {
       std::cout << '|';
       for (auto c : bp1->theBoard.at(i)) {
-        std::cout << c;
+        std::cout << c.getType();
       }
       std::cout << '|' << separateHeader << '|';
       for (auto c : bp2->theBoard.at(i)) {
@@ -99,7 +99,7 @@ void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queu
           std::cout << "?";
         }
         else {
-          std::cout << c;
+          std::cout << c.getType();
         }
       }
       std::cout << '|' << std::endl;

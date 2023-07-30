@@ -5,11 +5,11 @@ class Block;
 
 class Cell {
   Block *block;
-  std::string type;
+  char type;
   public:
   Cell();
-  void updateBlock(Block *, std::string);
-  std::string getType() const;
+  void updateBlock(Block *, char);
+  char getType() const;
   Block *getBlock() const;
 };
 #endif

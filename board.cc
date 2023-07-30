@@ -8,7 +8,7 @@
 
 Board::Board(): numRows{18}, numCols{11}, theBoard(numRows, std::vector<Cell>(numCols, Cell{})) {}
 
-char Board::tileAt(int row, int col) { return theBoard.at(row).at(col); }
+char Board::tileAt(int row, int col) { return theBoard.at(row).at(col).getType(); }
 
 Board::~Board() {}
 
@@ -29,9 +29,9 @@ char Board::getState(int row, int col) const {
   return board->tileAt(row, col);
 }
 
-static bool isFull(const std::vector<char> &row) {
+static bool isFull(const std::vector<Cell> &row) {
   for (auto c : row) {
-    if (c == ' ') {
+    if (c.getType() == ' ') {
       return false;
     }
   }
@@ -42,25 +42,25 @@ bool Board::shift(int x, int y, Block *block, bool drop) {
   // auto block = queue.front().get();
   std::vector<std::vector<int>> &pos = block->pos;
   for (int i = 0; i < 4; ++i) {
-    theBoard.at(pos[i][0]).at(pos[i][1]) = ' ';
+    theBoard.at(pos[i][0]).at(pos[i][1]).updateBlock(nullptr, ' ');
   }
   for (int i = 0; i < 4; ++i) {
     if (pos[i][0] + y >= numRows || pos[i][1] + x < 0 || pos[i][1] + x >= numCols ||
-        theBoard.at(pos[i][0] + y).at(pos[i][1] + x) != ' ') {
+        theBoard.at(pos[i][0] + y).at(pos[i][1] + x).getType() != ' ') {
       if (y && drop) {
         for (int i = 0; i < 4; ++i) {
           if (block->pos[i][0] < 3) {
             for (int i = 0; i < 4; ++i) {
               block->pos[i][0] += y;
               block->pos[i][1] += x;
-              theBoard.at(pos[i][0]).at(pos[i][1]) = block->getType();
+              theBoard.at(pos[i][0]).at(pos[i][1]).updateBlock(block, block->getType());
             }
             throw; // winner
           }
         }
       }
       for (int i = 0; i < 4; ++i) {
-        theBoard.at(pos[i][0]).at(pos[i][1]) = block->getType();
+        theBoard.at(pos[i][0]).at(pos[i][1]).updateBlock(block, block->getType());
       }
       return false;
     }
@@ -70,7 +70,7 @@ bool Board::shift(int x, int y, Block *block, bool drop) {
   for (int i = 0; i < 4; ++i) {
     block->pos[i][0] += y;
     block->pos[i][1] += x;
-    theBoard.at(pos[i][0]).at(pos[i][1]) = block->getType();
+    theBoard.at(pos[i][0]).at(pos[i][1]).updateBlock(block, block->getType());
   }
   return true;
 }
@@ -82,7 +82,7 @@ bool Board::swapBlock(Block *oldBlock, Block *newBlock) {
   char newBlockType = newBlock->getType();
 
   for (int i = 0; i < 4; ++i) {
-    theBoard.at(oldBlockPos[i][0]).at(oldBlockPos[i][1]) = ' ';
+    theBoard.at(oldBlockPos[i][0]).at(oldBlockPos[i][1]).updateBlock(nullptr, ' ');
   }
   // for (int i = 0; i < 4; ++i) {
   //   if (theBoard.at(newBlockPos[i][0]).at(newBlockPos[i][1]) != ' ') {
@@ -153,14 +153,14 @@ void Board::rotateBlock(Block *block, bool clockwise) {
     }
   }
   for (int i = 0; i < 4; ++i) {
-    theBoard.at(pos[i][0]).at(pos[i][1]) = ' ';
+    theBoard.at(pos[i][0]).at(pos[i][1]).updateBlock(nullptr, ' ');
   }
   for (int i = 0; i < 4; ++i) {
     dest[i][0] += block->lowerLeft[0] - newLowerLeft[0];
     dest[i][1] += block->lowerLeft[1] - newLowerLeft[1];
-    if (dest[i][1] >= numCols || theBoard.at(dest[i][0]).at(dest[i][1]) != ' ') {
+    if (dest[i][1] >= numCols || theBoard.at(dest[i][0]).at(dest[i][1]).getType() != ' ') {
       for (int i = 0; i < 4; ++i) {
-        theBoard.at(pos[i][0]).at(pos[i][1]) = block->getType();
+        theBoard.at(pos[i][0]).at(pos[i][1]).updateBlock(block, block->getType());
       }
       return;
     }
@@ -168,15 +168,15 @@ void Board::rotateBlock(Block *block, bool clockwise) {
   for (int i = 0; i < 4; ++i) {
     block->pos[i][0] = dest[i][0];
     block->pos[i][1] = dest[i][1];
-    theBoard.at(pos[i][0]).at(pos[i][1]) = block->getType();
+    theBoard.at(pos[i][0]).at(pos[i][1]).updateBlock(block, block->getType());
   }
 }
 
 void Board::putBlock(int col, char type) {
   for (int i = 3; i < 18; ++i) {
-    if (theBoard.at(i).at(5) != ' ') {
+    if (theBoard.at(i).at(5).getType() != ' ') {
       if (i > 3) {
-        theBoard.at(i - 1).at(col) = type;
+        theBoard.at(i - 1).at(col).updateBlock(nullptr, type);
         return;
       } else {
         throw; // throw what? Orginally curplayer
