@@ -6,6 +6,8 @@
 #include "board.h"
 #include "trie.h"
 #include <cctype>
+#include "graphics.h"
+#include "window.h"
 
 int main(int argc, char *argv[]) {
   std::string file1{"sequence1.txt"};
@@ -14,6 +16,7 @@ int main(int argc, char *argv[]) {
   int currPlayer = 0;               // current player
   std::vector<int> playerLevels{0, 0}; //the levels each player is on
   std::vector<int> starsCount{0, 0}; // how many turns they've played without clearing a row
+  
 
   // TRIE INITIALIZATION
   std::unique_ptr<TrieNode> trie = std::make_unique<TrieNode>();
@@ -81,6 +84,7 @@ int main(int argc, char *argv[]) {
   std::ifstream file;
   int rowsCleared = 0;
   std::vector<int> scores{0, 0};
+  std::unique_ptr<Graphics> graphicObserver = std::make_unique<Graphics>(board1.get(), board2.get(), playerLevels, currPlayer, scores);
   bool blind = false;
   // auto star = std::make_unique<StarBlock>();
   
@@ -146,12 +150,15 @@ int main(int argc, char *argv[]) {
       if (blind) {
         if (whoisblind) {
           textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
+          graphicObserver->updateBoard();
         } else {
           textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, whoisblind, !whoisblind);
+          graphicObserver->updateBoard();
         }
         blind = false;
       } else {
         textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, false, false);
+        graphicObserver->updateBoard();
       }
 
     if (readFromFile) {
