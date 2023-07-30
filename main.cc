@@ -240,11 +240,16 @@ int main(int argc, char *argv[]) {
         boards.at(currPlayer)->rotateBlock(queueOfBlockQueues.at(currPlayer).front(), false);
       } 
       else if (cmd == "drop") {
-        bool dropping = true;
+        int dropping = true;
         while (dropping) {
+          if (dropping == 5) {
+            std::cout << "Player " << ((currPlayer+1) % 2) + 1 << " has won!!!"<< std::endl;
+            return 0;
+          }
           dropping = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front(), true);
         }
 
+        
         rowsCleared = boards.at(currPlayer)->clearRows(); // clears rows and checks how many rows cleared
 
         if (rowsCleared == 0) { // check if we cleared more than 0 rows, if not then add to stars count
