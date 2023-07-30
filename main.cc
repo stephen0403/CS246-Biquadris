@@ -12,6 +12,7 @@ int main(int argc, char *argv[]) {
   unsigned int seed = 0;
   int currPlayer = 0;               // current player
   std::vector<int> playerLevels{0, 0}; //the levels each player is on
+  std::vector<int> starsCount{0, 0}; // how many turns they've played without clearing a row
 
   // TRIE INITIALIZATION
   std::unique_ptr<TrieNode> trie = std::make_unique<TrieNode>();
@@ -82,6 +83,10 @@ int main(int argc, char *argv[]) {
   
 
   while (true) {
+    if (playerLevels.at(currPlayer) == 4 && starsCount[currPlayer] % 5 == 0) {
+      // spawn new * block and drop it
+      
+    }
     int multiplier = 1;
     int nextPlayer = (currPlayer + 1) % 2;
     // check for special action
