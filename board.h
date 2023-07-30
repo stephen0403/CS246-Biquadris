@@ -22,7 +22,7 @@ class Board: public absBoard, public Subject {
   ~Board();
   void render();
   void rotateBlock(Block *block, bool clockwise) override;
-  bool shift(int x, int y, Block *block, bool drop = false) override;
+  int shift(int x, int y, Block *block, bool drop = false) override;
   bool swapBlock(Block *oldBlock, Block *newBlock) override;
   void putBlock(int col, char type) override;
   int clearRows() override;
