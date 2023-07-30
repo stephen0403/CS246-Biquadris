@@ -147,6 +147,7 @@ int main(int argc, char *argv[]) {
     }
     if (readFromFile) {
       file >> multiplier;
+      file.clear();
       file >> cmd;
       if (file.eof()) {
         readFromFile = false;
@@ -154,7 +155,10 @@ int main(int argc, char *argv[]) {
         continue;
       }
     } else {
-      std::cin >> multiplier;
+      if(!std::cin >> multiplier) {
+        std::cin.clear();
+      }
+
       if (!(std::cin >> cmd)) break;
     }
     
