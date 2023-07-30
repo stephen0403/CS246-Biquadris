@@ -16,8 +16,8 @@ static Xwindow::Color typeToColor(std::string type) {
   return Xwindow::Red;
 }
 
-Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer, std::vector<int> scores): window{std::make_unique<Xwindow>(500, 700)},
-  b1{b1}, b2{b2}, levels{levels}, currPlayer{currPlayer}, scores{scores} {
+Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer, std::vector<int> scores, std::vector<Block*> &queue1, std::vector<Block*> &queue2): window{std::make_unique<Xwindow>(500, 700)},
+  b1{b1}, b2{b2}, levels{levels}, currPlayer{currPlayer}, scores{scores}, queue1{queue1}, queue2{queue2} {
   window->fillRectangle(10, 210, 2, 364, Xwindow::Black);
   window->fillRectangle(10, 210, 224, 2, Xwindow::Black);
   window->fillRectangle(232, 210, 2, 364, Xwindow::Black);
@@ -36,9 +36,9 @@ Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer
     }
   }
   for (int i = 0; i < 4; ++i) {
-    int x = 1;// game->getNextPos().at(i).at(1);
-    int y = 1;//game->getNextPos().at(i).at(0);
-    window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{b1->theBoard.at(i).at(i).getType()}/*game->getNextType()*/));
+    int x = 10;// game->getNextPos().at(i).at(1);
+    int y = 10;//game->getNextPos().at(i).at(0);
+    window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}/*game->getNextType()*/));
   }
   window->drawString(20, 100, "Player 1 Level:");
   std::ostringstream oss;
@@ -78,9 +78,9 @@ void Graphics::updateBoard() {
   }
   window->fillRectangle((currPlayer ? 15 : 255), 600, 80, 40, Xwindow::White);
   for (int i = 0; i < 4; ++i) {
-    int x = 1;// game->getNextPos().at(i).at(1);
-    int y = 1;//game->getNextPos().at(i).at(0);
-    window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{b1->theBoard.at(i).at(i).getType()}/*game->getNextType()*/));
+    int x = 10;// game->getNextPos().at(i).at(1);
+    int y = 10;//game->getNextPos().at(i).at(0);
+    window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}/*game->getNextType()*/));
   }
   {
   std::ostringstream oss;
