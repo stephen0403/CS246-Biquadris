@@ -49,7 +49,7 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
   std::cout << std::endl;
   std::cout << border << separateHeader << border << std::endl;
   if (p1blind && p2blind) {
-    for (int i = 0; i < bp1->theBoard.numRows; ++i) {
+    for (int i = 0; i < 18; ++i) {
       std::cout << '|';
       for (int c = 0; c < 16; c++) {
         if (c >= 2 && c <= 8 && i >= 5 && i <= 14) {
@@ -88,7 +88,7 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
       std::cout << '|' << std::endl;
     }
   } else if (!p1blind && p2blind) {
-    for (int i = 0; i < bp1->theBoard.numRows; ++i) {
+    for (int i = 0; i < 18; ++i) {
       std::cout << '|';
       for (auto c : bp1->theBoard.at(i)) {
         std::cout << c.getType();
