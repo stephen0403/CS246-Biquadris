@@ -101,12 +101,22 @@ int main(int argc, char *argv[]) {
       rowsCleared = boards.at(currPlayer)->clearRows(scores, currPlayer);
       starsCount[currPlayer] = 0;
     }
+
+    
     int multiplier = 0;
     int nextPlayer = (currPlayer + 1) % 2;
     // check for special action
     bool whoisblind = nextPlayer % 2 == 0;
     boards.at(0)->shift(0, 0, queueOfBlockQueues.at(0).front());
     boards.at(1)->shift(0, 0, queueOfBlockQueues.at(1).front());
+
+    if (rowsCleared >= 1) {
+      // add to score
+      scores.at(nextPlayer) += (rowsCleared + playerLevels.at(nextPlayer)) * (rowsCleared + playerLevels.at(nextPlayer));
+      highScore = std::max(highScore, scores.at(nextPlayer));
+      starsCount[nextPlayer] = 0;
+    }
+
     if (blind) {
       if (whoisblind) {
         textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
@@ -120,22 +130,6 @@ int main(int argc, char *argv[]) {
     } else {
       textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, false, false);
       graphicObserver->updateBoard();
-    }
-    // if (blind) {
-    //   if (whoisblind) {
-    //     textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, !whoisblind, whoisblind);
-    //   }
-    //   else {
-    //     textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, whoisblind, !whoisblind);
-    //   }
-    // } else {
-    //   textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels);
-    // }
-    if (rowsCleared >= 1) {
-      // add to score
-      scores.at(nextPlayer) += (rowsCleared + playerLevels.at(nextPlayer)) * (rowsCleared + playerLevels.at(nextPlayer));
-      highScore = std::max(highScore, scores.at(nextPlayer));
-      starsCount[nextPlayer] = 0;
     }
 
     if (rowsCleared >= 2) {
