@@ -85,8 +85,9 @@ int main(int argc, char *argv[]) {
   int rowsCleared = 0;
   bool blind = false;
   std::vector<int> scores{0, 0};
-  std::unique_ptr<Graphics> graphicObserver = std::make_unique<Graphics>(board1.get(), board2.get(), playerLevels, currPlayer, scores, queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), blind);
   int highScore = 0;
+  std::unique_ptr<Graphics> graphicObserver = std::make_unique<Graphics>(board1.get(), board2.get(), playerLevels, currPlayer, scores, queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), blind);
+
   
 
   while (true) {
@@ -148,7 +149,7 @@ int main(int argc, char *argv[]) {
           
         }
         else if (s == "heavy" || s == "Heavy" || s == "HEAVY" || s == "h" || s == "H") {
-          boards.at(nextPlayer)->setHeavy();
+          boards.at(currPlayer)->setHeavy(); // should be nextPlayer;
         }
         else if (s == "force" || s == "Force" || s == "FORCE" || s == "f" || s == "F") {
           char c;

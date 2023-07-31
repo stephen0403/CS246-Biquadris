@@ -68,9 +68,9 @@ Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer
   oss1 << levels[1];
   window->drawString(270, 115, oss1.str());
   window->drawString(20, 150, "Player 1 Score:");
-  window->drawString(20, 170, "0");
+  window->drawString(20, 170, scores[0]);
   window->drawString(270, 150, "Player 2 Score:");
-  window->drawString(270, 170, "0");
+  window->drawString(270, 170, scores[1]);
   window->drawString(200, 50, "hi score:");
   window->drawString(260, 51, "0");
 };
