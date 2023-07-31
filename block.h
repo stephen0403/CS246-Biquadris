@@ -9,20 +9,22 @@ class Block {
   std::vector<std::vector<int>> pos;
   std::vector<int> lowerLeft;
   int cellsLeft;
+  protected:
+    int level;
   friend class Board;
   public:
     virtual char getType() const = 0;
-    Block(std::vector<std::vector<int>>, std::vector<int>);
+    Block(std::vector<std::vector<int>>, std::vector<int>, int);
     virtual std::string firstRow() const = 0;
     virtual std::string secondRow() const = 0;
     int numCells() const;
     void clearCell();
-    std::vector<std::vector<int>> getPos();
+    int getLevel() const;
 };
 
 class IBlock: public Block {
   public:
-    IBlock();
+    IBlock(int);
     char getType() const override;
     std::string firstRow() const override;
     std::string secondRow() const override;
@@ -30,7 +32,7 @@ class IBlock: public Block {
 
 class JBlock: public Block {
   public:
-    JBlock();
+    JBlock(int);
     char getType() const override;
     std::string firstRow() const override;
     std::string secondRow() const override;
@@ -38,7 +40,7 @@ class JBlock: public Block {
 
 class LBlock: public Block {
   public:
-    LBlock();
+    LBlock(int);
     char getType() const override;
     std::string firstRow() const override;
     std::string secondRow() const override;
@@ -46,7 +48,7 @@ class LBlock: public Block {
 
 class OBlock: public Block {
   public:
-    OBlock();
+    OBlock(int);
     char getType() const override;
     std::string firstRow() const override;
     std::string secondRow() const override;
@@ -54,7 +56,7 @@ class OBlock: public Block {
 
 class SBlock: public Block {
   public:
-    SBlock();
+    SBlock(int);
     char getType() const override;
     std::string firstRow() const override;
     std::string secondRow() const override;
@@ -62,7 +64,7 @@ class SBlock: public Block {
 
 class ZBlock: public Block {
   public:
-    ZBlock();
+    ZBlock(int);
     char getType() const override;
     std::string firstRow() const override;
     std::string secondRow() const override;
@@ -70,7 +72,7 @@ class ZBlock: public Block {
 
 class TBlock: public Block {
   public:
-    TBlock();
+    TBlock(int);
     char getType() const override;
     std::string firstRow() const override;
     std::string secondRow() const override;
@@ -78,12 +80,11 @@ class TBlock: public Block {
 
 class StarBlock: public Block {
   public:
-    StarBlock();
+    StarBlock(int);
     char getType() const override;
     std::string firstRow() const override;
     std::string secondRow() const override;
 };
 
-std::unique_ptr<Block> blockGen(char);
+std::unique_ptr<Block> blockGen(char, int);
 #endif
-
