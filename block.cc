@@ -72,6 +72,10 @@ char OBlock::getType() const { return 'O'; }
 
 char ZBlock::getType() const { return 'Z'; }
 
+std::vector<std::vector<int>> Block::getPos() { 
+  return pos;
+}
+
 
 std::unique_ptr<Block> blockGen(char res, int level) {
   if (res == 'I') {
