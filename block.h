@@ -20,6 +20,7 @@ class Block {
     int numCells() const;
     void clearCell();
     int getLevel() const;
+    std::vector<std::vector<int>> getPos();
 };
 
 class IBlock: public Block {
