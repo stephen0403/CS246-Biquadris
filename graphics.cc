@@ -83,7 +83,7 @@ void Graphics::updateBoard(std::vector<int> levels, std::vector<int> scores, boo
     for (int j = 0; j < b1->numCols; ++j) {
       if (i >= 5 && i <= 14 && j >= 2 && j <= 8 && blind) {
         int nextPlayer = (currPlayer+1) % 2;
-        window->fillRectangle((nextPlayer ? 252 : 12) + j * 20, 212 + i * 20, 20, 20, Xwindow::White);
+        window->fillRectangle((nextPlayer ? 252 : 12) + j * 20, 212 + i * 20, 400, 400, Xwindow::White);
         window->drawString((nextPlayer ? 252 : 12) + j * 20, 212 + i * 20, "?");
       }
     //   if (currPlayer == 1) {
