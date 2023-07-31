@@ -87,13 +87,12 @@ int main(int argc, char *argv[]) {
   std::unique_ptr<Graphics> graphicObserver = std::make_unique<Graphics>(board1.get(), board2.get(), playerLevels, currPlayer, scores, blocksQueue1, blocksQueue2);
   int highScore = 0;
   bool blind = false;
-  auto star = std::make_unique<StarBlock>();
   
 
   while (true) {
     if (playerLevels.at(currPlayer) == 4 && starsCount[currPlayer] % 5 == 0 && starsCount[currPlayer] != 0) {
       // spawn new * block and drop it
-      std::unique_ptr<Block> starBlock = std::make_unique<StarBlock>();
+      std::unique_ptr<Block> starBlock = std::make_unique<StarBlock>(playerLevels.at(currPlayer));
       bool dropping = true;
         while (dropping) {
           dropping = boards.at(currPlayer)->shift(0, 1, starBlock.get(), true);
@@ -157,12 +156,12 @@ int main(int argc, char *argv[]) {
 
           if (currPlayer == 0) {
             auto oldBlock = std::move(currentBlock1);
-            currentBlock1 = blockGen(c);
+            currentBlock1 = blockGen(c, playerLevels.at(currPlayer));
             boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
             queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
           } else {
             auto oldBlock = std::move(currentBlock2);
-            currentBlock2 = blockGen(c);
+            currentBlock2 = blockGen(c, playerLevels.at(currPlayer));
             boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
             queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
           }
@@ -339,36 +338,36 @@ int main(int argc, char *argv[]) {
         if (cmd == "I") {
           if (currPlayer == 0) {
             auto oldBlock = std::move(currentBlock1);
-            currentBlock1 = std::make_unique<IBlock>();
+            currentBlock1 = std::make_unique<IBlock>(playerLevels.at(currPlayer));
             boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
             queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
           } else {
             auto oldBlock = std::move(currentBlock2);
-            currentBlock2 = std::make_unique<IBlock>();
+            currentBlock2 = std::make_unique<IBlock>(playerLevels.at(currPlayer));
             boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
             queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
           }
         } else if (cmd == "J") {
           if (currPlayer == 0) {
             auto oldBlock = std::move(currentBlock1);
-            currentBlock1 = std::make_unique<JBlock>();
+            currentBlock1 = std::make_unique<JBlock>(playerLevels.at(currPlayer));
             boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
             queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
           } else {
             auto oldBlock = std::move(currentBlock2);
-            currentBlock2 = std::make_unique<JBlock>();
+            currentBlock2 = std::make_unique<JBlock>(playerLevels.at(currPlayer));
             boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
             queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
           }
         } else {
           if (currPlayer == 0) {
             auto oldBlock = std::move(currentBlock1);
-            currentBlock1 = std::make_unique<LBlock>();
+            currentBlock1 = std::make_unique<LBlock>(playerLevels.at(currPlayer));
             boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
             queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
           } else {
             auto oldBlock = std::move(currentBlock2);
-            currentBlock2 = std::make_unique<LBlock>();
+            currentBlock2 = std::make_unique<LBlock>(playerLevels.at(currPlayer));
             boards.at(currPlayer)->swapBlock(oldBlock.get(), currentBlock1.get());
             queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
           }
