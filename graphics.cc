@@ -15,10 +15,10 @@ static Xwindow::Color typeToColor(std::string type) {
   if (type == "O") return Xwindow::Yellow;
   if (type == "S") return Xwindow::Green;
   if (type == "T") return Xwindow::Magenta;
-  if (type == "Z") return Xwindow::Blue;
+  if (type == "Z") return Xwindow::Red;
   if (type == " ") return Xwindow::White;
   if (type == "*") return Xwindow::Brown;
-  return Xwindow::Red;
+  return Xwindow::Black;
 }
 
 Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer, std::vector<int> scores, std::vector<Block*> &queue1, std::vector<Block*> &queue2, bool blind): window{std::make_unique<Xwindow>(500, 700)},
