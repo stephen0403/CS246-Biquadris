@@ -32,7 +32,7 @@ void TextDisplay::printHeader(std::string title, int num) const {
 }
 
 
-void TextDisplay::display(std::vector<Block*> &queue1, std::vector<Block*> &queue2, std::vector<int> currLevel, std::vector<int> currScore, bool p1blind, bool p2blind) {
+void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<Block*> &queue2, std::vector<int> currLevel, std::vector<int> currScore, bool p1blind, bool p2blind) {
   std::string separateHeader{"        "};
   std::string separateFooter{"                "};
   std::string emptyNext{"                     "};

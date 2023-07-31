@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
   std::ifstream file;
   int rowsCleared = 0;
   std::vector<int> scores{0, 0};
-  std::unique_ptr<Graphics> graphicObserver = std::make_unique<Graphics>(board1.get(), board2.get(), playerLevels, currPlayer, scores, blocksQueue1, blocksQueue2);
+  std::unique_ptr<Graphics> graphicObserver = std::make_unique<Graphics>(board1.get(), board2.get(), playerLevels, currPlayer, scores, queueOfBlockQueues.at(0), queueOfBlockQueues.at(1));
   int highScore = 0;
   bool blind = false;
   
