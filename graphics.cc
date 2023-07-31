@@ -36,13 +36,22 @@ Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer
     }
   }
   for (int i = 0; i < 4; ++i) {
-    int x = 10;// game->getNextPos().at(i).at(1);
-    int y = 10;//game->getNextPos().at(i).at(0);
-    if (currPlayer) {
-      window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue2.at(1)->getType()}));
-    } else {
-      window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}));
-    }
+    int x1 = 0;// game->getNextPos().at(i).at(1);
+    int y1 = 0;//game->getNextPos().at(i).at(0);
+    int x2 = 0;
+    int y2 = 0;
+
+      x1 = queue1.at(1)->getPos().at(i).at(1);
+      y1 = queue1.at(1)->getPos().at(i).at(0);
+
+      x2 = queue2.at(1)->getPos().at(i).at(1);
+      y2 = queue2.at(1)->getPos().at(i).at(0);
+    
+
+      window->fillRectangle(15 + 20 * x1, 600 + (y1 - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}));
+
+      window->fillRectangle(250 + 20 * x2, 600 + (y2 - 2) * 20, 20, 20, typeToColor(std::string{queue2.at(1)->getType()}));
+    
     //window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}/*game->getNextType()*/));
   }
   window->drawString(20, 100, "Player 1 Level:");
@@ -83,13 +92,21 @@ void Graphics::updateBoard() {
   }
   window->fillRectangle((currPlayer ? 15 : 255), 600, 80, 40, Xwindow::White);
   for (int i = 0; i < 4; ++i) {
-    int x = 10;// game->getNextPos().at(i).at(1);
-    int y = 10;//game->getNextPos().at(i).at(0);
-    if (currPlayer) {
-      window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue2.at(1)->getType()}/*game->getNextType()*/));
-    } else {
-      window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}/*game->getNextType()*/));
-    }
+    int x1 = 0;// game->getNextPos().at(i).at(1);
+    int y1 = 0;//game->getNextPos().at(i).at(0);
+    int x2 = 0;
+    int y2 = 0;
+
+      x1 = queue1.at(1)->getPos().at(i).at(1);
+      y1 = queue1.at(1)->getPos().at(i).at(0);
+      x2 = queue2.at(1)->getPos().at(i).at(1);
+      y2 = queue2.at(1)->getPos().at(i).at(0);
+    
+  
+      window->fillRectangle(15 + 20 * x1, 600 + (y1 - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}/*game->getNextType()*/));
+
+      window->fillRectangle(250 + 20 * x2, 600 + (y2 - 2) * 20, 20, 20, typeToColor(std::string{queue2.at(1)->getType()}/*game->getNextType()*/));
+    
     // window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}/*game->getNextType()*/));
   }
   {
@@ -108,4 +125,3 @@ void Graphics::updateBoard() {
   oss1 << levels.back();
   window->drawString(270, 115, oss1.str());
 }
-
