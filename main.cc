@@ -120,16 +120,16 @@ int main(int argc, char *argv[]) {
     if (blind) {
       if (whoisblind) {
         textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
-        graphicObserver->updateBoard(playerLevels, scores);
+        graphicObserver->updateBoard(playerLevels, scores, blind);
 
       } else {
         textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, whoisblind, !whoisblind);
-        graphicObserver->updateBoard(playerLevels, scores);
+        graphicObserver->updateBoard(playerLevels, scores, blind);
       }
       blind = false;
     } else {
       textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, false, false);
-      graphicObserver->updateBoard(playerLevels, scores);
+      graphicObserver->updateBoard(playerLevels, scores, blind);
     }
 
     if (rowsCleared >= 2) {
