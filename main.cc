@@ -314,8 +314,8 @@ int main(int argc, char *argv[]) {
           std::cin >> fileName;
         }
 
-        l3 = std::make_unique<Level3> (boards.at(currPlayer), true, fileName);
-        l4 = std::make_unique<Level4> (boards.at(currPlayer), true, fileName);
+        l3 = std::make_unique<Level3> (boards.at(currPlayer), true, seed, fileName);
+        l4 = std::make_unique<Level4> (boards.at(currPlayer), true, seed, fileName);
         levels.at(3) = l3.get();
         levels.at(4) = l4.get();
       } 
@@ -381,11 +381,11 @@ int main(int argc, char *argv[]) {
         board2 = std::make_unique<Board> (); // board2
         boards = {board1.get(), board2.get()};
         levels = {};
-        l0 = std::make_unique<Level0> (boards.at(currPlayer), file1, file2);
-        l1 = std::make_unique<Level1> (boards.at(currPlayer));
-        l2 = std::make_unique<Level2> (boards.at(currPlayer));
-        l3 = std::make_unique<Level3> (boards.at(currPlayer), false);
-        l4 = std::make_unique<Level4> (boards.at(currPlayer), false);
+        l0 = std::make_unique<Level0> (boards.at(currPlayer), file1, file2, seed);
+        l1 = std::make_unique<Level1> (boards.at(currPlayer), seed);
+        l2 = std::make_unique<Level2> (boards.at(currPlayer), seed);
+        l3 = std::make_unique<Level3> (boards.at(currPlayer), false, seed);
+        l4 = std::make_unique<Level4> (boards.at(currPlayer), false, seed);
         levels.emplace_back(l0.get());
         levels.emplace_back(l1.get());
         levels.emplace_back(l2.get());
