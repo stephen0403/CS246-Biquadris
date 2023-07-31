@@ -38,7 +38,12 @@ Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer
   for (int i = 0; i < 4; ++i) {
     int x = 10;// game->getNextPos().at(i).at(1);
     int y = 10;//game->getNextPos().at(i).at(0);
-    window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}/*game->getNextType()*/));
+    if (currPlayer) {
+      window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue2.at(1)->getType()}));
+    } else {
+      window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}));
+    }
+    //window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}/*game->getNextType()*/));
   }
   window->drawString(20, 100, "Player 1 Level:");
   std::ostringstream oss;
@@ -80,7 +85,12 @@ void Graphics::updateBoard() {
   for (int i = 0; i < 4; ++i) {
     int x = 10;// game->getNextPos().at(i).at(1);
     int y = 10;//game->getNextPos().at(i).at(0);
-    window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}/*game->getNextType()*/));
+    if (currPlayer) {
+      window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue2.at(1)->getType()}/*game->getNextType()*/));
+    } else {
+      window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}/*game->getNextType()*/));
+    }
+    // window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}/*game->getNextType()*/));
   }
   {
   std::ostringstream oss;
