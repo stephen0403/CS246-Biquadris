@@ -51,21 +51,21 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
   if (p1blind && p2blind) {
     for (int i = 0; i < 18; ++i) {
       std::cout << '|';
-      for (int c = 0; c < 16; c++) {
-        if (c >= 2 && c <= 8 && i >= 5 && i <= 14) {
+      for (auto c : bp1->theBoard.at(i)) {
+        if (i >= 2 && i <= 11) {
           std::cout << "?";
         }
         else {
-          std::cout << bp1->theBoard.at(i).at(c).getType();
+          std::cout << c.getType();
         }
       }
       std::cout << '|' << separateHeader << '|';
-      for (int c = 0; c < 16; c++) {
-        if (c >= 2 && c <= 8 && i >= 5 && i <= 14) {
+      for (auto c : bp2->theBoard.at(i)) {
+        if (i >= 2 && i <= 11) {
           std::cout << "?";
         }
         else {
-          std::cout << bp2->theBoard.at(i).at(c).getType();
+          std::cout << c.getType();
         }
       }
       std::cout << '|' << std::endl;
@@ -73,12 +73,12 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
   } else if (p1blind && !p2blind) {
     for (int i = 0; i < 18; ++i) {
       std::cout << '|';
-      for (int c = 0; c < 16; c++) {
-        if (c >= 2 && c <= 8 && i >= 5 && i <= 14) {
+      for (auto c : bp1->theBoard.at(i)) {
+        if (i >= 2 && i <= 11) {
           std::cout << "?";
         }
         else {
-          std::cout << bp1->theBoard.at(i).at(c).getType();
+          std::cout << c.getType();
         }
       }
       std::cout << '|' << separateHeader << '|';
@@ -94,12 +94,12 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
         std::cout << c.getType();
       }
       std::cout << '|' << separateHeader << '|';
-      for (int c = 0; c < 16; c++) {
-        if (c >= 2 && c <= 8 && i >= 5 && i <= 14) {
+      for (auto c : bp2->theBoard.at(i)) {
+        if (i >= 2 && i <= 11) {
           std::cout << "?";
         }
         else {
-          std::cout << bp2->theBoard.at(i).at(c).getType();
+          std::cout << c.getType();
         }
       }
       std::cout << '|' << std::endl;
