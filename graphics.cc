@@ -123,6 +123,9 @@ void Graphics::updateBoard(std::vector<int> levels, std::vector<int> scores, boo
     // window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}/*game->getNextType()*/));
   }
   {
+  window->fillRectangle(10, 170, 40, 30, Xwindow::White);
+  window->fillRectangle(260, 170, 40, 30, Xwindow::White);
+  window->fillRectangle(260, 51, 40, 30, Xwindow::White);
   std::ostringstream oss;
   oss << scores.front();
   window->drawString(20, 170, oss.str());
