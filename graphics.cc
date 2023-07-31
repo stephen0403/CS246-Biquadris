@@ -108,3 +108,4 @@ void Graphics::updateBoard() {
   oss1 << levels.back();
   window->drawString(270, 115, oss1.str());
 }
+
