@@ -5,73 +5,76 @@
 #include <memory>
 
 class Block {
-  // Board *board;
+  int level;
+  int cellsLeft;
   std::vector<std::vector<int>> pos;
   std::vector<int> lowerLeft;
   friend class GamePlay;
   public:
-    virtual char getType() const = 0;
-    Block(std::vector<std::vector<int>>, std::vector<int>);
+    virtual std::string getType() const = 0;
+    Block(std::vector<std::vector<int>>, int);
     virtual std::string firstRow() const = 0;
     virtual std::string secondRow() const = 0;
-    // Board *getBoard() const;
+    int numCells() const;
+    void clearCell();
+    int getLevel() const;
 };
 
 class IBlock: public Block {
   public:
-    IBlock();
-    char getType() const override;
+    IBlock(int);
+    std::string getType() const override;
     std::string firstRow() const override;
     std::string secondRow() const override;
 };
 
 class JBlock: public Block {
   public:
-    JBlock();
-    char getType() const override;
+    JBlock(int);
+    std::string getType() const override;
     std::string firstRow() const override;
     std::string secondRow() const override;
 };
 
 class LBlock: public Block {
   public:
-    LBlock();
-    char getType() const override;
+    LBlock(int);
+    std::string getType() const override;
     std::string firstRow() const override;
     std::string secondRow() const override;
 };
 
 class OBlock: public Block {
   public:
-    OBlock();
-    char getType() const override;
+    OBlock(int);
+    std::string getType() const override;
     std::string firstRow() const override;
     std::string secondRow() const override;
 };
 
 class SBlock: public Block {
   public:
-    SBlock();
-    char getType() const override;
+    SBlock(int);
+    std::string getType() const override;
     std::string firstRow() const override;
     std::string secondRow() const override;
 };
 
 class ZBlock: public Block {
   public:
-    ZBlock();
-    char getType() const override;
+    ZBlock(int);
+    std::string getType() const override;
     std::string firstRow() const override;
     std::string secondRow() const override;
 };
 
 class TBlock: public Block {
   public:
-    TBlock();
-    char getType() const override;
+    TBlock(int);
+    std::string getType() const override;
     std::string firstRow() const override;
     std::string secondRow() const override;
 };
 
-std::unique_ptr<Block> blockGen(char);
+std::unique_ptr<Block> blockGen(char, int);
 #endif
