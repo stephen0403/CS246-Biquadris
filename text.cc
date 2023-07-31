@@ -65,7 +65,7 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
           std::cout << "?";
         }
         else {
-          std::cout << std::cout << bp2->theBoard.at(i).at(c).getType();
+          std::cout << bp2->theBoard.at(i).at(c).getType();
         }
       }
       std::cout << '|' << std::endl;
