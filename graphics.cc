@@ -16,8 +16,8 @@ static Xwindow::Color typeToColor(std::string type) {
   return Xwindow::Red;
 }
 
-Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer, std::vector<int> scores, std::vector<Block*> &queue1, std::vector<Block*> &queue2): window{std::make_unique<Xwindow>(500, 700)},
-  b1{b1}, b2{b2}, levels{levels}, currPlayer{currPlayer}, scores{scores}, queue1{queue1}, queue2{queue2} {
+Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer, std::vector<int> scores, std::vector<Block*> &queue1, std::vector<Block*> &queue2), bool blind: window{std::make_unique<Xwindow>(500, 700)},
+  b1{b1}, b2{b2}, levels{levels}, currPlayer{currPlayer}, scores{scores}, queue1{queue1}, queue2{queue2}, blind{blind} {
   window->fillRectangle(10, 210, 2, 364, Xwindow::Black);
   window->fillRectangle(10, 210, 224, 2, Xwindow::Black);
   window->fillRectangle(232, 210, 2, 364, Xwindow::Black);
