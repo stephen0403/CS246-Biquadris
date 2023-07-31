@@ -1,32 +1,35 @@
 #include "block.h"
 
-Block::Block(std::vector<std::vector<int>> pos, std::vector<int> ll, int level): /*board{b}, */pos{pos}, level{level}, lowerLeft{ll}, cellsLeft{4} {}
+Block::Block(std::vector<std::vector<int>> pos, std::vector<int> ll): /*board{b}, */pos{pos}, lowerLeft{ll} {}
 
-IBlock::IBlock(int level): Block{/*board, */{{3, 0}, {3, 1}, {3, 2}, {3, 3}}, {3, 0}, level} {}
+IBlock::IBlock(/*Board *board*/): Block{/*board, */{{3, 0}, {3, 1}, {3, 2}, {3, 3}}, {3, 0}} {}
 
-JBlock::JBlock(int level): Block{/*board, */{{2, 0}, {3, 0}, {3, 1}, {3, 2}}, {3, 0}, level} {}
+JBlock::JBlock(/*Board *board*/): Block{/*board, */{{2, 0}, {3, 0}, {3, 1}, {3, 2}}, {3, 0}} {}
 
-LBlock::LBlock(int level): Block{/*board, */{{2, 2}, {3, 0}, {3, 1}, {3, 2}}, {3, 0}, level} {}
+LBlock::LBlock(/*Board *board*/): Block{/*board, */{{2, 2}, {3, 0}, {3, 1}, {3, 2}}, {3, 0}} {}
 
-OBlock::OBlock(int level): Block{/*board, */{{2, 0}, {2, 1}, {3, 0}, {3, 1}}, {3, 0}, level} {}
+OBlock::OBlock(/*Board *board*/): Block{/*board, */{{2, 0}, {2, 1}, {3, 0}, {3, 1}}, {3, 0}} {}
 
-SBlock::SBlock(int level): Block{/*board, */{{2, 1}, {2, 2}, {3, 0}, {3, 1}}, {3, 0}, level} {}
+SBlock::SBlock(/*Board *board*/): Block{/*board, */{{2, 1}, {2, 2}, {3, 0}, {3, 1}}, {3, 0}} {}
 
-ZBlock::ZBlock(int level): Block{/*board, */{{2, 0}, {2, 1}, {3, 1}, {3, 2}}, {3, 0}, level} {}
+ZBlock::ZBlock(/*Board *board*/): Block{/*board, */{{2, 0}, {2, 1}, {3, 1}, {3, 2}}, {3, 0}} {}
 
-TBlock::TBlock(int level): Block{/*board, */{{2, 0}, {2, 1}, {2, 2}, {3, 1}}, {3, 0}, level} {}
+TBlock::TBlock(/*Board *board*/): Block{/*board, */{{2, 0}, {2, 1}, {2, 2}, {3, 1}}, {3, 0}} {}
 
-StarBlock::StarBlock(int level): Block{/*board, */{{1, 5}, {1, 5}, {1, 5}, {1, 5}}, {1, 5}, level} {}
+StarBlock::StarBlock(/*Board *board*/): Block{/*board, */{{2,2}, {2,1}, {2,2}, {3,1}}, {3,2}} {}
 
 int Block::numCells() const { return cellsLeft; }
 
+std::vector<std::vector<int>> Block::getPos() { 
+  return pos;
+}
+
 void Block::clearCell() { --cellsLeft; }
+// Board *Block::getBoard() const { return board; }
 
-int Block::getLevel() const { return level; }
+std::string StarBlock::firstRow() const { return "  *  "; }
 
-std::string StarBlock::firstRow() const { return "    "; }
-
-std::string StarBlock::secondRow() const { return " * "; }
+std::string StarBlock::secondRow() const { return "     "; }
 
 std::string IBlock::firstRow() const { return " IIII"; }
 
@@ -73,22 +76,23 @@ char OBlock::getType() const { return 'O'; }
 char ZBlock::getType() const { return 'Z'; }
 
 
-std::unique_ptr<Block> blockGen(char res, int level) {
+std::unique_ptr<Block> blockGen(char res) {
   if (res == 'I') {
-    return std::make_unique<IBlock>(level);
+    return std::make_unique<IBlock>();
   } else if (res == 'J') {
-    return std::make_unique<JBlock>(level);
+    return std::make_unique<JBlock>();
   } else if (res == 'L') {
-    return std::make_unique<LBlock>(level);
+    return std::make_unique<LBlock>();
   } else if (res == 'T') {
-    return std::make_unique<TBlock>(level);
+    return std::make_unique<TBlock>();
   } else if (res == 'S') {
-    return std::make_unique<SBlock>(level);
+    return std::make_unique<SBlock>();
   } else if (res == 'Z') {
-    return std::make_unique<ZBlock>(level);
+    return std::make_unique<ZBlock>();
   } else if (res == '*') {
-    return std::make_unique<StarBlock>(level);
+    return std::make_unique<StarBlock>();
   } else { 
-    return std::make_unique<OBlock>(level);
+    return std::make_unique<OBlock>();
   }
 }
+
