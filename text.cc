@@ -51,7 +51,7 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
   if (p1blind && p2blind) {
     for (int i = 0; i < bp1->theBoard.numRows; ++i) {
       std::cout << '|';
-      for (int c : bp1->theBoard.numCols) {
+      for (int c = 0; c < 16; c++) {
         if (c >= 2 && c <= 8 && i >= 5 && i <= 14) {
           std::cout << "?";
         }
@@ -60,7 +60,7 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
         }
       }
       std::cout << '|' << separateHeader << '|';
-      for (int c : bp2->theBoard.numCols) {
+      for (int c = 0; c < 16; c++) {
         if (c >= 2 && c <= 8 && i >= 5 && i <= 14) {
           std::cout << "?";
         }
@@ -73,7 +73,7 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
   } else if (p1blind && !p2blind) {
     for (int i = 0; i < 18; ++i) {
       std::cout << '|';
-      for (int c : bp1->theBoard.numCols) {
+      for (int c = 0; c < 16; c++) {
         if (c >= 2 && c <= 8 && i >= 5 && i <= 14) {
           std::cout << "?";
         }
@@ -94,7 +94,7 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
         std::cout << c.getType();
       }
       std::cout << '|' << separateHeader << '|';
-      for (int c : bp2->theBoard.numCols) {
+      for (int c = 0; c < 16; c++) {
         if (c >= 2 && c <= 8 && i >= 5 && i <= 14) {
           std::cout << "?";
         }
