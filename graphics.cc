@@ -131,6 +131,8 @@ void Graphics::updateBoard(std::vector<int> levels, std::vector<int> scores, boo
   }
   std::ostringstream oss;
   oss << levels.front();
+  window->fillRectangle(10, 104, 30, 20, Xwindow::White);
+  window->fillRectangle(260, 104, 30, 20, Xwindow::White);
   window->drawString(20, 115, oss.str());
   std::ostringstream oss1;
   oss1 << levels.back();
