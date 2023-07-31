@@ -102,8 +102,8 @@ void Graphics::updateBoard() {
       // }
     }
   }
-  window->fillRectangle(15, 600, 80, 40, Xwindow::White);
-  window->fillRectangle(240, 600, 80, 40, Xwindow::White);
+  window->fillRectangle(0, 600, 200, 40, Xwindow::White);
+  window->fillRectangle(240, 600, 200, 40, Xwindow::White);
   for (int i = 0; i < 4; ++i) {
     int x1 = 0;// game->getNextPos().at(i).at(1);
     int y1 = 0;//game->getNextPos().at(i).at(0);
