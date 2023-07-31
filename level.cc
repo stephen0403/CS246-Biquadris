@@ -1,7 +1,7 @@
 #include "level.h"
 #include <iostream>
 
-Level::Level(absBoard *board, bool random): board{board}, random{random} {}
+Level::Level(absBoard *board, bool random, unsigned int seed): board{board}, random{random}, seed{seed} {}
 
 void Level::getFile(std::string) {}
 
@@ -15,7 +15,7 @@ void Level4::getFile(std::string f) {
   file = std::ifstream{f};
 }
 
-Level0::Level0(absBoard *board, std::string name1, std::string name2): Level{board, false} {
+Level0::Level0(absBoard *board, std::string name1, std::string name2, unsigned int seed): Level{board, false, seed} {
   names.emplace_back(name1);
   names.emplace_back(name2);
 
@@ -29,18 +29,18 @@ Level0::Level0(absBoard *board, std::string name1, std::string name2): Level{boa
   files.emplace_back(std::ifstream {name2});
 }
 
-Level1::Level1(absBoard *board): Level{board, true} {}
+Level1::Level1(absBoard *board, unsigned int seed): Level{board, true, seed} {}
 
-Level2::Level2(absBoard *board): Level{board, true} {}
+Level2::Level2(absBoard *board, unsigned int seed): Level{board, true, seed} {}
 
-Level3::Level3(absBoard *board, bool random, std::string fileName): Level{board, random} {
+Level3::Level3(absBoard *board, bool random, unsigned int seed, std::string fileName): Level{board, random, seed} {
   if (random) {
     name = fileName;
     file = std::ifstream{fileName};
   }
 }
 
-Level4::Level4(absBoard *board, bool random, std::string fileName): Level{board, random} {
+Level4::Level4(absBoard *board, bool random, unsigned int seed, std::string fileName): Level{board, random, seed} {
   if (random) {
     name = fileName;
     file = std::ifstream{fileName};
@@ -65,12 +65,14 @@ std::unique_ptr<Block> Level0::newBlock(int currPlayer) {
 
 std::unique_ptr<Block> Level1::newBlock(int currPlayer) {
   char type[12] = {'I', 'I', 'J', 'J', 'L', 'L', 'T', 'T', 'S', 'Z', 'O', 'O'};
+  srand(seed);
   char res = type[rand() % 12];
   return blockGen(res, level);
 }
 
 std::unique_ptr<Block> Level2::newBlock(int currPlayer) {
   char type[7] = {'I', 'J', 'L', 'T', 'S', 'Z', 'O'};
+  srand(seed);
   char res = type[rand() % 7];
   return blockGen(res, level);
 }
@@ -79,7 +81,8 @@ std::unique_ptr<Block> Level3::newBlock(int currPlayer) {
   char res;
   if (random) {
     char type[9] = {'I', 'J', 'L', 'T', 'S', 'S', 'Z', 'Z', 'O'};
-    char res = type[rand() % 9];
+    srand(seed);
+    res = type[rand() % 9];
   } else {
     if (!(file >> res)) {
       file = std::ifstream{name};
@@ -93,7 +96,8 @@ std::unique_ptr<Block> Level4::newBlock(int currPlayer) {
   char res;
   if (random) {
     char type[9] = {'I', 'J', 'L', 'T', 'S', 'S', 'Z', 'Z', 'O'};
-    char res = type[rand() % 9];
+    srand(seed);
+    res = type[rand() % 9];
   } else {
     if (!(file >> res)) {
       file = std::ifstream{name};
