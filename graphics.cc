@@ -66,11 +66,13 @@ Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer
   window->drawString(270, 100, "Player 2 Level:");
   std::ostringstream oss1;
   oss1 << levels[1];
+  std::string score1 = std::to_string(scores[0]);
+  std::string score2 = std::to_string(scores[1]);
   window->drawString(270, 115, oss1.str());
   window->drawString(20, 150, "Player 1 Score:");
-  window->drawString(20, 170, std::string{scores[0]});
+  window->drawString(20, 170, score1);
   window->drawString(270, 150, "Player 2 Score:");
-  window->drawString(270, 170, std::string{scores[1]});
+  window->drawString(270, 170, score2);
   window->drawString(200, 50, "hi score:");
   window->drawString(260, 51, "0");
 };
