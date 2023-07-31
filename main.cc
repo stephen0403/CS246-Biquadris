@@ -55,11 +55,11 @@ int main(int argc, char *argv[]) {
   std::unique_ptr<Board> board2 = std::make_unique<Board> (); // board2
   std::vector<absBoard*> boards {board1.get(), board2.get()};
   std::vector<Level*> levels;
-  std::unique_ptr<Level0> l0 = std::make_unique<Level0> (boards.at(currPlayer), file1, file2);
-  std::unique_ptr<Level1> l1 = std::make_unique<Level1> (boards.at(currPlayer));
-  std::unique_ptr<Level2> l2 = std::make_unique<Level2> (boards.at(currPlayer));
-  std::unique_ptr<Level3> l3 = std::make_unique<Level3> (boards.at(currPlayer), false);
-  std::unique_ptr<Level4> l4 = std::make_unique<Level4> (boards.at(currPlayer), false);
+  std::unique_ptr<Level0> l0 = std::make_unique<Level0> (boards.at(currPlayer), file1, file2, seed);
+  std::unique_ptr<Level1> l1 = std::make_unique<Level1> (boards.at(currPlayer), seed);
+  std::unique_ptr<Level2> l2 = std::make_unique<Level2> (boards.at(currPlayer), seed);
+  std::unique_ptr<Level3> l3 = std::make_unique<Level3> (boards.at(currPlayer), false, seed);
+  std::unique_ptr<Level4> l4 = std::make_unique<Level4> (boards.at(currPlayer), false, seed);
   levels.emplace_back(l0.get());
   levels.emplace_back(l1.get());
   levels.emplace_back(l2.get());
@@ -295,8 +295,8 @@ int main(int argc, char *argv[]) {
         if (playerLevels.at(currPlayer) > 0) --playerLevels.at(currPlayer);
       } 
       else if (cmd == "norandom" && i < 1) {
-        l3 = std::make_unique<Level3> (boards.at(currPlayer), false);
-        l4 = std::make_unique<Level4> (boards.at(currPlayer), false);
+        l3 = std::make_unique<Level3> (boards.at(currPlayer), false, seed);
+        l4 = std::make_unique<Level4> (boards.at(currPlayer), false, seed);
         levels.at(3) = l3.get();
         levels.at(4) = l4.get();
       } 
