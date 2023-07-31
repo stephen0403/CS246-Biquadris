@@ -78,7 +78,7 @@ Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer
 };
 
 
-void Graphics::updateBoard() {
+void Graphics::updateBoard(std::vector<int> levels, std::vector<int> scores) {
   for (int i = 0; i < b1->numRows; ++i) {
     for (int j = 0; j < b1->numCols; ++j) {
       static bool rowBounds = i >= ROW_TOP && i <= ROW_BOTTOM; // put which tiles should be covered // are we starting 0 index or 1 index?
