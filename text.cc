@@ -51,35 +51,40 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
   if (p1blind && p2blind) {
     for (int i = 0; i < 18; ++i) {
       std::cout << '|';
+      int j = 0;
       for (auto c : bp1->theBoard.at(i)) {
-        if (i >= 2 && i <= 11) {
+        if (i >= 3 && i <= 12 && j >= 2 && j <= 8) {
           std::cout << "?";
         }
         else {
           std::cout << c.getType();
         }
+        j++;
       }
       std::cout << '|' << separateHeader << '|';
       for (auto c : bp2->theBoard.at(i)) {
-        if (i >= 2 && i <= 11) {
+        if (i >= 3 && i <= 12 && j >= 2 && j <= 8) {
           std::cout << "?";
         }
         else {
           std::cout << c.getType();
         }
+        j++;
       }
       std::cout << '|' << std::endl;
     }
   } else if (p1blind && !p2blind) {
     for (int i = 0; i < 18; ++i) {
       std::cout << '|';
+      int j = 0;
       for (auto c : bp1->theBoard.at(i)) {
-        if (i >= 2 && i <= 11) {
+        if (i >= 3 && i <= 12 && j >= 2 && j <= 8) {
           std::cout << "?";
         }
         else {
           std::cout << c.getType();
         }
+        j++;
       }
       std::cout << '|' << separateHeader << '|';
       for (auto c : bp2->theBoard.at(i)) {
@@ -89,18 +94,20 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
     }
   } else if (!p1blind && p2blind) {
     for (int i = 0; i < 18; ++i) {
+      int j = 0;
       std::cout << '|';
       for (auto c : bp1->theBoard.at(i)) {
         std::cout << c.getType();
       }
       std::cout << '|' << separateHeader << '|';
       for (auto c : bp2->theBoard.at(i)) {
-        if (i >= 2 && i <= 11) {
+        if (i >= 3 && i <= 12 && j >= 2 && j <= 8) {
           std::cout << "?";
         }
         else {
           std::cout << c.getType();
         }
+        j++;
       }
       std::cout << '|' << std::endl;
     }
