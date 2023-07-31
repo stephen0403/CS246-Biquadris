@@ -81,10 +81,8 @@ Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer
 void Graphics::updateBoard(std::vector<int> levels, std::vector<int> scores, bool blind) {
   for (int i = 0; i < b1->numRows; ++i) {
     for (int j = 0; j < b1->numCols; ++j) {
-      static bool rowBounds = i >= ROW_TOP && i <= ROW_BOTTOM; // put which tiles should be covered // are we starting 0 index or 1 index?
-      static bool colBounds = j >= COLUMN_LEFT && j <= COLUMN_RIGHT;
-      if (rowBounds && colBounds && blind) {
-        window->fillRectangle((currPlayer ? 252 : 12) + j * 20, 212 + i * 20, 20, 20, Xwindow::Black);
+      if (i >= 5 && i <= 14 && j >= 2 && j <= 8 && blind) {
+        window->drawString((currPlayer ? 252 : 12) + j * 20, 212 + i * 20, "?");
       }
     //   if (currPlayer == 1) {
         Cell &cell1 = b1->theBoard.at(i).at(j);
