@@ -52,7 +52,7 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
     for (int i = 0; i < 18; ++i) {
       std::cout << '|';
       for (auto c : bp1->theBoard.at(i)) {
-        if (i >= 2 && i <= 11) {
+        if (i > 2 && i <= 12) {
           std::cout << "?";
         }
         else {
@@ -61,7 +61,7 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
       }
       std::cout << '|' << separateHeader << '|';
       for (auto c : bp2->theBoard.at(i)) {
-        if (i >= 2 && i <= 11) {
+        if (i > 2 && i <= 12) {
           std::cout << "?";
         }
         else {
@@ -74,7 +74,7 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
     for (int i = 0; i < 18; ++i) {
       std::cout << '|';
       for (auto c : bp1->theBoard.at(i)) {
-        if (i >= 2 && i <= 11) {
+        if (i > 2 && i <= 12) {
           std::cout << "?";
         }
         else {
@@ -95,7 +95,7 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
       }
       std::cout << '|' << separateHeader << '|';
       for (auto c : bp2->theBoard.at(i)) {
-        if (i >= 2 && i <= 11) {
+        if (i > 2 && i <= 12) {
           std::cout << "?";
         }
         else {
