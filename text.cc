@@ -49,23 +49,23 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
   std::cout << std::endl;
   std::cout << border << separateHeader << border << std::endl;
   if (p1blind && p2blind) {
-    for (int i = 0; i < 18; ++i) {
+    for (int i = 0; i < bp1->theBoard.numRows; ++i) {
       std::cout << '|';
-      for (auto c : bp1->theBoard.at(i)) {
-        if (i > 2 && i <= 12) {
+      for (int c : bp1->theBoard.numCols) {
+        if (c >= 2 && c <= 8 && i >= 5 && i <= 14) {
           std::cout << "?";
         }
         else {
-          std::cout << c.getType();
+          std::cout << bp1->theBoard.at(i).at(c).getType();
         }
       }
       std::cout << '|' << separateHeader << '|';
-      for (auto c : bp2->theBoard.at(i)) {
-        if (i > 2 && i <= 12) {
+      for (int c : bp2->theBoard.numCols) {
+        if (c >= 2 && c <= 8 && i >= 5 && i <= 14) {
           std::cout << "?";
         }
         else {
-          std::cout << c.getType();
+          std::cout << std::cout << bp2->theBoard.at(i).at(c).getType();
         }
       }
       std::cout << '|' << std::endl;
@@ -73,12 +73,12 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
   } else if (p1blind && !p2blind) {
     for (int i = 0; i < 18; ++i) {
       std::cout << '|';
-      for (auto c : bp1->theBoard.at(i)) {
-        if (i > 2 && i <= 12) {
+      for (int c : bp1->theBoard.numCols) {
+        if (c >= 2 && c <= 8 && i >= 5 && i <= 14) {
           std::cout << "?";
         }
         else {
-          std::cout << c.getType();
+          std::cout << bp1->theBoard.at(i).at(c).getType();
         }
       }
       std::cout << '|' << separateHeader << '|';
@@ -88,18 +88,18 @@ void TextDisplay::display(const std::vector<Block*> &queue1, const std::vector<B
       std::cout << '|' << std::endl;
     }
   } else if (!p1blind && p2blind) {
-    for (int i = 0; i < 18; ++i) {
+    for (int i = 0; i < bp1->theBoard.numRows; ++i) {
       std::cout << '|';
       for (auto c : bp1->theBoard.at(i)) {
         std::cout << c.getType();
       }
       std::cout << '|' << separateHeader << '|';
-      for (auto c : bp2->theBoard.at(i)) {
-        if (i > 2 && i <= 12) {
+      for (int c : bp2->theBoard.numCols) {
+        if (c >= 2 && c <= 8 && i >= 5 && i <= 14) {
           std::cout << "?";
         }
         else {
-          std::cout << c.getType();
+          std::cout << bp2->theBoard.at(i).at(c).getType();
         }
       }
       std::cout << '|' << std::endl;
