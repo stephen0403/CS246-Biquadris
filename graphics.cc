@@ -21,7 +21,7 @@ static Xwindow::Color typeToColor(std::string type) {
   return Xwindow::Red;
 }
 
-Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer, std::vector<int> scores, std::vector<Block*> &queue1, std::vector<Block*> &queue2), bool blind: window{std::make_unique<Xwindow>(500, 700)},
+Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer, std::vector<int> scores, std::vector<Block*> &queue1, std::vector<Block*> &queue2, bool blind): window{std::make_unique<Xwindow>(500, 700)},
   b1{b1}, b2{b2}, levels{levels}, currPlayer{currPlayer}, scores{scores}, queue1{queue1}, queue2{queue2}, blind{blind} {
   window->fillRectangle(10, 210, 2, 364, Xwindow::Black);
   window->fillRectangle(10, 210, 224, 2, Xwindow::Black);
@@ -81,7 +81,7 @@ void Graphics::updateBoard() {
     for (int j = 0; j < b1->numCols; ++j) {
       static bool rowBounds = i >= ROW_TOP && i <= ROW_BOTTOM; // put which tiles should be covered // are we starting 0 index or 1 index?
       static bool colBounds = j >= COLUMN_LEFT && j <= COLUMN_RIGHT;
-      if (rowbounds && colBounds && blind) {
+      if (rowBounds && colBounds && blind) {
         window->fillRectangle((currPlayer ? 252 : 12) + j * 20, 212 + i * 20, 20, 20, Xwindow::Black);
       }
     //   if (currPlayer == 1) {
