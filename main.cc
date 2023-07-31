@@ -149,7 +149,7 @@ int main(int argc, char *argv[]) {
           
         }
         else if (s == "heavy" || s == "Heavy" || s == "HEAVY" || s == "h" || s == "H") {
-          boards.at(nextPlayer)->setHeavy();
+          boards.at(currPlayer)->setHeavy(); // should be nextPlayer;
         }
         else if (s == "force" || s == "Force" || s == "FORCE" || s == "f" || s == "F") {
           char c;
