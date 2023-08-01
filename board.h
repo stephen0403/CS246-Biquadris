@@ -32,6 +32,8 @@ public:
   void setHeavy() override;
   void triggerBlind() override;
   bool isBlind() override;
+  void setBlindTrue() override;
+  void setBlindFalse() override;
 };
 
 #endif
