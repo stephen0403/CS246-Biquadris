@@ -89,6 +89,7 @@ int main(int argc, char *argv[]) {
   std::ifstream file;
   int rowsCleared = 0;
   bool blind = false;
+  std::vector<bool> specialHeavy{false, false};
   std::vector<int> scores{0, 0};
   int highScore = 0;
   std::unique_ptr<Graphics> graphicObserver;
@@ -151,7 +152,7 @@ int main(int argc, char *argv[]) {
           
         }
         else if (s == "heavy" || s == "Heavy" || s == "HEAVY" || s == "h" || s == "H") {
-          boards.at(currPlayer)->setHeavy(); // should be nextPlayer;
+          specialHeavy.at(currPlayer) = true;
         }
         else if (s == "force" || s == "Force" || s == "FORCE" || s == "f" || s == "F") {
           char c;
@@ -215,13 +216,24 @@ int main(int argc, char *argv[]) {
             currPlayer = (currPlayer + 1) % 2;
           }
         }
-        if (boards.at(currPlayer)->isHeavy()) {
-          bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-          bool two = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-          if (!one || !two) {
-            queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
-            std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-            queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
+        if (specialHeavy.at(currPlayer)) {
+          bool down;
+          for (int i = 0; i < 2; i ++) {
+            down = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());  
+          }
+
+          if (!down) {
+            rowsCleared = boards.at(currPlayer)->clearRows(scores, currPlayer); // clears rows and checks how many rows cleared
+            if (currPlayer) {
+              currentBlock2 = std::move(nextBlock2);
+              nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+              queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
+            } else {
+              currentBlock1 = std::move(nextBlock1);
+              nextBlock1 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+              queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
+            }
+            specialHeavy = {false, false};
             currPlayer = (currPlayer + 1) % 2;
           }
         }
@@ -242,18 +254,25 @@ int main(int argc, char *argv[]) {
             currPlayer = (currPlayer + 1) % 2;
           }
         }
-        if (boards.at(currPlayer)->isHeavy()) {
-          bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-          bool two = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
-          if (!one || !two) {
-            queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
+
+        if (specialHeavy.at(currPlayer)) {
+          bool down;
+          for (int i = 0; i < 2; i ++) {
+            down = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());  
+          }
+
+          if (!down) {
+            rowsCleared = boards.at(currPlayer)->clearRows(scores, currPlayer); // clears rows and checks how many rows cleared
             if (currPlayer) {
-            nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-            queueOfBlockQueues.at(currPlayer).at(1) = nextBlock2.get();
+              currentBlock2 = std::move(nextBlock2);
+              nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+              queueOfBlockQueues.at(currPlayer) = {currentBlock2.get(), nextBlock2.get()};
             } else {
-            nextBlock1 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-            queueOfBlockQueues.at(currPlayer).at(1) = nextBlock1.get();
+              currentBlock1 = std::move(nextBlock1);
+              nextBlock1 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+              queueOfBlockQueues.at(currPlayer) = {currentBlock1.get(), nextBlock1.get()};
             }
+            specialHeavy = {false, false};
             currPlayer = (currPlayer + 1) % 2;
           }
         }
@@ -284,11 +303,6 @@ int main(int argc, char *argv[]) {
         
         rowsCleared = boards.at(currPlayer)->clearRows(scores, currPlayer); // clears rows and checks how many rows cleared
 
-        // if (rowsCleared == 0) { // check if we cleared more than 0 rows, if not then add to stars count
-        //   ++starsCount[currPlayer];
-        // } else {
-        //   starsCount[currPlayer] = 0;
-        // }
         if (currPlayer) {
           currentBlock2 = std::move(nextBlock2);
           nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
