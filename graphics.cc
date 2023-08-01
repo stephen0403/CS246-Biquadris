@@ -84,7 +84,7 @@ void Graphics::updateBoard(std::vector<int> levels, std::vector<int> scores, boo
 
   for (int i = 0; i < b1->numRows; ++i) {
     for (int j = 0; j < b1->numCols; ++j) {
-      if (i >= 5 && i <= 14 && blind) {
+      if (i >= 5 && i <= 14 && j >= 2 && j <= 8 && blind) {
         window->drawString((nextPlayer ? 252 : 12) + j * 20, 212 + i * 20, "?");
       }
     //   if (currPlayer == 1) {
