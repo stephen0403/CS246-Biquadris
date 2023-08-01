@@ -97,6 +97,12 @@ bool Board::swapBlock(Block *oldBlock, Block *newBlock) {
   // }
   return true;
 }
+void Board::setBlindTrue() {
+  blockDroppedAfterBlind = true;
+}
+void Board::setBlindFalse() {
+  blockDroppedAfterBlind = false;
+}
 
 // bool Board::clearRows() {
 //   std::vector<std::vector<char>> newBoard(18, std::vector<char>(11, ' '));
