@@ -24,6 +24,8 @@ public:
     virtual void setHeavy() = 0;
     virtual void triggerBlind() = 0;
     virtual bool isBlind() = 0;
+    virtual void setBlindTrue() = 0;
+    virtual void setBlindFalse() = 0;
 };
 
 #endif
