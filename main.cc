@@ -129,14 +129,14 @@ int main(int argc, char *argv[]) {
         if (textOnly) textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
         else if (!textOnly) {
           graphicObserver->updateBoard(playerLevels, scores, blind);
-          textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
+          //textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
         }
         
       } else {
         if (textOnly) textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, whoisblind, !whoisblind);
         else if (!textOnly) { 
           graphicObserver->updateBoard(playerLevels, scores, blind);
-          textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
+          //textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
         }
       }
       blind = false;
@@ -144,7 +144,7 @@ int main(int argc, char *argv[]) {
       if (textOnly) textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, false, false);
       else if (!textOnly) { 
         graphicObserver->updateBoard(playerLevels, scores, blind);
-        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
+        //textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
       }
     }
 
