@@ -8,7 +8,6 @@ const std::string RESET{"\033[0m"};
 GamePlay::GamePlay(std::string file1, std::string file2, int lvl1, int lvl2, unsigned int seed):
   boards{Board{}, Board{}}, count{1, 1}, playerLevels{lvl1, lvl2}, playerScores{0, 0},
   curPlayer{0}, dropped{false}, names{file1, file2} {
-  srand(seed);
   files.emplace_back(std::ifstream{file1});
   files.emplace_back(std::ifstream{file2});
   for (int i = 0; i < 2; ++i) {
