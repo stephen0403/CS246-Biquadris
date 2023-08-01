@@ -126,28 +126,19 @@ int main(int argc, char *argv[]) {
 
     if (blind) {
       if (whoisblind) {
-        if (textOnly) textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
-        else if (!textOnly) {
-          graphicObserver->updateBoard(playerLevels, scores, blind);
-          textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
-        }
-        
-      } else {
-        if (textOnly) textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, whoisblind, !whoisblind);
-        else if (!textOnly) { 
-          graphicObserver->updateBoard(playerLevels, scores, blind);
-          textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
-        }
-      }
-      // blind = false;
-    } else {
-      if (textOnly) textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, false, false);
-      else if (!textOnly) { 
-        graphicObserver->updateBoard(playerLevels, scores, blind);
         textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
-      }
-    }
+        if (!textOnly) graphicObserver->updateBoard(playerLevels, scores, blind);
 
+      } else {
+        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, whoisblind, !whoisblind);
+        if (!textOnly) graphicObserver->updateBoard(playerLevels, scores, blind);
+      }
+      blind = false;
+    } else {
+      textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, false, false);
+      if (!textOnly) graphicObserver->updateBoard(playerLevels, scores, blind);
+    }
+    
     if (rowsCleared >= 2) {
         std::cout << "Choose a special action: blind, heavy, force " << std::endl;
         std::string s;
