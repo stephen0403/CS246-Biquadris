@@ -3,12 +3,13 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 class TrieNode {
   int size;           // size of the trie rooted at this node
   int words;          // number of words that go through this node of the trie
   bool isWord;        // is this particular prefix a word itself?
-  TrieNode **letters; // array of TrieNode pointers
+  std::unique_ptr<std::unique_ptr<TrieNode>[]> letters; // array of TrieNode pointers
 
   // Add private helper methods if needed
 
@@ -19,11 +20,6 @@ class TrieNode {
   TrieNode();
   ~TrieNode();
 
-  TrieNode(const TrieNode &other);
-  TrieNode(TrieNode &&other);
-
-  TrieNode &operator=(const TrieNode &other);
-  TrieNode &operator=(TrieNode &&other);
 
   // Inserts word in this node if it does not already exist.
   void insert(const std::string &word);

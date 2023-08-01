@@ -10,127 +10,51 @@ TrieNode::TrieNode() {
     size = 1;
     words = 0;
     isWord = false;
-    letters = new TrieNode* [NUM_CHARS];
+    letters = std::make_unique<std::unique_ptr<TrieNode>[]>(NUM_CHARS);
     for (int i = 0; i < NUM_CHARS; ++i) {
         letters[i] = nullptr;
     }
 }
 
-TrieNode::~TrieNode() {
-    for (int i = 0; i < NUM_CHARS; ++i) {
-        delete letters[i];
-    }
-    delete[] letters;
-}
-
-TrieNode::TrieNode(const TrieNode &other) {
-    size = other.size;
-    words = other.words;
-    isWord = other.isWord;
-    letters = new TrieNode* [NUM_CHARS];
-    for (int i = 0; i < NUM_CHARS; ++i) {
-        if (other.letters[i]) {
-            letters[i] = new TrieNode {*other.letters[i]};
-        } else {
-            letters[i] = nullptr;
-        }
-    }
-} 
-
-TrieNode::TrieNode(TrieNode &&other){
-    size = other.size;
-    words = other.words;
-    isWord = other.isWord;
-
-    letters = new TrieNode* [NUM_CHARS];
-    for (int i = 0; i < NUM_CHARS; ++i) {
-        letters[i] = other.letters[i];
-        other.letters[i] = nullptr;
-    }
-} 
-
-TrieNode &TrieNode::operator=(const TrieNode &other) {
-    if (this == &other) return *this;
-    TrieNode **tmp = letters;
-    letters = new TrieNode* [NUM_CHARS];
-    for (int i = 0; i < NUM_CHARS; ++i) {
-        if (other.letters[i]) {
-            letters[i] = new TrieNode(*other.letters[i]);
-        } else {
-            letters[i] = nullptr;
-        }
-    }
-    size = other.size;
-    words = other.words;
-    isWord = other.isWord;
-    for (int i = 0; i < NUM_CHARS; ++i) {
-        delete tmp[i];
-    }
-    delete[] tmp;
-    return *this;
-}
-
-TrieNode &TrieNode::operator=(TrieNode &&other) {
-    if (this == &other) return *this;
-    size = other.size;
-    words = other.words;
-    isWord = other.isWord;
-    for (int i = 0; i < NUM_CHARS; ++i) {
-        delete letters[i];
-    }
-    delete[] letters;
-    letters = new TrieNode* [NUM_CHARS];
-    for (int i = 0; i < NUM_CHARS; ++i) {
-        letters[i] = other.letters[i];
-        other.letters[i] = nullptr;
-    }
-    return *this;
-}
+TrieNode::~TrieNode() = default;
 
 void TrieNode::updateSize() {
     int sum = 1;
     for (int i = 0; i < NUM_CHARS; ++i) {
         if (letters[i]) {
-            letters[i]->updateSize();
-            sum += letters[i]->size;
-        }
-        if (size != sum) {
-            size = sum;
+            letters[i].get()->updateSize();
+            sum += letters[i].get()->size;
         }
     }
+    size = sum;
 }
 
 void TrieNode::updateWords() {
-    int sum = 0;
-    if (isWord) {
-        words = 1;
-    }
+    int sum = isWord ? 1 : 0;
     for (int i = 0; i < NUM_CHARS; ++i) {
         if (letters[i]) {
-            letters[i]->updateWords();
-            sum += letters[i]->words;
-        }
-        if (words != sum) {
-            words = sum;
+            letters[i].get()->updateWords();
+            sum += letters[i].get()->words;
         }
     }
+    words = sum;
 }
 
-void TrieNode::insert(const string &word) {
+void TrieNode::insert(const std::string &word) {
     TrieNode *currentNode = this;
     int length = word.length();
     for (int i = 0; i < length; ++i) {
         int index = word[i] - 'a';
         if (!(currentNode->letters[index])) {
-            currentNode->letters[index] = new TrieNode;
+            currentNode->letters[index] = std::make_unique<TrieNode>();
         }
-        currentNode = currentNode->letters[index];
+        currentNode = currentNode->letters[index].get();
     }
     currentNode->isWord = true;
     updateWords();
 }
 
-void TrieNode::remove(const string &word) {
+void TrieNode::remove(const std::string &word) {
     TrieNode *currentNode = this;
     int length = word.length();
     for (int i = 0; i < length; ++i) {
@@ -138,13 +62,13 @@ void TrieNode::remove(const string &word) {
         if (!(currentNode->letters[index])) {
             return;
         }
-        currentNode = currentNode->letters[index];
+        currentNode = currentNode->letters[index].get();
     }
     currentNode->isWord = false;
     updateWords();
 }
 
-std::vector<std::string> TrieNode::find(const string &word) const {
+std::vector<std::string> TrieNode::find(const std::string &word) const {
     std::vector<std::string> autocompletions;
     const TrieNode *currentNode = this;
     int length = word.length();
@@ -154,7 +78,7 @@ std::vector<std::string> TrieNode::find(const string &word) const {
         if (!(currentNode->letters[index])) {
             return autocompletions;
         }
-        currentNode = currentNode->letters[index];
+        currentNode = currentNode->letters[index].get();
     }
 
     if (currentNode->isWord) {
