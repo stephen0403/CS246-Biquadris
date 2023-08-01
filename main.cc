@@ -416,7 +416,7 @@ int main(int argc, char *argv[]) {
         blocksQueue1 = {currentBlock1.get(), nextBlock1.get()};
         blocksQueue2 = {currentBlock2.get(), nextBlock2.get()};
         queueOfBlockQueues = {blocksQueue1, blocksQueue2};
-
+        if (!textOnly) graphicObserver = std::make_unique<Graphics>(board1.get(), board2.get(), playerLevels, currPlayer, scores, queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), blind);
         currPlayer = 0;
         playerLevels = {0, 0};
 
@@ -425,6 +425,7 @@ int main(int argc, char *argv[]) {
         cmd = "";
         readFromFile = false;
         rowsCleared = 0;
+        
       }
     }
   }
