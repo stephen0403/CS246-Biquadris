@@ -14,6 +14,7 @@ int main(int argc, char *argv[]) {
   std::string file2{"sequence2.txt"};
   unsigned int seed = 0;
   int currPlayer = 0;               // current player
+  bool textOnly = false;
   std::vector<int> playerLevels{0, 0}; //the levels each player is on
   std::vector<int> starsCount{0, 0}; // how many turns they've played without clearing a row
 
@@ -36,6 +37,7 @@ int main(int argc, char *argv[]) {
     std::string arg{argv[i]};
     if (arg == "-text") {
       --i;
+      textOnly = true;
     } else {
       std::istringstream iss{argv[i + 1]};
       if (arg == "-startlevel") {
@@ -119,17 +121,17 @@ int main(int argc, char *argv[]) {
 
     if (blind) {
       if (whoisblind) {
-        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
-        graphicObserver->updateBoard(playerLevels, scores, blind);
+        if (textOnly) textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
+        if (!textOnly) graphicObserver->updateBoard(playerLevels, scores, blind);
 
       } else {
-        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, whoisblind, !whoisblind);
-        graphicObserver->updateBoard(playerLevels, scores, blind);
+        if (textOnly) textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, whoisblind, !whoisblind);
+        if (!textOnly) graphicObserver->updateBoard(playerLevels, scores, blind);
       }
       blind = false;
     } else {
-      textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, false, false);
-      graphicObserver->updateBoard(playerLevels, scores, blind);
+      if (textOnly) textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, false, false);
+      if (!textOnly) graphicObserver->updateBoard(playerLevels, scores, blind);
     }
 
     if (rowsCleared >= 2) {
