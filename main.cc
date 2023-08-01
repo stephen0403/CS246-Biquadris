@@ -205,7 +205,7 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < multiplier; ++i) {
       if (cmd == "left") {
         boards.at(currPlayer)->shift(-1, 0, queueOfBlockQueues.at(currPlayer).front());
-        if (playerLevels.at(currPlayer) >= 3) { // && cnt == amt
+        if (playerLevels.at(currPlayer) >= 3 && i < 1) { // && cnt == amt
           bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
           if (!one) {
             queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
@@ -227,7 +227,7 @@ int main(int argc, char *argv[]) {
       } 
       else if (cmd == "right") {
         boards.at(currPlayer)->shift(1, 0, queueOfBlockQueues.at(currPlayer).front());
-        if (playerLevels.at(currPlayer) >= 3) { // && cnt == amt
+        if (playerLevels.at(currPlayer) >= 3 && i < 1) { // && cnt == amt
           bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
           if (!one) {
             queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
