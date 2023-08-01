@@ -1,5 +1,6 @@
 #include "level.h"
 #include <iostream>
+#include <random>
 
 Level::Level(absBoard *board, bool random, unsigned int seed): board{board}, random{random}, seed{seed} {}
 
@@ -64,24 +65,39 @@ std::unique_ptr<Block> Level0::newBlock(int currPlayer) {
 
 std::unique_ptr<Block> Level1::newBlock(int currPlayer) {
   char type[12] = {'I', 'I', 'J', 'J', 'L', 'L', 'T', 'T', 'S', 'Z', 'O', 'O'};
+
   srand(seed);
-  char res = type[rand() % 12];
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_int_distribution<> distribution(0, 11);
+  int index = distribution(gen);
+  char res = type[index];
   return blockGen(res, level);
 }
 
 std::unique_ptr<Block> Level2::newBlock(int currPlayer) {
   char type[7] = {'I', 'J', 'L', 'T', 'S', 'Z', 'O'};
+
   srand(seed);
-  char res = type[rand() % 7];
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_int_distribution<> distribution(0, 6);
+  int index = distribution(gen);
+  char res = type[index];
   return blockGen(res, level);
 }
 
 std::unique_ptr<Block> Level3::newBlock(int currPlayer) {
   char res;
-  if (random) {
+  if (!random) {
     char type[9] = {'I', 'J', 'L', 'T', 'S', 'S', 'Z', 'Z', 'O'};
+
     srand(seed);
-    res = type[rand() % 9];
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distribution(0, 8);
+    int index = distribution(gen);
+    res = type[index];
   } else {
     if (!(file >> res)) {
       file = std::ifstream{name};
@@ -93,10 +109,15 @@ std::unique_ptr<Block> Level3::newBlock(int currPlayer) {
 
 std::unique_ptr<Block> Level4::newBlock(int currPlayer) {
   char res;
-  if (random) {
+  if (!random) {
     char type[9] = {'I', 'J', 'L', 'T', 'S', 'S', 'Z', 'Z', 'O'};
+
     srand(seed);
-    res = type[rand() % 9];
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distribution(0, 8);
+    int index = distribution(gen);
+    res = type[index];
   } else {
     if (!(file >> res)) {
       file = std::ifstream{name};
