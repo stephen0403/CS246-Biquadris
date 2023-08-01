@@ -231,8 +231,13 @@ int main(int argc, char *argv[]) {
           bool one = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
           if (!one) {
             queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
-            std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-            queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
+            if (currPlayer) {
+            nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+            queueOfBlockQueues.at(currPlayer).at(1) = nextBlock2.get();
+            } else {
+            nextBlock1 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+            queueOfBlockQueues.at(currPlayer).at(1) = nextBlock1.get();
+            }
             currPlayer = (currPlayer + 1) % 2;
           }
         }
@@ -241,8 +246,13 @@ int main(int argc, char *argv[]) {
           bool two = boards.at(currPlayer)->shift(0, 1, queueOfBlockQueues.at(currPlayer).front());
           if (!one || !two) {
             queueOfBlockQueues.at(currPlayer).at(0) = std::move(queueOfBlockQueues.at(currPlayer).at(1));
-            std::unique_ptr<Block> newBlock = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
-            queueOfBlockQueues.at(currPlayer).at(1) = newBlock.get();
+            if (currPlayer) {
+            nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+            queueOfBlockQueues.at(currPlayer).at(1) = nextBlock2.get();
+            } else {
+            nextBlock1 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
+            queueOfBlockQueues.at(currPlayer).at(1) = nextBlock1.get();
+            }
             currPlayer = (currPlayer + 1) % 2;
           }
         }
