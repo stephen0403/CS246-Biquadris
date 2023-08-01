@@ -59,7 +59,6 @@ std::unique_ptr<Block> Level0::newBlock(int currPlayer) {
     files.at(currPlayer) = std::ifstream{names.at(currPlayer)};
     files.at(currPlayer) >> res;
   }
-  std::cout << "Block for Player " << currPlayer << ": " << res << std::endl;
   return blockGen(res, level);
 }
 
@@ -105,36 +104,4 @@ std::unique_ptr<Block> Level4::newBlock(int currPlayer) {
     }
   }
   return blockGen(res, level);
-}
-
-void Level3::blind() const {
-  //if (!board->dropped) {
-    //board->shift(0, 1, false);
-  //}
-  std::cout << "Blinded Board" << std::endl;
-}
-
-void Level4::blind() const {
-  /*
-  if (board->dropped) {
-    if (game->getCount() && !(game->getCount() % 5)) {
-      game->putBlock(5, '*');
-    }
-  } else {
-  */
-    //board->shift(0, 1, false);
-  //}
-  std::cout << "Blinded Board" << std::endl;
-}
-
-void Level4::addStarCount() {
-  count++;
-}
-
-void Level4::clearStarCount() {
-  count = 0;
-}
-
-int Level4::getStarCount() {
-  return count;
 }

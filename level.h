@@ -49,7 +49,6 @@ class Level3: public Level {
 public:
   Level3(absBoard *, bool random, unsigned int seed, std::string fileName = "sequence.txt");
   std::unique_ptr<Block> newBlock(int currPlayer) override;
-  void blind() const;
   void getFile(std::string) override;
   void setRandom(bool) override;
 };
@@ -63,10 +62,6 @@ class Level4: public Level {
 public:
   Level4(absBoard *, bool random, unsigned int seed, std::string fileName = "sequence.txt");
   std::unique_ptr<Block> newBlock(int currPlayer) override;
-  void blind() const;
   void getFile(std::string) override;
   void setRandom(bool) override;
-  void addStarCount();
-  void clearStarCount();
-  int getStarCount();
 };
