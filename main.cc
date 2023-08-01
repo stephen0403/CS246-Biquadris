@@ -143,7 +143,16 @@ int main(int argc, char *argv[]) {
     if (rowsCleared >= 2) {
         std::cout << "Choose a special action: blind, heavy, force " << std::endl;
         std::string s;
-        std::cin >> s;
+        if (readFromFile) {
+          file >> s;
+          if (file.eof()) {
+            readFromFile = false;
+            file.close();
+            std::cin >> s;
+          }
+        } else {
+          std::cin >> s;
+        }
         // implement trie?
         if (s == "blind" || s == "Blind" || s == "BLIND" || s == "b" || s == "B") {
           boards.at(nextPlayer)->triggerBlind();
@@ -156,7 +165,16 @@ int main(int argc, char *argv[]) {
         }
         else if (s == "force" || s == "Force" || s == "FORCE" || s == "f" || s == "F") {
           char c;
-          std::cin >> c;
+          if (readFromFile) {
+            file >> c;
+            if (file.eof()) {
+              readFromFile = false;
+              file.close();
+              std::cin >> c;
+            }
+          } else {
+            std::cin >> c;
+          }
 
           if (currPlayer == 0) {
             auto oldBlock = std::move(currentBlock1);
@@ -318,6 +336,7 @@ int main(int argc, char *argv[]) {
         }
         if (i == multiplier - 1) currPlayer = (currPlayer + 1) % 2; //don't change player if they do xdrop, x>1
         starsCount[currPlayer]++;
+        specialHeavy = {false, false};
       } 
       else if (cmd == "levelup") {
         if (playerLevels.at(currPlayer) < 4) ++playerLevels.at(currPlayer);
