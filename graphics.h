@@ -4,7 +4,6 @@
 #include <vector>
 #include "board.h"
 
-class GamePlay;
 
 class Graphics {
   std::unique_ptr<Xwindow> window;
