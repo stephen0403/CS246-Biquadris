@@ -13,8 +13,10 @@ int main(int argc, char *argv[]) {
   std::string file1{"sequence1.txt"};
   std::string file2{"sequence2.txt"};
   unsigned int seed = 0;
-  int currPlayer = 0;               // current player
+  int currPlayer = 0;
+  int nextPlayer = (currPlayer + 1) % 2;
   bool textOnly = false;
+  int startingLevel = 0;
   std::vector<int> playerLevels{0, 0}; //the levels each player is on
   std::vector<int> starsCount{0, 0}; // how many turns they've played without clearing a row
 
@@ -41,7 +43,9 @@ int main(int argc, char *argv[]) {
     } else {
       std::istringstream iss{argv[i + 1]};
       if (arg == "-startlevel") {
-        iss >> playerLevels[currPlayer];
+        iss >> startingLevel;
+        playerLevels.at(0) = startingLevel;
+        playerLevels.at(1) = startingLevel;
       } else if (arg == "-scriptfile1") {
         iss >> file1;
       } else if (arg == "-scriptfile2") {
@@ -88,7 +92,8 @@ int main(int argc, char *argv[]) {
   bool blind = false;
   std::vector<int> scores{0, 0};
   int highScore = 0;
-  std::unique_ptr<Graphics> graphicObserver = std::make_unique<Graphics>(board1.get(), board2.get(), playerLevels, currPlayer, scores, queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), blind);
+  std::unique_ptr<Graphics> graphicObserver;
+  if (!textOnly) graphicObserver = std::make_unique<Graphics>(board1.get(), board2.get(), playerLevels, currPlayer, scores, queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), blind);
 
   
 
@@ -106,7 +111,6 @@ int main(int argc, char *argv[]) {
 
     
     int multiplier = 0;
-    int nextPlayer = (currPlayer + 1) % 2;
     // check for special action
     bool whoisblind = nextPlayer % 2 == 0;
     boards.at(0)->shift(0, 0, queueOfBlockQueues.at(0).front());
