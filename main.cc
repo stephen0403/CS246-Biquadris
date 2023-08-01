@@ -126,17 +126,26 @@ int main(int argc, char *argv[]) {
 
     if (blind) {
       if (whoisblind) {
-        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
-        if (!textOnly) graphicObserver->updateBoard(playerLevels, scores, blind);
-
+        if (textOnly) textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
+        else if (!textOnly) {
+          graphicObserver->updateBoard(playerLevels, scores, blind);
+          textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
+        }
+        
       } else {
-        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, whoisblind, !whoisblind);
-        if (!textOnly) graphicObserver->updateBoard(playerLevels, scores, blind);
+        if (textOnly) textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, whoisblind, !whoisblind);
+        else if (!textOnly) { 
+          graphicObserver->updateBoard(playerLevels, scores, blind);
+          textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
+        }
       }
-      blind = false;
+      // blind = false;
     } else {
-      textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, false, false);
-      if (!textOnly) graphicObserver->updateBoard(playerLevels, scores, blind);
+      if (textOnly) textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, false, false);
+      else if (!textOnly) { 
+        graphicObserver->updateBoard(playerLevels, scores, blind);
+        textObserver->display(queueOfBlockQueues.at(0), queueOfBlockQueues.at(1), playerLevels, scores, !whoisblind, whoisblind);
+      }
     }
 
     if (rowsCleared >= 2) {
@@ -146,6 +155,7 @@ int main(int argc, char *argv[]) {
         // implement trie?
         if (s == "blind" || s == "Blind" || s == "BLIND" || s == "b" || s == "B") {
           boards.at(nextPlayer)->triggerBlind();
+          boards.at(nextPlayer)->setBlindTrue();
           blind = true;
           
         }
@@ -268,6 +278,10 @@ int main(int argc, char *argv[]) {
       } 
       else if (cmd == "drop") {
         int dropping = true;
+        if (boards.at(currPlayer)->isBlind()) {
+          boards.at(currPlayer)->setBlindFalse();
+          blind = false;
+        }
         while (dropping) {
           if (dropping == 5) {
             std::cout << "Player " << ((currPlayer+1) % 2) + 1 << " has won!!!"<< std::endl;
