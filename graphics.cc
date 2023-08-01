@@ -79,11 +79,12 @@ Graphics::Graphics(Board* b1, Board* b2, std::vector<int> levels, int currPlayer
 
 
 void Graphics::updateBoard(std::vector<int> levels, std::vector<int> scores, bool blind) {
+  int nextPlayer = (currPlayer+1) % 2;
+  // if (blind) window->fillRectangle((nextPlayer ? 252 : 12), 212, 400, 400, Xwindow::Yellow);
+
   for (int i = 0; i < b1->numRows; ++i) {
     for (int j = 0; j < b1->numCols; ++j) {
-      if (i >= 5 && i <= 14 && j >= 2 && j <= 8 && blind) {
-        int nextPlayer = (currPlayer+1) % 2;
-        window->fillRectangle((nextPlayer ? 252 : 12) + j * 20, 212 + i * 20, 400, 400, Xwindow::White);
+      if (i >= 5 && i <= 14 && blind) {
         window->drawString((nextPlayer ? 252 : 12) + j * 20, 212 + i * 20, "?");
       }
     //   if (currPlayer == 1) {
@@ -123,9 +124,9 @@ void Graphics::updateBoard(std::vector<int> levels, std::vector<int> scores, boo
     // window->fillRectangle(15 + 20 * x, 600 + (y - 2) * 20, 20, 20, typeToColor(std::string{queue1.at(1)->getType()}/*game->getNextType()*/));
   }
   {
-  window->fillRectangle(10, 170, 40, 30, Xwindow::White);
-  window->fillRectangle(260, 170, 40, 30, Xwindow::White);
-  window->fillRectangle(260, 51, 40, 30, Xwindow::White);
+  window->fillRectangle(10, 155, 40, 30, Xwindow::White);
+  window->fillRectangle(260, 155, 40, 30, Xwindow::White);
+  window->fillRectangle(255, 35, 40, 30, Xwindow::White);
   std::ostringstream oss;
   oss << scores.front();
   window->drawString(20, 170, oss.str());

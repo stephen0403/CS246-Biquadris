@@ -14,7 +14,6 @@ int main(int argc, char *argv[]) {
   std::string file2{"sequence2.txt"};
   unsigned int seed = 0;
   int currPlayer = 0;
-  int nextPlayer = (currPlayer + 1) % 2;
   bool textOnly = false;
   int startingLevel = 0;
   std::vector<int> playerLevels{0, 0}; //the levels each player is on
@@ -98,6 +97,8 @@ int main(int argc, char *argv[]) {
   
 
   while (true) {
+    int nextPlayer = (currPlayer + 1) % 2;
+
     if (playerLevels.at(currPlayer) == 4 && starsCount[currPlayer] % 5 == 0 && starsCount[currPlayer] != 0) {
       // spawn new * block and drop it
       std::unique_ptr<Block> starBlock = std::make_unique<StarBlock>(playerLevels.at(currPlayer));
@@ -268,11 +269,11 @@ int main(int argc, char *argv[]) {
         
         rowsCleared = boards.at(currPlayer)->clearRows(scores, currPlayer); // clears rows and checks how many rows cleared
 
-        if (rowsCleared == 0) { // check if we cleared more than 0 rows, if not then add to stars count
-          ++starsCount[currPlayer];
-        } else {
-          starsCount[currPlayer] = 0;
-        }
+        // if (rowsCleared == 0) { // check if we cleared more than 0 rows, if not then add to stars count
+        //   ++starsCount[currPlayer];
+        // } else {
+        //   starsCount[currPlayer] = 0;
+        // }
         if (currPlayer) {
           currentBlock2 = std::move(nextBlock2);
           nextBlock2 = levels.at(playerLevels[currPlayer])->newBlock(currPlayer);
